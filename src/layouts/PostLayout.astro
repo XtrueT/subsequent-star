@@ -1,0 +1,18 @@
+---
+import FormattedDate from "../components/FormattedDate.astro";
+import Layout from "./Layout.astro";
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <FormattedDate date={frontmatter.pubDate} />
+  <p><em>{frontmatter.description}</em></p>
+  <p>Written by: {frontmatter.author}</p>
+  <p>
+    {frontmatter.tags.map((tag) => <span>{tag}</span>)}
+  </p>
+  <img src={frontmatter.heroImage} width="300" alt={frontmatter.title} />
+  <article class="prose lg:prose-xl ">
+      <slot />
+  </article>
+</Layout>

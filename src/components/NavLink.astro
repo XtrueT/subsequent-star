@@ -1,0 +1,33 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, class: className, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+const subpath = pathname.match(/[^\/]+/g);
+const isActive = href === pathname || href === "/" + subpath?.[0];
+---
+
+<li class:list={[{ active: isActive }]}>
+  <a
+    href={href}
+    {...props}
+    class="mx-2 p-1 flex justify-between items-center no-underline"
+  >
+    <slot />
+  </a>
+</li>
+
+<style>
+  li {
+    @apply flex justify-center items-center w-24 h-14 py-1 mx-0.5 border-b-4
+	border-transparent
+    hover:text-gray-500 hover:border-gray-500
+    dark:hover:text-gray-50;
+  }
+  li.active {
+    @apply border-gray-500;
+  }
+</style>

@@ -1,0 +1,197 @@
+---
+
+---
+
+<section class="w-full max-w-md px-5 mx-auto">
+  <div class="relative pb-1">
+    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </span>
+
+    <input
+      type="text"
+      id="search-input"
+      class="w-full py-3 pl-10 pr-4 border-b border-gray-500 focus:outline-none bg-gray-100 text-gray-950 dark:text-gray-50 dark:bg-gray-900
+            hover:text-gray-500 hover:border-gray-500"
+      placeholder="Search..."
+    />
+    <div
+      class="absolute inset-x-0 overflow-y-auto max-h-72 shadow-md bg-gray-100 text-gray-950 dark:text-gray-50 dark:bg-gray-900"
+    >
+      <ul
+        id="results-container"
+        class="flex flex-col w-full justify-around items-start list-none"
+      >
+        <!-- 这里插入搜索结果列表项 -->
+      </ul>
+    </div>
+  </div>
+</section>
+<script lang="">
+  import { config } from "../consts";
+
+  // 定义一个搜索函数
+  function SimpleSearch(options) {
+    const defaults = {
+      searchInput: null,
+      resultsContainer: null,
+      json: null,
+      searchResultTemplate: "",
+      noResultsText: `没有找到匹配的文章`,
+      limit: 10,
+      fuzzy: false,
+    };
+
+    // 合并用户提供的选项和默认选项
+    const settings = Object.assign({}, defaults, options);
+
+    console.log("settings", settings);
+    // 执行搜索的函数
+    function search(query) {
+      const results = [];
+      if (query === "") {
+        settings.resultsContainer.innerHTML = "";
+        return;
+      }
+      const regex = new RegExp(
+        query.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"),
+        "gi"
+      );
+
+      fetch(settings.json)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // 在这里处理获取到的JSON数据
+          // console.log(data); // 这里可以看到获取到的JSON数据
+          // 接下来你可以将这个数据传递给搜索功能进行处理
+          data.forEach((post) => {
+            console.log(post);
+            if (
+              (settings.fuzzy &&
+                (post.title.match(regex) ||
+                  post.tags.join(",").match(regex) ||
+                  post.pubDate.match(regex))) ||
+              (!settings.fuzzy &&
+                (post.title.toLowerCase().includes(query.toLowerCase()) ||
+                  post.tags
+                    .join(",")
+                    .toLowerCase()
+                    .includes(query.toLowerCase()) ||
+                  post.pubDate.toLowerCase().includes(query.toLowerCase())))
+            ) {
+              results.push(post);
+            }
+          });
+          console.log(results.slice(0, settings.limit));
+          // 渲染搜索结果
+          renderResults(results.slice(0, settings.limit));
+        })
+        .catch((error) => {
+          console.error(
+            "There was a problem with your fetch operation:",
+            error
+          );
+        });
+    }
+
+    // 渲染搜索结果的函数
+    function renderResults(results) {
+      const container = settings.resultsContainer;
+      container.innerHTML = "";
+
+      if (results.length === 0) {
+        container.innerHTML = `${settings.noResultsText}`;
+      } else {
+        results.forEach((result) => {
+          let tagHTML = "";
+          //   // 遍历标签数组，为每个标签生成 HTML 元素
+          const { path, title, description, pubDate, author, heroImage, tags } =
+            result;
+          tags.forEach((tag) => {
+            tagHTML += `<a href="/tags/${tag}" title="${tag}"
+                                class="px-3 py-1 mx-1 text-sm
+                                bg-gray-300
+                                hover:text-gray-500 hover:border-gray-500
+                                dark:hover:text-gray-50">
+                                #${tag}
+                              </a>`;
+          });
+          container.innerHTML += `<li class="mt-1 p-2 w-full flex flex-col justify-between items-start border-b-2 border-gray-500  hover:border-gray-500
+                                     transition-colors duration-300 transform">
+                                        <a class="m-2 p-1 inline-block hover:underline hover:text-gray-500" href="/blog/${path.toLowerCase()}/" title="${title}">
+                                            ${title}
+                                        </a>
+                                        <div>${author}-
+                                            <p>${description}</p/>
+                                            <img src="${heroImage}"/>
+                                            </div>
+                                        <div class="flex flex-row justify-between items-center w-full ">
+                                            <div class="flex flex-row justify-around items-start">${tagHTML}</div>
+                                            <div class="text-sm font-light">${pubDate}</div>
+                                        </div>
+                                    </li>
+                                    `;
+        });
+      }
+    }
+
+    // 监听整个文档的点击事件
+    document.addEventListener("click", function (event) {
+      const inputElement = settings.searchInput; // 替换成你的输入框的实际 ID
+      const resultsContainer = settings.resultsContainer; // 替换成你搜索结果容器的实际 ID
+
+      // 检查点击事件的目标是否是输入框以外的元素，并且搜索结果容器是可见的
+      if (
+        event.target !== inputElement &&
+        !inputElement.contains(event.target) &&
+        event.target !== resultsContainer &&
+        !resultsContainer.contains(event.target)
+      ) {
+        // 销毁搜索结果
+        destroyResults();
+      }
+    });
+
+    // 销毁搜索结果的函数
+    function destroyResults() {
+      const resultsContainer = settings.resultsContainer; // 替换成你搜索结果容器的实际 ID
+      resultsContainer.innerHTML = ""; // 清空搜索结果容器的内容，或者隐藏搜索结果容器
+    }
+
+    // 初始化搜索功能
+    function init() {
+      const input = settings.searchInput;
+      if (!input) return;
+
+      input.addEventListener("input", function (event) {
+        search(event.target.value);
+      });
+    }
+
+    // 返回公共方法
+    return {
+      init: init,
+      search: search,
+    };
+  }
+  // 初始化搜索功能
+  document.addEventListener("DOMContentLoaded", function () {
+    SimpleSearch({
+      searchInput: document.getElementById("search-input"),
+      resultsContainer: document.getElementById("results-container"),
+      json: `${config.simple_search.json}`, // 你的博客文章数据
+    }).init();
+  });
+</script>
