@@ -1,0 +1,16 @@
+---
+import FormattedDate from "@components/FormattedDate.astro";
+
+import Tag from "@components/Tag.astro";
+
+const { post } = Astro.props;
+const { title, description, pubDate, author, heroImage, tags } = post.data;
+const href = `/blog/${post.slug}/`;
+---
+
+<li class="flex flex-col items-start justify-start  shadow-sm">
+    <div class="flex items-baseline justify-between w-1/2">
+      <span class="mr-3"><FormattedDate date={pubDate} /></span>
+      <a href={href} class="py-2 hover:underline">《{title}》</a>
+    </div>
+</li>

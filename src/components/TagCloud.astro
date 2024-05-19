@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import ActiveLink from "./ActiveLink.astro";
+import Tag from "./Tag.astro";
+const allPosts = await getCollection("blog");
+
+// 使用reduce方法累积标签的计数
+const tagsWithCount = allPosts.reduce((acc, post) => {
+  // 假设每个帖子都有一个 `tags` 字段，它是一个字符串数组
+  post.data.tags.forEach((tag: any) => {
+    acc.set(tag, (acc.get(tag) || 0) + 1);
+  });
+  return acc;
+}, new Map());
+
+// 将Map对象转换为数组，以便在Astro组件中渲染
+const tagsArray = Array.from(tagsWithCount.entries()).sort(
+  (a, b) => b[1] - a[1]
+);
+---
+
+<section class="shadow-sm w-full my-5">
+  <div class="table-cell">
+    {
+      tagsArray.map(([tag, count]) => (
+        <ActiveLink href={`/tags/${tag}`}>
+          <>
+            <Tag tag={tag}/>
+            <sup class="p-1 text-red-600">{count}</sup>
+          </>
+        </ActiveLink>
+      ))
+    }
+  </div>
+</section>

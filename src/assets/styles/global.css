@@ -1,0 +1,16 @@
+/* The integration's default injected base.css file */
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+
+.tag {
+  @apply inline-block hover:bg-gray-500 hover:text-gray-50 px-3 py-1 mx-1 text-xs transition-all ease-in-out focus:outline-none;
+}
+a.active .tag{
+  @apply bg-gray-500 hover:text-gray-50;
+}
+
+.pubDate {
+  @apply text-sm;
+}

@@ -120,26 +120,17 @@
           const { path, title, description, pubDate, author, heroImage, tags } =
             result;
           tags.forEach((tag) => {
-            tagHTML += `<a href="/tags/${tag}" title="${tag}"
-                                class="px-3 py-1 mx-1 text-sm
-                                bg-gray-300
-                                hover:text-gray-500 hover:border-gray-500
-                                dark:hover:text-gray-50">
-                                #${tag}
-                              </a>`;
+            tagHTML += `<a href={/tags/${tag}} type="button" class="tag">#${tag}</a>`;
           });
           container.innerHTML += `<li class="mt-1 p-2 w-full flex flex-col justify-between items-start border-b-2 border-gray-500  hover:border-gray-500
                                      transition-colors duration-300 transform">
-                                        <a class="m-2 p-1 inline-block hover:underline hover:text-gray-500" href="/blog/${path.toLowerCase()}/" title="${title}">
-                                            ${title}
+                                        <a class="m-2 p-1 inline-block hover:underline" href="/blog/${path.toLowerCase()}/" title="${title}">
+                                            ${title} 
+                                            <span>${author}</span>
                                         </a>
-                                        <div>${author}-
-                                            <p>${description}</p/>
-                                            <img src="${heroImage}"/>
-                                            </div>
                                         <div class="flex flex-row justify-between items-center w-full ">
                                             <div class="flex flex-row justify-around items-start">${tagHTML}</div>
-                                            <div class="text-sm font-light">${pubDate}</div>
+                                            <div class="pubDate">${pubDate}</div>
                                         </div>
                                     </li>
                                     `;
@@ -187,7 +178,7 @@
     };
   }
   // 初始化搜索功能
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("astro:page-load", function () {
     SimpleSearch({
       searchInput: document.getElementById("search-input"),
       resultsContainer: document.getElementById("results-container"),

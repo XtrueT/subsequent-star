@@ -1,0 +1,101 @@
+---
+import PaginationLink from "./PaginationLink.astro";
+
+type Props = {
+  previous: string | null;
+  next: string | null;
+  current: number;
+  last: number;
+  url?: string;
+  paginate_max_links?:number
+};
+
+const { previous, next, current, last, url = "",paginate_max_links=5 } = Astro.props;
+// const lowerBound = current - 2 > 0 ? current - 2 : 1;
+// const upperBound = current + 2 < last ? current + 2 : last;
+// const lowerBound = current - paginate_max_links > 0 ? current - paginate_max_links : 1;
+// const upperBound = current + paginate_max_links < last ? current + paginate_max_links : last;
+const half_max_links = Math.floor(paginate_max_links / 2);
+
+// 计算lowerBound和upperBound
+let lowerBound = current - half_max_links;
+let upperBound = current + half_max_links;
+
+// 调整lowerBound和upperBound以确保始终显示5个页码
+if (lowerBound < 1) {
+  lowerBound = 1;
+  upperBound = paginate_max_links;
+} else if (upperBound > last) {
+  upperBound = last;
+  lowerBound = last - paginate_max_links + 1;
+}
+
+// 如果last小于5，则调整lowerBound和upperBound以确保显示所有页码
+if (last < paginate_max_links) {
+  lowerBound = 1;
+  upperBound = last;
+}
+
+---
+
+<section class="flex flex-col justify-center items-center m-2">
+  <ul class="flex flex-row justify-around items-center mt-4">
+    {
+      previous && (
+        <PaginationLink href={previous}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </PaginationLink>
+      )
+    }
+    {lowerBound > 1 && <PaginationLink href={url}>1</PaginationLink>}
+    {lowerBound > 2 && <PaginationLink href="#">···</PaginationLink>}
+    {
+      Array.from(
+        { length: upperBound - lowerBound + 1 },
+        (_, index) => index + lowerBound
+      ).map((page) => (
+        <PaginationLink
+          href={page > 1 ? `${url}/${page}` : `${url}/`}
+          isActive={page === current}
+        >
+          {page}
+        </PaginationLink>
+      ))
+    }
+    {upperBound < last - 1 && <PaginationLink href="#">···</PaginationLink>}
+    {
+      upperBound < last && (
+        <PaginationLink href={`${url}/${last}`}>{last}</PaginationLink>
+      )
+    }
+    {
+      next && (
+        <PaginationLink href={next}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </PaginationLink>
+      )
+    }
+  </ul>
+</section>

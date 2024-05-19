@@ -1,0 +1,48 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Pagination from "../../components/Pagination.astro";
+import ArchiveTimeLine from "@components/ArchiveTimeLine.astro";
+import { config } from "@config";
+import DefaultLayout from "src/layouts/DefaultLayout.astro";
+import PostItem from "@components/PostItem.astro";
+import TagCloud from "@components/TagCloud.astro";
+
+export async function getStaticPaths({ paginate }: { paginate: Function }) {
+  const posts = await getCollection("blog");
+  posts.sort((a, b) => {
+    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+  });
+  return paginate(posts, {
+    pageSize: config.paginate,
+  });
+}
+
+type Props = {
+  page: {
+    data: CollectionEntry<"blog">[];
+    url: {
+      prev: string;
+      next: string;
+    };
+    currentPage: number;
+    lastPage: number;
+  };
+};
+const { page } = Astro.props;
+
+
+
+---
+
+<DefaultLayout title="Archive">
+  <ArchiveTimeLine page={page} />
+  <Pagination
+    previous={page.url.prev}
+    next={page.url.next}
+    current={page.currentPage}
+    last={page.lastPage}
+    url="/archives"
+    paginate_max_links={config.paginate_max_links}
+  />
+</DefaultLayout>
+

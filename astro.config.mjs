@@ -25,6 +25,7 @@ export default defineConfig({
 					const searchData = files.map((file) => {
 						const content = fs.readFileSync(file, 'utf-8');
 						const { data, content: body } = matter(content);
+						console.log(data);
 						const pubDate = data.pubDate.toLocaleDateString('zh-cn', {
 							year: 'numeric',
 							month: 'short',

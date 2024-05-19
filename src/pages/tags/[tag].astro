@@ -1,10 +1,14 @@
 ---
+import PostItem from "@components/PostItem.astro";
+import TagCloud from "@components/TagCloud.astro";
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
+import DefaultLayout from "src/layouts/DefaultLayout.astro";
 
 export async function getStaticPaths() {
   const allPosts = await getCollection("blog");
-  const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+  const uniqueTags = [
+    ...new Set(allPosts.map((post) => post.data.tags).flat()),
+  ];
 
   return uniqueTags.map((tag) => {
     const filteredPosts = allPosts.filter((post) =>
@@ -21,9 +25,9 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 
-<Layout pageTitle={tag}>
-  <p>Posts tagged with {tag}</p>
+<DefaultLayout title=`Tags-${tag}`>
+  <p>Posts tagged with {tag} total:{posts.length}</p>
   <ul>
-    { posts.map((post) => <a href={`/blog/${post.slug}/`} title={post.data.title} >{post.data.title}</a>) }
+    {posts.map((post) => <PostItem post={post} />)}
   </ul>
-</Layout>
+</DefaultLayout>

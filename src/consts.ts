@@ -13,11 +13,11 @@ export const config = {
     description: '霁的博客 | Mr.Miao 的博客 | XtrueT 的博客',
     keyword: 'XtrueT的博客',
     paginate: 10,
+    paginate_max_links:3, // 2个省略号中间显示的页码
     nav: [
         { title: '主页', href: '/blog' },
         { title: '关于', href: '/about' },
-        { title: '标签', href: '/tags' },
-        { title: '归档', href: '/archive' },
+        { title: '归档', href: '/archives' },
     ],
     simple_search: {
         enable: true,
