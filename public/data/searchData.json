@@ -1,17 +1,5 @@
 [
   {
-    "path": "1",
-    "title": "基于ZK的kafka环境搭建",
-    "description": "",
-    "pubDate": "2021年12月15日",
-    "author": "霁",
-    "heroImage": "",
-    "tags": [
-      "kafka",
-      "zookeeper"
-    ]
-  },
-  {
     "path": "10",
     "title": "基于ZK的kafka环境搭建",
     "description": "",

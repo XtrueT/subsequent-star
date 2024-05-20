@@ -1,0 +1,25 @@
+---
+import ActiveLink from "./ActiveLink.astro";
+
+const { heading } = Astro.props;
+---
+
+<li>
+  <ActiveLink href={`#${heading.slug}`} class="toc-link">{heading.text}</ActiveLink>
+  {
+    heading.sub.length > 0 && (
+      <ul class="ml-4">
+        {heading.sub.map((subheading) => (
+          <Astro.self heading={subheading} />
+        ))}
+      </ul>
+    )
+  }
+</li>
+
+<style>
+  .toc-link.active {
+    @apply text-blue-500;
+  }
+
+</style>

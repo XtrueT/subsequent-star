@@ -39,9 +39,10 @@ const { title = config.title, description = config.description } = Astro.props;
       <aside
         class="flex flex-col justify-center items-center w-2/5 max-sm:w-full p-12 "
       >
+      <slot name="siderbar" />
       <TagCloud/>
       <LimitPostList/>
-        <slot name="siderbar" />
+        
       </aside>
     </main>
 

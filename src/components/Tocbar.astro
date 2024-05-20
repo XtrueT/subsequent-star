@@ -1,0 +1,78 @@
+---
+import TocLink from "./TocLink.astro";
+
+const { frontmatter, headings, remarkPluginFrontmatter } = Astro.props;
+
+const headingmaps = (headings: any[]) => {
+  let toc = new Array();
+  const parentHeadings = new Map();
+  headings.forEach((h) => {
+    let sub = new Array();
+    const heading = { ...h, sub: sub };
+    parentHeadings.set(heading.depth, heading);
+    // Change 2 to 1 if your markdown includes your <h1>
+    if (heading.depth === 2) {
+      toc.push(heading);
+    } else {
+      parentHeadings.get(heading.depth - 1).sub.push(heading);
+    }
+  });
+  console.log(toc);
+  return toc;
+};
+---
+
+<nav class="toc bg-white p-4 rounded-lg shadow-lg w-64 lg:w-1/4">
+  <ul>
+    {headingmaps(headings).map((heading) => <TocLink heading={heading} />)}
+  </ul>
+</nav>
+
+<script lang="">
+  // JavaScript 逻辑
+  function scrollToAnchor(link) {
+    const anchor = link.getAttribute("href");
+    const targetElement = document.querySelector(anchor);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  function setupIntersectionObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const link = document.querySelector(
+            `.toc-link[href="#${entry.target.id}"]`
+          );
+          if (link) {
+            // 如果元素进入视窗，添加高亮类名
+            if (entry.isIntersecting) {
+              link.classList.add("active");
+            } else {
+              // 如果元素离开视窗，移除高亮类名
+              link.classList.remove("active");
+            }
+          }
+        });
+      },
+      { rootMargin: "-5% 0px -5% 0px" }
+    );
+
+    // 为每个锚点设置观察器
+    document.querySelectorAll(".toc-link").forEach((link) => {
+      const href = link.getAttribute("href");
+      const targetElement = document.querySelector(href);
+      if (targetElement) {
+        observer.observe(targetElement);
+      }
+    });
+  }
+
+  window.addEventListener("scroll", setupIntersectionObserver);
+</script>
+<style>
+  .toc {
+    @apply fixed top-80 right-0 py-5 h-96 overflow-y-auto bg-gray-200;
+  }
+</style>
