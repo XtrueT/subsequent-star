@@ -120,7 +120,7 @@
           const { path, title, description, pubDate, author, heroImage, tags } =
             result;
           tags.forEach((tag) => {
-            tagHTML += `<a href={/tags/${tag}} type="button" class="tag">#${tag}</a>`;
+            tagHTML += `<a href="/tags/${tag}" type="button" class="tag">#${tag}</a>`;
           });
           container.innerHTML += `<li class="mt-1 p-2 w-full flex flex-col justify-between items-start border-b-2 border-gray-500  hover:border-gray-500
                                      transition-colors duration-300 transform">

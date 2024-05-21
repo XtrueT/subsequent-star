@@ -1,11 +1,8 @@
 ---
-import TagCloud from "@components/TagCloud.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-import PostTOCLink from "@components/Tocbar.astro";
 import DefaultLayout from "./DefaultLayout.astro";
-import { config } from "@config";
-import TableOfContents from "@components/Tocbar.astro";
 import Tocbar from "@components/Tocbar.astro";
+import SlicePostList from "@components/SlicePostList.astro";
 
 const { frontmatter, headings, description } = Astro.props;
 ---
@@ -14,24 +11,30 @@ const { frontmatter, headings, description } = Astro.props;
   title={frontmatter.title}
   description={frontmatter.description ? frontmatter.description : description}
 >
-  <div class="flex flex-col justify-center items-center w-3/5 max-sm:w-full">
-    <article
-      class="w-full prose dark:prose-invert
-  prose-h1:font-bold prose-h1:text-xl
-  prose-a:text-blue-600 prose-p:text-justify prose-img:rounded-xl
+  <article
+    class="w-full prose lg:prose-lg
+      dark:prose-invert
+  prose-h1:font-bold
+  prose-a:text-blue-600
+  prose-p:text-justify
+  prose-img:rounded-xl
   prose-headings:underline"
-    >
-      <h1>{frontmatter.title}</h1>
-      <FormattedDate date={frontmatter.pubDate} />
-      <p><em>{frontmatter.description}</em></p>
-      <p>Written by: {frontmatter.author}</p>
-      <p>
-        {frontmatter.tags.map((tag) => <span>{tag}</span>)}
-      </p>
-      <img src={frontmatter.heroImage} alt={frontmatter.title} />
-      <slot />
-    </article>
-  </div>
+  >
+    <h1>{frontmatter.title}</h1>
+    <FormattedDate date={frontmatter.pubDate} />
+    <p><em>{frontmatter.description}</em></p>
+    <p>Written by: {frontmatter.author}</p>
+    <p>
+      {frontmatter.tags.map((tag) => <span>{tag}</span>)}
+    </p>
+    {
+      frontmatter.heroImage && (
+        <img src={frontmatter.heroImage} alt={frontmatter.title} />
+      )
+    }
+    <slot />
+  </article>
 
   <Tocbar headings={headings} slot="siderbar" />
+  <SlicePostList slot="siderbar" />
 </DefaultLayout>

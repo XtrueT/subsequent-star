@@ -5,9 +5,11 @@ const { heading } = Astro.props;
 ---
 
 <li>
-  <ActiveLink href={`#${heading.slug}`} class="toc-link">{heading.text}</ActiveLink>
+  <ActiveLink href={`#${heading.slug}`} class="toc-link"
+    >{heading.text}</ActiveLink
+  >
   {
-    heading.sub.length > 0 && (
+    heading.sub && heading.sub.length > 0 && (
       <ul class="ml-4">
         {heading.sub.map((subheading) => (
           <Astro.self heading={subheading} />
@@ -21,5 +23,4 @@ const { heading } = Astro.props;
   .toc-link.active {
     @apply text-blue-500;
   }
-
 </style>

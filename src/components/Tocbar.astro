@@ -1,40 +1,65 @@
 ---
 import TocLink from "./TocLink.astro";
 
-const { frontmatter, headings, remarkPluginFrontmatter } = Astro.props;
+interface Props {
+  headings: {
+    depth: number;
+    slug: string;
+    text: string;
+  }[];
+}
 
-const headingmaps = (headings: any[]) => {
-  let toc = new Array();
+const { headings } = Astro.props;
+
+const generateToc = (headings: any[]) => {
+  const toc = [];
   const parentHeadings = new Map();
-  headings.forEach((h) => {
-    let sub = new Array();
-    const heading = { ...h, sub: sub };
-    parentHeadings.set(heading.depth, heading);
-    // Change 2 to 1 if your markdown includes your <h1>
-    if (heading.depth === 2) {
-      toc.push(heading);
-    } else {
-      parentHeadings.get(heading.depth - 1).sub.push(heading);
+  let minDepth = Number.MAX_SAFE_INTEGER;
+  for (const heading of headings) {
+    if (heading.depth < minDepth) {
+      minDepth = heading.depth;
     }
-  });
-  console.log(toc);
+  }
+  for (const heading of headings) {
+    const sub = [];
+    const { depth } = heading;
+    const currentHeading = { ...heading, sub };
+    parentHeadings.set(depth, currentHeading);
+    if (depth === minDepth) {
+      toc.push(currentHeading);
+    } else {
+      const parentHeading = parentHeadings.get(depth - 1);
+      parentHeading.sub.push(currentHeading);
+    }
+  }
+  // console.log(toc);
   return toc;
 };
 ---
 
-<nav class="toc bg-white p-4 rounded-lg shadow-lg w-64 lg:w-1/4">
-  <ul>
-    {headingmaps(headings).map((heading) => <TocLink heading={heading} />)}
-  </ul>
-</nav>
+{
+  headings.length > 0 && (
+    <nav class="toc bg-white p-4 rounded-lg shadow-lg w-64 lg:w-1/4">
+      <ul id="tocList">
+        {generateToc(headings).map((heading) => (
+          <TocLink heading={heading} />
+        ))}
+      </ul>
+    </nav>
+  )
+}
 
 <script lang="">
   // JavaScript 逻辑
   function scrollToAnchor(link) {
-    const anchor = link.getAttribute("href");
-    const targetElement = document.querySelector(anchor);
+    const href = link.getAttribute("href");
+    const targetElement = document.getElementById(href.substring(1));
     if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
     }
   }
 
@@ -49,6 +74,11 @@ const headingmaps = (headings: any[]) => {
             // 如果元素进入视窗，添加高亮类名
             if (entry.isIntersecting) {
               link.classList.add("active");
+              link.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+                inline: "nearest",
+              });
             } else {
               // 如果元素离开视窗，移除高亮类名
               link.classList.remove("active");
@@ -62,17 +92,25 @@ const headingmaps = (headings: any[]) => {
     // 为每个锚点设置观察器
     document.querySelectorAll(".toc-link").forEach((link) => {
       const href = link.getAttribute("href");
-      const targetElement = document.querySelector(href);
+      const targetElement = document.getElementById(href.substring(1));
       if (targetElement) {
         observer.observe(targetElement);
       }
     });
   }
 
-  window.addEventListener("scroll", setupIntersectionObserver);
+  document.addEventListener("astro:page-load", function () {
+    window.addEventListener("scroll", setupIntersectionObserver);
+    document.querySelectorAll(".toc-link").forEach((link) =>
+      link.addEventListener("click", (event) => {
+        event.preventDefault(); // 阻止默认的点击行为，避免直接跳转到锚点
+        scrollToAnchor(link);
+      })
+    );
+  });
 </script>
 <style>
   .toc {
-    @apply fixed top-80 right-0 py-5 h-96 overflow-y-auto bg-gray-200;
+    @apply w-72 h-52 overflow-y-auto fixed top-72 right-5;
   }
 </style>

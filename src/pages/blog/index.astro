@@ -1,5 +1,6 @@
 ---
 import PostItem from "@components/PostItem.astro";
+import SlicePostList from "@components/SlicePostList.astro";
 import TagCloud from "@components/TagCloud.astro";
 import { getCollection } from "astro:content";
 
@@ -10,8 +11,7 @@ import DefaultLayout from "src/layouts/DefaultLayout.astro";
 
 <DefaultLayout title="Index-Blog">
   <section>
-
-    Index
-
+    <a href="/archives" type="button rounded-full p-3">View all</a>
+    <SlicePostList sliceNum={6} slot="siderbar"/>
   </section>
 </DefaultLayout>

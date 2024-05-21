@@ -13,6 +13,7 @@ export default {
         },
       },
       colors: {
+        'primary': '#A855F7',
       },
     },
   },

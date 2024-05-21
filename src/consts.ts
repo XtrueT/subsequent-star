@@ -10,10 +10,12 @@ export const config = {
     avatar: 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/pp.1.cd298366.xLed3zwhuhnRsSFcnjqzJQ.jpg?1567248569',
     header: '/image/header.jpg',
     aside: '/image/aside.jpg',
+    bg: '',
     description: '霁的博客 | Mr.Miao 的博客 | XtrueT 的博客',
     keyword: 'XtrueT的博客',
     paginate: 10,
-    paginate_max_links:3, // 2个省略号中间显示的页码
+    paginate_max_links: 3, // 2个省略号中间显示的页码
+    sliceNum: 3,
     nav: [
         { title: '主页', href: '/blog' },
         { title: '关于', href: '/about' },
