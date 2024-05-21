@@ -12,7 +12,7 @@ interface Props {
 const { headings } = Astro.props;
 
 const generateToc = (headings: any[]) => {
-  const toc = [];
+  const toc: any[] = [];
   const parentHeadings = new Map();
   let minDepth = Number.MAX_SAFE_INTEGER;
   for (const heading of headings) {
@@ -21,7 +21,7 @@ const generateToc = (headings: any[]) => {
     }
   }
   for (const heading of headings) {
-    const sub = [];
+    const sub: any[] = [];
     const { depth } = heading;
     const currentHeading = { ...heading, sub };
     parentHeadings.set(depth, currentHeading);
