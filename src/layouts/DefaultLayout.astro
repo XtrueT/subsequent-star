@@ -15,22 +15,20 @@ const { title = config.title, description = config.description } = Astro.props;
 <!doctype html>
 <html
   lang="zh-cn"
-  class="flex flex-col justify-center items-center m-0 p-0 font-mono"
+  class="flex flex-col justify-center items-center m-0 p-0 font-mono scroll-smooth"
 >
   <head>
     <Head title={title} description={description} />
   </head>
 
   <body
-    style=`margin-right: calc(100% - 100vw);
-    background-image: url(${config.bg?config.bg:''});
+    style=`background-image: url(${config.bg?config.bg:''});
     `
     class="flex flex-col flex-nowrap justify-between items-center
             h-full min-h-screen w-screen overflow-x-hidden m-0
-            px-3 lg:px-64 transition-all duration-300 ease-in-out
-            bg-cover bg-no-repeat bg-center   
-            dark:backdrop-blur-none dark:bg-slate-900 dark:text-slate-50
-            "
+            px-3 lg:px-72 transition-all duration-300 ease-in-out
+             text-slate-50 bg-cover bg-fixed bg-no-repeat
+            dark:bg-slate-900 dark:text-slate-50"
   >
     <Header />
 

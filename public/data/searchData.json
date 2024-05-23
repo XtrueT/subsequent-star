@@ -1,17 +1,5 @@
 [
   {
-    "path": "10",
-    "title": "基于ZK的kafka环境搭建",
-    "description": "",
-    "pubDate": "2021年12月16日",
-    "author": "霁",
-    "heroImage": "/image/header.jpg",
-    "tags": [
-      "kafka",
-      "zookeeper"
-    ]
-  },
-  {
     "path": "2018-09-19-Centos软件安装方法",
     "title": "Centos软件安装方法",
     "description": "学习centos",

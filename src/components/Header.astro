@@ -1,12 +1,13 @@
 ---
-import { config } from "../consts";
+import { config } from "@config";
 import Navbar from "./Navbar.astro";
 ---
 
-<header class="flex flex-col justify-between bg-inherit text-inherit w-full z-10 
-shadow-sm rounded-md shadow-purple-200 ">
+<header
+  id="header"
+  class="flex flex-col justify-between bg-inherit text-inherit w-full z-10 "
+>
   <div
-    id="header-img"
     class="relative bg-cover h-48"
     style=`background-image: url(${config.header});`
   >
@@ -16,5 +17,6 @@ shadow-sm rounded-md shadow-purple-200 ">
     >
     </div>
   </div>
+
   <Navbar />
 </header>

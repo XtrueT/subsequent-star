@@ -1,12 +1,12 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '@assets/styles/global.css';
-import { ViewTransitions } from 'astro:transitions';
+import "@assets/styles/global.css";
+import { ViewTransitions } from "astro:transitions";
 interface Props {
-	title: string;
-	description: string;
-	image?: string;
+  title: string;
+  description: string;
+  image?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -20,7 +20,6 @@ const { title, description } = Astro.props;
 <link rel="icon" href="/favicon.ico" />
 <meta name="generator" content={Astro.generator} />
 
-
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
@@ -28,5 +27,9 @@ const { title, description } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<script is:inline>
+  localStorage.theme && !document.documentElement.classList.contains("dark")
+    ? document.documentElement.classList.add("dark")
+    : "";
+</script>
 <ViewTransitions />
-

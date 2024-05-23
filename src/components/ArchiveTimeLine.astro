@@ -36,10 +36,9 @@ posts.forEach((post) => {
 {
   [...postsByYear.entries()].map(([year, posts]) => {
     return (
-      <section class="flex flex-col justify-start items-start w-full border-l-4 border-gray-500 ">
-        <div class="p-2 my-2 border-b-4 border-gray-500 transition-all ease-in">
+      <section class="flex flex-col justify-start items-start w-full ">
+        <div class="p-2 my-2 border-b-4 border-transparent hover:border-purple-500 transition-all duration-300 ease-in">
           <span class="text-2xl font-bold ">{year}</span>
-          
         </div>
         <div class="px-5 w-full my-2">
          <span class="mx-2">Total:{posts.length}</span>
@@ -53,36 +52,3 @@ posts.forEach((post) => {
     );
   })
 }
-
-<style>
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    list-style: none;
-  }
-
-  .timeline-panel {
-    position: relative;
-    padding: 20px;
-    border: 1px solid #ddd;
-    background-color: #f4f4f4;
-    border-radius: 4px;
-  }
-
-  .timeline-heading {
-    margin-bottom: 15px;
-  }
-
-  .timeline-title {
-    margin-top: 0;
-    color: #333;
-    font-size: 16px;
-  }
-
-  .timeline-body {
-    margin-top: 0;
-    color: #666;
-    font-size: 14px;
-  }
-</style>

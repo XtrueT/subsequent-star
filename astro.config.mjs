@@ -4,6 +4,7 @@ import glob from 'fast-glob';
 import fs from 'fs-extra';
 import path from 'path';
 import matter from 'gray-matter';
+import { visit } from 'unist-util-visit'
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,6 +16,21 @@ export default defineConfig({
 	prefetch: {
 		prefetchAll: true
 	},
+	markdown: {
+		rehypePlugins: [() => {
+			return function (tree) {
+				visit(tree, function (node) {
+					if (node.tagName === 'img') {
+						node.properties['data-src'] = node.properties.src
+						// node.properties.src = '/spinner.gif'
+						node.properties['data-alt'] = node.properties.alt
+						node.properties['loading'] = 'lazy' //loading="lazy"
+						// node.properties.alt = 'default'
+					}
+				})
+			}
+		}],
+	},
 	integrations: [
 		tailwind({ nesting: true }),
 		{
@@ -22,10 +38,12 @@ export default defineConfig({
 			hooks: {
 				'astro:config:done': async ({ config }) => {
 					const files = await glob('./src/content/**/*.md');
+					// const files = await import.meta.glob(()=>'./src/content/**/*.md');
+					// console.log(files)
 					const searchData = files.map((file) => {
 						const content = fs.readFileSync(file, 'utf-8');
 						const { data, content: body } = matter(content);
-						console.log(data);
+						// console.log(data);
 						const pubDate = data.pubDate.toLocaleDateString('zh-cn', {
 							year: 'numeric',
 							month: 'short',

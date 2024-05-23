@@ -1,12 +1,15 @@
-<div class="flex flex-col justify-center items-center">
+<div
+  class="flex flex-col justify-center items-center fixed bottom-10 right-10"
+>
   <div class="relative inline-block group">
     <button
       id="theme-toggle"
       class="transition-colors focus:outline-none p-2 mx-1 flex items-center
-        text-gray-950 bg-gray-400 shadow-gray-200 dark:shadow-none dark:bg-gray-400 dark:text-gray-50
-        hover:bg-gray-500"
+      text-slate-950 bg-slate-200 shadow-slate-200 dark:shadow-none
+      dark:bg-slate-700 dark:text-slate-50
+        hover:bg-purple-500 hover:text-slate-50 dark:hover:bg-purple-500"
     >
-      <span class="dark:hidden">
+      <span class="hidden dark:inline">
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -23,7 +26,7 @@
         </svg>
       </span>
 
-      <span class="hidden dark:inline">
+      <span class="dark:hidden">
         <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6">
           <path
             fill-rule="evenodd"
@@ -45,7 +48,7 @@
     <p
       class="absolute items-center justify-center w-20 p-1
             rounded-lg shadow-lg -left-[175%] top-[10%] hidden group-hover:flex
-             text-gray-50 bg-gray-950 shadow-gray-200 dark:shadow-none dark:bg-gray-500 dark:text-gray-50"
+             text-slate-50 bg-slate-950 shadow-slate-200 dark:shadow-none dark:bg-slate-700 dark:text-slate-50"
     >
       <span class="truncate">切换模式</span>
     </p>
@@ -54,9 +57,10 @@
   <div class="relative inline-block group">
     <button
       id="backtop-toggle"
-      class="transition-colors focus:outline-none p-2 mx-1 flex items-center
-         text-gray-950 bg-gray-400 shadow-gray-200 dark:shadow-none dark:bg-gray-400 dark:text-gray-50
-            hover:bg-gray-500"
+      class="transition-colors focus:outline-none p-2 mx-1 hidden items-center
+         text-slate-950 bg-slate-200 shadow-slate-200 dark:shadow-none
+          dark:bg-slate-700 dark:text-slate-50
+            hover:bg-purple-500 hover:text-slate-50 dark:hover:bg-purple-500"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -73,74 +77,62 @@
     <p
       class="absolute items-center justify-center w-20 p-1
              rounded-lg shadow-lg -left-[175%] top-[10%] hidden group-hover:flex
-             text-gray-50 bg-gray-950 shadow-gray-200 dark:shadow-none dark:bg-gray-500 dark:text-gray-50"
+             text-slate-50 bg-slate-950 shadow-slate-200 dark:shadow-none dark:bg-slate-700 dark:text-slate-50"
     >
       <span class="truncate">返回顶部</span>
     </p>
   </div>
 </div>
-<script lang="">
-  document.addEventListener("astro:after-swap", () => {
-    localStorage.theme === "dark"
+<script>
+  document.addEventListener("astro:before-swap", (ev) => {
+    const document = ev.newDocument;
+    localStorage.theme && !document.documentElement.classList.contains("dark")
       ? document.documentElement.classList.add("dark")
-      : document.documentElement.classList.remove("dark");
+      : "";
   });
 
-  document.addEventListener("astro:page-load", function () {
-    const toggleButton = document.querySelector("#theme-toggle");
-    const htmlElement = document.querySelector("html");
-    const obtn = document.getElementById("backtop-toggle");
-    const clientHeight =
-      document.documentElement.clientHeight || document.body.clientHeight;
-    let time = null;
-    let isTop = true;
-    let cancelScroll = false;
-    localStorage.getItem("theme") == "dark"
-      ? htmlElement.classList.add("dark")
-      : "";
+  document.addEventListener("astro:page-load", () => {
+    const backtopToggle = document.getElementById("backtop-toggle");
+    const toggleButton = document.getElementById("theme-toggle");
+    const htmlElement = document.documentElement;
+    const header = document.getElementById("header");
+    const navbar = document.getElementById("navbar");
 
     // 切换主题
-    function toggleTheme() {
+    // 监听按钮点击事件
+    toggleButton?.addEventListener("click", () => {
       htmlElement.classList.toggle("dark");
       const theme = htmlElement.classList.contains("dark") ? "dark" : "";
       localStorage.setItem("theme", theme);
-    }
+    });
 
-    // 返回顶部
-    function backToTop() {
-      if (!cancelScroll) {
-        time = setInterval(function () {
-          const osTop =
-            document.documentElement.scrollTop || document.body.scrollTop;
-          const ispeed = Math.floor(-osTop / 10);
-          document.documentElement.scrollTop = document.body.scrollTop =
-            osTop + ispeed;
-          isTop = true;
-          if (osTop === 0) {
-            clearInterval(time);
-          }
-        }, 30);
-      } else {
-        clearInterval(time);
-        cancelScroll = true;
+    // 使用 Intersection Observer API 观察 header 元素是否在视窗内
+    const headerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          navbar?.classList.toggle("fixed-nav", !entry.isIntersecting);
+          backtopToggle?.classList.toggle("hidden", entry.isIntersecting);
+        });
+      },
+      {
+        root: null, // 相对于视口观察
+        rootMargin: "0px",
+        threshold: 0.1, // 元素与视口交叉的阈值
       }
+    );
+    // 开始观察 header 元素
+    if (header) {
+      headerObserver.observe(header);
     }
-
-    // 监听按钮点击事件
-    toggleButton.addEventListener("click", toggleTheme);
 
     // 返回顶部按钮点击事件
-    obtn.addEventListener("click", backToTop);
-
-    // 滚动事件
-    window.addEventListener("scroll", function () {
-      const osTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
-      obtn.style.display = osTop >= clientHeight ? "block" : "none";
-      if (!isTop) {
-        clearInterval(time);
-      }
-      isTop = false;
+    backtopToggle?.addEventListener("click", () => {
+      // 平滑滚动到顶部
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     });
   });
 </script>

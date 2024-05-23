@@ -14,7 +14,7 @@ const { sliceNum = config.sliceNum } = Astro.props;
 ---
 
 <section class="shadow-sm">
-  <ul class="flex flex-col p-5 mx-2">
+  <ul class="flex flex-col">
     {posts.slice(0, sliceNum).map((post) => <PostItem post={post} />)}
   </ul>
 </section>
