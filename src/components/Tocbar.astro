@@ -7,9 +7,10 @@ interface Props {
     slug: string;
     text: string;
   }[];
+  title: string;
 }
 
-const { headings } = Astro.props;
+const { headings, title } = Astro.props;
 
 const generateToc = (headings: any[]) => {
   const toc: any[] = [];
@@ -25,7 +26,7 @@ const generateToc = (headings: any[]) => {
     const { depth } = heading;
     const currentHeading = { ...heading, sub };
     parentHeadings.set(depth, currentHeading);
-    if (depth === minDepth) {
+    if (depth === minDepth || depth === 2) {
       toc.push(currentHeading);
     } else {
       const parentHeading = parentHeadings.get(depth - 1);
@@ -39,17 +40,25 @@ const generateToc = (headings: any[]) => {
 };
 ---
 
-{
-  headings.length > 0 && (
-    <nav class="toc bg-white p-4 rounded-lg shadow-lg w-64 lg:w-1/4">
-      <ul id="tocList">
-        {generateToc(headings).map((heading) => (
-          <TocLink heading={heading} />
-        ))}
-      </ul>
-    </nav>
-  )
-}
+<section id="tocbar" class="w-full sticky acrylic">
+
+  {
+    headings.length > 0 && (
+      <nav class="p-4  w-full">
+        <h1 id="tocTitle" class="py-2">
+          {title}-目录
+        </h1>
+        <ul id="tocList" class="max-h-[50vh] h-full overflow-y-auto">
+          {generateToc(headings).map((heading) => (
+            <TocLink heading={heading} />
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+
+
+</section>
 
 <script>
   // JavaScript 逻辑
@@ -65,7 +74,7 @@ const generateToc = (headings: any[]) => {
     }
   }
 
-  function setupIntersectionObserver() {
+  function setupTocLinkObserver() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -73,19 +82,19 @@ const generateToc = (headings: any[]) => {
             `.toc-link[href="#${entry.target.id}"]`
           );
           if (link) {
-            link?.classList.toggle("active",entry.isIntersecting);
+            link.classList.toggle("active", entry.isIntersecting);
+            // if (link.classList.contains("active")) {
+            //   link.scrollIntoView({});
+            // }
           }
         });
       },
-      { rootMargin: "-5% 0px -5% 0px" }
+      {
+        root: null, // 相对于视口观察
+        rootMargin: "-5% 0px -5% 0px",
+        threshold: 0.1, // 元素与视口交叉的阈值
+      }
     );
-
-
-    // link.scrollIntoView({
-    //             behavior: "smooth",
-    //             block: "center",
-    //             inline: "nearest",
-    //           });
 
     // 为每个锚点设置观察器
     document.querySelectorAll(".toc-link").forEach((link) => {
@@ -98,7 +107,7 @@ const generateToc = (headings: any[]) => {
   }
 
   document.addEventListener("astro:page-load", function () {
-    setupIntersectionObserver();
+    setupTocLinkObserver();
     document.querySelectorAll(".toc-link").forEach((link) =>
       link.addEventListener("click", (event) => {
         event.preventDefault(); // 阻止默认的点击行为，避免直接跳转到锚点
@@ -108,7 +117,7 @@ const generateToc = (headings: any[]) => {
   });
 </script>
 <style>
-  .toc {
-    @apply w-72 h-52 overflow-y-auto;
+  .fixed-toc {
+    @apply sticky top-[20%] right-[15%] max-w-lg;
   }
 </style>

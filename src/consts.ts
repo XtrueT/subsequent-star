@@ -13,10 +13,11 @@ export const config = {
     aside: '/image/aside.jpg',
     bg: '/image/bg.jpg',
     // bg: '/image/bg-1.avif',
+    // bg: 'https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&w=1600',
     description: '霁的博客 | Mr.Miao 的博客 | XtrueT 的博客',
     keyword: 'XtrueT的博客',
-    paginate: 10,
-    paginate_max_links: 3, // 2个省略号中间显示的页码
+    paginate: 8,
+    paginate_max_links:3, 
     sliceNum: 3,
     nav: [
         { title: '主页', href: '/blog' },

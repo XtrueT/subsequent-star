@@ -8,45 +8,36 @@ const { title, description, pubDate, author, heroImage, tags } = post.data;
 const href = `/blog/${post.slug}/`;
 ---
 
-<li class="flex flex-col 
-my-5 p-3
-shadow-sm rounded-md shadow-purple-200 
- backdrop-blur-sm   
- dark:backdrop-blur-none dark:bg-slate-900 dark:text-slate-50">
-  <div class="">
-    {
-      heroImage ? (
-        <a href={href} class="p-2">
-          <figure
-            id="header-img"
-            class="relative bg-cover bg-center bg-no-repeat h-48"
-            style={`background-image: url(${heroImage});`}
-            title={title}
-          >
-            <div class="absolute top-0 right-0 w-full h-[inherit] opacity-10 text-gray-50 bg-gray-950" />
-          </figure>
-        </a>
-      ) : (
-        ""
-      )
-    }
+<li class="flex flex-col
+my-5 p-3 acrylic">
+  {
+    heroImage && (
+      <a href={href} class=" p-2">
+        <figure id="heroImage" class="flex justify-center items-center ">
+          <img src={heroImage} alt={title} loading="lazy" />
+        </figure>
+      </a>
+    )
+  }
 
-    <div class="flex flex-col">
-      <a href={href} class="text-2xl font-bold py-2 hover:underline">{title}</a>
-      <p class="text-base p-2">
-        {description ? description : post.body.substring(0, 150)}
-      </p>
-      <div class="flex justify-between items-center">
-        <span><FormattedDate date={pubDate} />{author}</span>
-        <div class="flex justify-around w-1/4">
-          {
-            tags.map((tag) => (
-              <a href={`/tags/${tag}`}>
-                <Tag tag={tag} />
-              </a>
-            ))
-          }
-        </div>
+  <div class="flex flex-col">
+    <a href={href} class="text-2xl font-bold py-2 hover:underline">{title}</a>
+    <p
+      class="text-base p-2"
+      title={description ? description : post.body.substring(0, 150)}
+    >
+      {description ? description : post.body.substring(0, 150)}
+    </p>
+    <div class="flex justify-between items-center">
+      <span><FormattedDate date={pubDate} />{author}</span>
+      <div class="flex justify-end items-center w-1/2">
+        {
+          tags.map((tag) => (
+            <a href={`/tags/${tag}`}>
+              <Tag tag={tag} />
+            </a>
+          ))
+        }
       </div>
     </div>
   </div>

@@ -2,8 +2,8 @@
 
 ---
 
-<section class="w-full max-w-md px-5 mx-auto">
-  <div class="relative pb-1">
+<section class="w-full max-w-md px-5 mx-auto bg-inherit text-inherit" >
+  <div class="relative pb-1 bg-inherit">
     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
       <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
         <path
@@ -16,18 +16,18 @@
     </span>
 
     <input
-      type="text"
+      type="search"
       id="search-input"
-      class="w-full py-3 pl-10 pr-4 border-b border-slate-500 focus:outline-none bg-slate-100 text-slate-950 dark:text-slate-50 dark:bg-slate-900
-            hover:text-slate-500 hover:border-slate-500"
+      class="w-full py-3 pl-10 pr-4 border-b border-slate-500  bg-inherit focus:outline-none"
       placeholder="Search..."
     />
-    <div
-      class="absolute inset-x-0 overflow-y-auto max-h-72 shadow-md bg-slate-100 text-slate-950 dark:text-slate-50 dark:bg-slate-900"
+    <div class="absolute inset-x-0 overflow-y-auto max-h-72 shadow-md bg-inherit "
+    
     >
       <ul
         id="results-container"
         class="flex flex-col w-full justify-around items-start list-none"
+        
       >
         <!-- 这里插入搜索结果列表项 -->
       </ul>
@@ -55,7 +55,7 @@
     console.log("settings", settings);
     // 执行搜索的函数
     function search(query) {
-      const results:any[] = [];
+      const results: any[] = [];
       if (query === "") {
         settings.resultsContainer.innerHTML = "";
         return;
@@ -117,14 +117,22 @@
         results.forEach((result) => {
           let tagHTML = "";
           //   // 遍历标签数组，为每个标签生成 HTML 元素
-          const { path, title, description, pubDate, author, heroImage, tags } =
-            result;
+          const {
+            path,
+            slug,
+            title,
+            description,
+            pubDate,
+            author,
+            heroImage,
+            tags,
+          } = result;
           tags.forEach((tag) => {
             tagHTML += `<a href="/tags/${tag}" type="button" class="tag">#${tag}</a>`;
           });
-          container.innerHTML += `<li class="mt-1 p-2 w-full flex flex-col justify-between items-start border-b-2 border-slate-500  hover:border-slate-500
+          container.innerHTML += `<li class="mt-1 p-2 w-full flex flex-col justify-between items-start border-b-2 border-slate-500 acrylic
                                      transition-colors duration-300 transform">
-                                        <a class="m-2 p-1 inline-block hover:underline" href="/blog/${path.toLowerCase()}/" title="${title}">
+                                        <a class="m-2 p-1 inline-block hover:underline" href="/blog/${slug ? slug : path.toLowerCase()}/" title="${title}">
                                             ${title} 
                                             <span>${author}</span>
                                         </a>

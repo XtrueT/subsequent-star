@@ -2,7 +2,7 @@
 import FormattedDate from "../components/FormattedDate.astro";
 import DefaultLayout from "./DefaultLayout.astro";
 import Tocbar from "@components/Tocbar.astro";
-import SlicePostList from "@components/SlicePostList.astro";
+import Tag from "@components/Tag.astro";
 
 const { frontmatter, headings, description } = Astro.props;
 ---
@@ -12,29 +12,41 @@ const { frontmatter, headings, description } = Astro.props;
   description={frontmatter.description ? frontmatter.description : description}
 >
   <article
-    class="w-full prose lg:prose-lg text-slate-50
-      dark:prose-invert
+    class="w-full acrylic p-5 prose-lg lg:prose-lg
   prose-h1:font-bold
-  prose-a:text-blue-600
+prose-a:text-blue-500
+hover:prose-a:text-purple-500
+  hover:prose-a:underline
   prose-p:text-justify
-  prose-img:rounded-xl
-  prose-headings:underline"
+  prose-img:rounded-md
+  prose-img:m-auto
+  prose-headings:underline 
+  dark:prose-invert"
   >
-    <h1>{frontmatter.title}</h1>
-    <FormattedDate date={frontmatter.pubDate} />
-    <p><em>{frontmatter.description}</em></p>
-    <p>Written by: {frontmatter.author}</p>
-    <p>
-      {frontmatter.tags.map((tag) => <span>{tag}</span>)}
-    </p>
-    {
-      frontmatter.heroImage && (
-        <img src={frontmatter.heroImage} alt={frontmatter.title} />
-      )
-    }
+    <div class="flex flex-col border-b-2 border-slate-600 mb-5">
+      <h1>{frontmatter.title}</h1>
+      <div class="flex justify-start items-center text-sm">
+        <span class="mx-1">
+          <FormattedDate date={frontmatter.pubDate} />
+        </span>
+        <span class="mx-1">
+          Written by: {frontmatter.author}
+        </span>
+        <span class="mx-1">
+          {frontmatter.tags.map((tag) => <Tag tag={tag} />)}
+        </span>
+      </div>
+
+      {
+        frontmatter.heroImage && (
+          <img src={frontmatter.heroImage} alt={frontmatter.title} loading="lazy"/>
+        )
+      }
+    </div>
+
     <slot />
   </article>
+  <section slot="siderbar"></section>
 
-  <Tocbar headings={headings} slot="siderbar" />
-  <SlicePostList slot="siderbar" />
+  <Tocbar headings={headings} slot="siderbar" title={frontmatter.title}/>
 </DefaultLayout>

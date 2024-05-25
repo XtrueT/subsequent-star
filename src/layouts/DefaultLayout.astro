@@ -25,23 +25,22 @@ const { title = config.title, description = config.description } = Astro.props;
     style=`background-image: url(${config.bg?config.bg:''});
     `
     class="flex flex-col flex-nowrap justify-between items-center
-            h-full min-h-screen w-screen overflow-x-hidden m-0
-            px-3 lg:px-72 transition-all duration-300 ease-in-out
-             text-slate-50 bg-cover bg-fixed bg-no-repeat
-            dark:bg-slate-900 dark:text-slate-50"
+            h-full min-h-screen w-screen overflow-x-hidden my-0
+            px-3 lg:px-64 transition-all duration-300 ease-in-out relative 
+             text-slate-50 bg-cover bg-fixed bg-no-repeat  dark:text-slate-50"
   >
     <Header />
 
     <main
-      class="flex flex-row justify-between items-start max-sm:flex-col bg-inherit text-inherit w-full my-4"
+      class="flex flex-row justify-between items-start max-sm:flex-col bg-inherit text-inherit w-full my-4 relative min-h-screen "
     >
       <div
-        class="flex flex-col justify-center items-center w-3/5 max-sm:w-full"
+        class="flex flex-col justify-start  items-center w-3/5 max-sm:w-full relative   min-h-screen"
       >
         <slot />
       </div>
       <aside
-        class="flex flex-col justify-center items-center w-2/5 max-sm:w-full p-12 ml-5"
+        class="flex flex-col justify-start items-center w-2/5 max-sm:w-full  ml-5  relative  min-h-screen"
       >
         <TagCloud />
         <slot name="siderbar" />

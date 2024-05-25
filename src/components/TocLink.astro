@@ -4,7 +4,7 @@ import ActiveLink from "./ActiveLink.astro";
 const { heading } = Astro.props;
 ---
 
-<li>
+<li class="toc-item">
   <ActiveLink href={`#${heading.slug}`} class="toc-link"
     >{heading.text}</ActiveLink
   >
@@ -19,8 +19,3 @@ const { heading } = Astro.props;
   }
 </li>
 
-<style>
-  .toc-link.active {
-    @apply text-blue-500;
-  }
-</style>

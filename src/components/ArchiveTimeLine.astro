@@ -1,6 +1,5 @@
 ---
 import { type CollectionEntry } from "astro:content";
-import PostItem from "./PostItem.astro";
 import ArchiveItem from "./ArchiveItem.astro";
 
 type Props = {
@@ -33,22 +32,26 @@ posts.forEach((post) => {
 });
 ---
 
-{
-  [...postsByYear.entries()].map(([year, posts]) => {
-    return (
-      <section class="flex flex-col justify-start items-start w-full ">
-        <div class="p-2 my-2 border-b-4 border-transparent hover:border-purple-500 transition-all duration-300 ease-in">
-          <span class="text-2xl font-bold ">{year}</span>
-        </div>
-        <div class="px-5 w-full my-2">
-         <span class="mx-2">Total:{posts.length}</span>
-          <ul class="p-10">
-            {posts.map((post) => {
-              return <ArchiveItem post={post} />;
-            })}
-          </ul>
-        </div>
-      </section>
-    );
-  })
-}
+<section class="acrylic w-full">
+  <ul class="flex flex-col">
+    {
+      [...postsByYear.entries()].map(([year, posts]) => {
+        return (
+          <li class="flex flex-col justify-start items-start w-full ">
+            <div class="p-2 my-2 border-b-4 border-transparent hover:border-purple-500 transition-all duration-300 ease-in">
+              <span class="text-2xl font-bold ">{year}</span>
+            </div>
+            <div class="w-full">
+              <span class="mx-2">Total:{posts.length}</span>
+              <ul class="">
+                {posts.map((post) => {
+                  return <ArchiveItem post={post} />;
+                })}
+              </ul>
+            </div>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>
