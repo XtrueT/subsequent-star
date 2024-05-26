@@ -23,7 +23,7 @@ const tagsArray = Array.from(tagsWithCount.entries()).sort(
   <div class="table-cell">
     {
       tagsArray.map(([tag, count]) => (
-        <ActiveLink href={`/tags/${tag}`}>
+        <ActiveLink href={`/tags/${tag}/`}>
           <>
             <Tag tag={tag}><sup class="p-1 text-purple-500">{count}</sup></Tag>
           </>
