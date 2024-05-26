@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import glob from 'fast-glob';
 import fs from 'fs-extra';
@@ -31,15 +32,13 @@ export default defineConfig({
 			}
 		}],
 	},
-	integrations: [
+	integrations: [sitemap(),
 		tailwind({ nesting: true }),
 		{
 			name: 'simple',
 			hooks: {
 				'astro:config:done': async ({ config }) => {
 					const files = await glob('./src/content/**/*.md');
-					// const files = await import.meta.glob(()=>'./src/content/**/*.md');
-					// console.log(files)
 					const searchData = files.map((file) => {
 						const content = fs.readFileSync(file, 'utf-8');
 						const { data, content: body } = matter(content);
@@ -54,15 +53,10 @@ export default defineConfig({
 							...data, pubDate
 						};
 					});
-
-
-
-					const searchIndexData = JSON.stringify(searchData, null, 2);
+					const searchIndexData = JSON.stringify(searchData);
 					const outputPath = path.join(process.cwd(), 'public/data', 'searchData.json'); // 确保目标文件夹存在
-
 					await fs.ensureDir(path.dirname(outputPath));
 					await fs.writeFile(outputPath, searchIndexData);
-
 					return config;
 				},
 			}

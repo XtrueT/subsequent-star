@@ -22,12 +22,13 @@ const { title = config.title, description = config.description } = Astro.props;
   </head>
 
   <body
-    style=`background-image: url(${config.bg?config.bg:''});
-    `
     class="flex flex-col flex-nowrap justify-between items-center
             h-full min-h-screen w-screen overflow-x-hidden my-0
             px-3 lg:px-10 2xl:px-64 relative z-[-1]
              text-slate-50 bg-cover bg-fixed bg-no-repeat dark:text-slate-50"
+    style={config.bg_images.enable
+      ? `background-image: url(${config.bg_images.src});`
+      : ""}
   >
     <Header />
 

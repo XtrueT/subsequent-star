@@ -9,6 +9,7 @@ const href = `/blog/${post.slug}/`;
 ---
 
 <li class="flex flex-col mb-5 p-3 acrylic">
+  <a href={href} class="text-2xl font-bold py-2 hover:underline">{title}</a>
   <div class="flex justify-between items-center">
     {
       heroImage && (
@@ -26,7 +27,6 @@ const href = `/blog/${post.slug}/`;
     }
 
     <div class="flex flex-col flex-grow">
-      <a href={href} class="text-2xl font-bold py-2 hover:underline">{title}</a>
       <p
         class="text-base p-2"
         title={description ? description : post.body.substring(0, 150)}

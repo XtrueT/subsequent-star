@@ -3,6 +3,8 @@ import FormattedDate from "../components/FormattedDate.astro";
 import DefaultLayout from "./DefaultLayout.astro";
 import Tocbar from "@components/Tocbar.astro";
 import Tag from "@components/Tag.astro";
+import { config } from "@config";
+import ValineComm from "@components/ValineComm.astro";
 
 const { frontmatter, headings, description } = Astro.props;
 ---
@@ -20,7 +22,7 @@ hover:prose-a:text-purple-500
   prose-p:text-justify
   prose-img:rounded-md
   prose-img:m-auto
-  prose-headings:underline 
+  prose-headings:underline
   dark:prose-invert"
   >
     <div class="flex flex-col border-b-2 border-slate-600 mb-5">
@@ -39,14 +41,20 @@ hover:prose-a:text-purple-500
 
       {
         frontmatter.heroImage && (
-          <img src={frontmatter.heroImage} alt={frontmatter.title} loading="lazy"/>
+          <img
+            src={frontmatter.heroImage}
+            alt={frontmatter.title}
+            loading="lazy"
+          />
         )
       }
     </div>
 
     <slot />
   </article>
+  {config.valine.enable && <ValineComm valine={config.valine} />}
+
   <section slot="siderbar"></section>
 
-  <Tocbar headings={headings} slot="siderbar" title={frontmatter.title}/>
+  <Tocbar headings={headings} slot="siderbar" title={frontmatter.title} />
 </DefaultLayout>

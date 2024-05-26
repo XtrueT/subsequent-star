@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
-import ValineComm from "@components/ValineComm.astro";
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
@@ -22,5 +21,4 @@ const { Content, headings, remarkPluginFrontmatter } = await entry.render();
   remarkPluginFrontmatter={remarkPluginFrontmatter}
 >
   <Content />
-  <ValineComm/>
 </PostLayout>

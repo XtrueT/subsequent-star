@@ -17,7 +17,7 @@ body a {
 }
 
 .acrylic {
-  @apply backdrop-blur-lg bg-black/30 text-slate-100 rounded-md border-slate-50/30 border-2  shadow-black/30 shadow-xl
+  @apply backdrop-blur-lg bg-black/30 text-slate-100 rounded-md border-slate-50/30 border-2  shadow-black/30 shadow-sm
   dark:backdrop-blur-sm dark:bg-black/90 dark:border-slate-950/30;
 }
 
@@ -32,8 +32,9 @@ body a {
 
 body {
   @apply md:px-5 lg:px-10 2xl:px-64;
+  background-image: linear-gradient(19deg, #faaca8 0%, #ddd6f3 100%);
 }
 
-body #navbar {
+body .fixed-nav {
   @apply md:px-5 lg:px-10 2xl:px-64;
 }

@@ -1,7 +1,9 @@
 ---
 import { config } from "@config";
 import Togglebar from "@components/Togglebar.astro";
-
+import ValineComm from "./ValineComm.astro";
+const { title } = Astro.props;
+const { pathname } = Astro.url;
 const year = new Date().getFullYear();
 const author = config.author;
 ---
@@ -13,5 +15,5 @@ const author = config.author;
     {author} &copy; {year}
     <a href="https://github.com/XtrueT" class="">view on Github</a>
   </small>
-	<Togglebar/>
+  <Togglebar />
 </footer>

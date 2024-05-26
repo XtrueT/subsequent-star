@@ -1,0 +1,69 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import { config } from "@config";
+import Pagination from "@components/Pagination.astro";
+import DefaultLayout from "src/layouts/DefaultLayout.astro";
+import PostItem from "@components/PostItem.astro";
+
+export async function getStaticPaths({ paginate }: { paginate: Function }) {
+  const posts = await getCollection("blog");
+  const tagsMap: Map<string, CollectionEntry<"blog">[]> = new Map();
+  posts.forEach((post) => {
+    if (Array.isArray(post.data.tags)) {
+      post.data.tags.forEach((tag) => {
+        if (tagsMap.has(tag)) {
+          tagsMap.get(tag)!.push(post);
+        } else {
+          tagsMap.set(tag, [post]);
+        }
+      });
+    }
+  });
+  const tags = [...tagsMap.keys()];
+  return [...tagsMap.entries()]
+    .map((tagMap) => {
+      tagMap[1].sort((a, b) => {
+        return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+      });
+      return tagMap;
+    })
+    .flatMap((tagMap) => {
+      return paginate(tagMap[1], {
+        params: { tag: tagMap[0] },
+        props: { tags },
+        pageSize: config.paginate,
+      });
+    });
+}
+
+type Props = {
+  page: {
+    data: CollectionEntry<"blog">[];
+    url: {
+      prev: string;
+      next: string;
+    };
+    currentPage: number;
+    lastPage: number;
+    total: number;
+  };
+};
+const { tag } = Astro.params;
+const { page } = Astro.props;
+---
+
+<DefaultLayout title=`Tags-${tag}`>
+  <p>Posts tagged with {tag} total:{page.total}</p>
+  <ul>
+    {page.data.map((post) => <PostItem post={post} />)}
+  </ul>
+
+  <Pagination
+    previous={page.url.prev}
+    next={page.url.next}
+    current={page.currentPage}
+    last={page.lastPage}
+    url=`/tags/${tag}`
+    paginate_max_links={config.paginate_max_links}
+  />
+</DefaultLayout>

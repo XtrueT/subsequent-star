@@ -34,7 +34,7 @@ import { config } from "@config";
     </ul>
   </div>
   <div class="w-1/3 max-sm:w-full">
-    <Search />
+    {config.simple_search.enable && <Search />}
   </div>
 </nav>
 

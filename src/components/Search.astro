@@ -52,6 +52,33 @@
     const settings = Object.assign({}, defaults, options);
 
     console.log("settings", settings);
+
+    const regexPost = (data, query) => {
+      const regex = new RegExp(
+        query.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"),
+        "gi"
+      );
+      const results: any[] = [];
+      data.forEach((post) => {
+        // console.log(post);
+        if (
+          (settings.fuzzy &&
+            (post.title.match(regex) ||
+              post.tags.join(",").match(regex) ||
+              post.pubDate.match(regex))) ||
+          (!settings.fuzzy &&
+            (post.title.toLowerCase().includes(query.toLowerCase()) ||
+              post.tags.join(",").toLowerCase().includes(query.toLowerCase()) ||
+              post.pubDate.toLowerCase().includes(query.toLowerCase())))
+        ) {
+          results.push(post);
+        }
+      });
+      // console.log(results.slice(0, settings.limit));
+      // 渲染搜索结果
+      renderResults(results.slice(0, settings.limit));
+    };
+
     // 执行搜索的函数
     function search(query) {
       const results: any[] = [];
@@ -59,50 +86,53 @@
         settings.resultsContainer.innerHTML = "";
         return;
       }
-      const regex = new RegExp(
-        query.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"),
-        "gi"
-      );
 
-      fetch(settings.json)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          // 在这里处理获取到的JSON数据
-          // console.log(data); // 这里可以看到获取到的JSON数据
-          // 接下来你可以将这个数据传递给搜索功能进行处理
-          data.forEach((post) => {
-            console.log(post);
-            if (
-              (settings.fuzzy &&
-                (post.title.match(regex) ||
-                  post.tags.join(",").match(regex) ||
-                  post.pubDate.match(regex))) ||
-              (!settings.fuzzy &&
-                (post.title.toLowerCase().includes(query.toLowerCase()) ||
-                  post.tags
-                    .join(",")
-                    .toLowerCase()
-                    .includes(query.toLowerCase()) ||
-                  post.pubDate.toLowerCase().includes(query.toLowerCase())))
-            ) {
-              results.push(post);
+      // 尝试从 localStorage 中获取缓存的 JSON 数据
+      const cachedData = localStorage.getItem("searchCache");
+      if (cachedData) {
+        // 解析缓存数据
+        const parsedData = JSON.parse(cachedData);
+        // 检查数据是否已过期
+        const now = new Date().getTime();
+        const expirationTime = parsedData.expirationTime || now;
+        if (now < expirationTime) {
+          results.push(...parsedData.data);
+        }
+      } else {
+        fetch(settings.json)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
             }
+            return response.json();
+          })
+          .then((data) => {
+            // 在这里处理获取到的JSON数据
+
+            // 添加新获取的数据到结果中
+            results.push(...data);
+            // 设置数据的有效期
+            const expirationTime = new Date(
+              Date.now() + 1000 * 60 * 60 * 24
+            ).getTime(); // 设置有效期为 24 小时
+            // 更新缓存数据并存储
+            const updatedData = {
+              data: results,
+              expirationTime: expirationTime,
+            };
+            localStorage.setItem("searchCache", JSON.stringify(updatedData));
+
+            // console.log(data); // 这里可以看到获取到的JSON数据
+            // 接下来你可以将这个数据传递给搜索功能进行处理
+          })
+          .catch((error) => {
+            console.error(
+              "There was a problem with your fetch operation:",
+              error
+            );
           });
-          console.log(results.slice(0, settings.limit));
-          // 渲染搜索结果
-          renderResults(results.slice(0, settings.limit));
-        })
-        .catch((error) => {
-          console.error(
-            "There was a problem with your fetch operation:",
-            error
-          );
-        });
+      }
+      regexPost(results, query);
     }
 
     // 渲染搜索结果的函数

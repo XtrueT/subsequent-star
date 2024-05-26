@@ -1,10 +1,10 @@
 ---
 import ValineComm from "@components/ValineComm.astro";
+import { config } from "@config";
 import DefaultLayout from "src/layouts/DefaultLayout.astro";
-
 ---
 
 <DefaultLayout title="About">
-    <h1>About</h1>
-    <ValineComm/>
+  <h1>About</h1>
+  {config.valine.enable && <ValineComm valine={config.valine} />}
 </DefaultLayout>

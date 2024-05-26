@@ -1,27 +1,38 @@
 ---
-
+const { valine } = Astro.props;
+// const {...} = valine;
+console.log(valine);
 ---
 
-<section id="comment" class="my-5"></section>
-<div id="valine"></div>
-<script>
-  // Use import
-  import { config } from "@config";
-  import Valine from "valine";
+<section
+  id="comment"
+  class="my-5 w-full flex justify-center items-center mt-2 p-2 acrylic"
+>
+  <div id="valine" class="flex-grow" data-config={JSON.stringify(valine)}></div>
+</section>
 
-  document.addEventListener("astro:page-load", () => {
-    new Valine({
-      appId: config.valine.appId,
-      appKey: config.valine.appKey,
-      avatar: config.valine.avatar,
-      placeholder: config.valine.placeholder,
-      notify: config.valine.notify,
-      verify: config.valine.verify,
-      highlight: config.valine.highlight,
-      avatarForce: config.valine.avatarForce,
-      visitor: config.valine.visitor,
-      recordIP: config.valine.recordIP,
-      el: "#valine",
-    });
-  });
+<script is:inline src={valine.src}></script>
+<script is:inline>
+  // Use import
+  //   import Valine from "valine";
+  document.addEventListener(
+    "astro:page-load",
+    function () {
+      const dataset = document.getElementById("valine")?.dataset;
+      const valine = dataset?.config ? JSON.parse(dataset.config) : "";
+      console.log(valine);
+      new Valine({
+        appId: valine.appId,
+        appKey: valine.appKey,
+        avatar: valine.avatar,
+        placeholder: valine.placeholder,
+        highlight: valine.highlight,
+        avatarForce: valine.avatarForce,
+        visitor: valine.visitor,
+        recordIP: valine.recordIP,
+        el: "#valine",
+      });
+    },
+    { once: true }
+  );
 </script>
