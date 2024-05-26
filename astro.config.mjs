@@ -10,7 +10,7 @@ import { visit } from 'unist-util-visit'
 // https://astro.build/config
 export default defineConfig({
 
-	site: 'https://example.com',
+	site: 'https://subsequent-star.vercel.app',
 	redirects: {
 		'/': '/blog',
 	},
