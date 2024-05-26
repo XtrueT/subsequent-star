@@ -26,21 +26,21 @@ const { title = config.title, description = config.description } = Astro.props;
     `
     class="flex flex-col flex-nowrap justify-between items-center
             h-full min-h-screen w-screen overflow-x-hidden my-0
-            px-3 lg:px-64 transition-all duration-300 ease-in-out relative 
-             text-slate-50 bg-cover bg-fixed bg-no-repeat  dark:text-slate-50"
+            px-3 lg:px-10 2xl:px-64 relative z-[-1]
+             text-slate-50 bg-cover bg-fixed bg-no-repeat dark:text-slate-50"
   >
     <Header />
 
     <main
-      class="flex flex-row justify-between items-start max-sm:flex-col bg-inherit text-inherit w-full my-4 relative min-h-screen "
+      class="flex flex-row flex-grow justify-between items-start max-sm:flex-col bg-inherit text-inherit w-full h-full my-4 relative min-h-screen"
     >
       <div
-        class="flex flex-col justify-start  items-center w-3/5 max-sm:w-full relative   min-h-screen"
+        class="flex flex-col max-sm:order-2 justify-start items-center md:w-2/3 lg:w-3/5 w-full relative min-h-screen lg:overflow-y-auto"
       >
         <slot />
       </div>
       <aside
-        class="flex flex-col justify-start items-center w-2/5 max-sm:w-full  ml-5  relative  min-h-screen"
+        class="flex flex-col max-sm:order-1 justify-start items-center md:w-1/3 lg:w-2/5 w-full md:pl-2 lg:sticky max-sm:relative lg:top-20"
       >
         <TagCloud />
         <slot name="siderbar" />

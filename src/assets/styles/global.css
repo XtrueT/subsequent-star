@@ -17,18 +17,23 @@ body a {
 }
 
 .acrylic {
-  @apply backdrop-blur-lg bg-black/30 text-slate-50 rounded-md border-black/30 border shadow-black/30 shadow-md 
-  dark:backdrop-blur-none dark:bg-black/80;
+  @apply backdrop-blur-lg bg-black/30 text-slate-100 rounded-md border-slate-50/30 border-2  shadow-black/30 shadow-xl
+  dark:backdrop-blur-sm dark:bg-black/90 dark:border-slate-950/30;
+}
+
+@media (min-width: 1024px) {
+  body {
+    margin-right: calc(100% - 100vw);
+  }
+  body .fixed {
+    margin-right: calc(100% - 100vw);
+  }
 }
 
 body {
-  margin-right: calc(100% - 100vw);
+  @apply md:px-5 lg:px-10 2xl:px-64;
 }
 
-body .fixed {
-  margin-right: calc(100% - 100vw);
+body #navbar {
+  @apply md:px-5 lg:px-10 2xl:px-64;
 }
-
-/* body * {
-  @apply transition-all duration-300 ease-in-out
-} */

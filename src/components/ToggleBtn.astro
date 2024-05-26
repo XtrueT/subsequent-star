@@ -3,11 +3,7 @@ const { id, text } = Astro.props;
 ---
 
 <div class="relative inline-block group acrylic">
-  <button
-    id={id}
-    class="transition-colors p-2 flex items-center
-            hover:bg-purple-500 hover:text-slate-50 dark:hover:bg-purple-500"
-  >
+  <button id={id} class="p-2 flex items-center hover:text-purple-500">
     <slot />
   </button>
 

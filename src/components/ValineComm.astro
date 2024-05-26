@@ -1,0 +1,27 @@
+---
+
+---
+
+<section id="comment" class="my-5"></section>
+<div id="valine"></div>
+<script>
+  // Use import
+  import { config } from "@config";
+  import Valine from "valine";
+
+  document.addEventListener("astro:page-load", () => {
+    new Valine({
+      appId: config.valine.appId,
+      appKey: config.valine.appKey,
+      avatar: config.valine.avatar,
+      placeholder: config.valine.placeholder,
+      notify: config.valine.notify,
+      verify: config.valine.verify,
+      highlight: config.valine.highlight,
+      avatarForce: config.valine.avatarForce,
+      visitor: config.valine.visitor,
+      recordIP: config.valine.recordIP,
+      el: "#valine",
+    });
+  });
+</script>
