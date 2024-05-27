@@ -4,6 +4,7 @@ import Pagination from "../../components/Pagination.astro";
 import ArchiveTimeLine from "@components/ArchiveTimeLine.astro";
 import { config } from "@config";
 import DefaultLayout from "src/layouts/DefaultLayout.astro";
+import TagCloud from "@components/TagCloud.astro";
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
   const posts = await getCollection("blog");
@@ -42,5 +43,6 @@ const { page } = Astro.props;
     url="/archives"
     paginate_max_links={config.paginate_max_links}
   />
+  <TagCloud slot="siderbar"/>
 </DefaultLayout>
 

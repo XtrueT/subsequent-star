@@ -1,52 +1,75 @@
 ---
-import Footer from "@components/Footer.astro";
 import Head from "@components/Head.astro";
-import Header from "@components/Header.astro";
+import Navbar from "@components/Navbar.astro";
 import TagCloud from "@components/TagCloud.astro";
+import Togglebar from "@components/Togglebar.astro";
 import { config } from "@config";
 type Props = {
   title?: string;
   description?: string;
 };
 const { title = config.title, description = config.description } = Astro.props;
+const year = new Date().getFullYear();
+const author = config.author;
 ---
 
 <!doctype html>
-<html
-  lang="zh-cn"
-  class="flex flex-col justify-center items-center m-0 p-0 font-mono scroll-smooth"
->
+<html lang="zh-cn" class="m-0 p-0 font-mono scroll-smooth">
   <head>
     <Head title={title} description={description} />
   </head>
 
   <body
-    class="flex flex-col flex-nowrap justify-between items-center
-            h-full min-h-screen w-screen overflow-x-hidden my-0
-            px-3 lg:px-10 2xl:px-64 relative z-[-1]
-             text-slate-50 bg-cover bg-fixed bg-no-repeat dark:text-slate-50"
+    class="flex flex-col justify-between items-center container mx-auto
+           h-full min-h-screen max-w-screen overflow-x-hidden my-0 px-3 text-slate-50 bg-cover bg-fixed bg-no-repeat"
     style={config.bg_images.enable
       ? `background-image: url(${config.bg_images.src});`
       : ""}
   >
-    <Header />
-
+    <header
+      id="header"
+      class="flex flex-col justify-between z-[1] flex-grow basis-1/5 container"
+    >
+      {
+        config.header_images.enable && (
+          <div
+            class="relative bg-cover md:h-48 h-24"
+            style={`background-image: url(${config.header_images.src});`}
+          >
+            <div
+              class="absolute top-0 right-0 w-full  h-[inherit]
+              text-gray-50 bg-gray-950/50"
+            />
+          </div>
+        )
+      }
+      <Navbar />
+    </header>
     <main
-      class="flex flex-row flex-grow justify-between items-start max-sm:flex-col bg-inherit text-inherit w-full h-full my-4 relative min-h-screen"
+      id="main"
+      class="flex flex-row basis-3/5 justify-between items-start max-md:flex-col my-4 relative min-h-screen container"
     >
       <div
-        class="flex flex-col max-sm:order-2 justify-start items-center md:w-2/3 lg:w-3/5 w-full relative min-h-screen lg:overflow-y-auto"
+        class="flex flex-col max-md:order-2 justify-start items-center basis-2/3  lg:relative min-h-screen lg:overflow-y-auto"
       >
         <slot />
       </div>
       <aside
-        class="flex flex-col max-sm:order-1 justify-start items-center md:w-1/3 lg:w-2/5 w-full md:pl-2 lg:sticky max-sm:relative lg:top-20"
+        class="flex flex-col max-md:order-1 justify-start items-center basis-1/3 md:pl-2 lg:sticky max-md:relative lg:top-20"
       >
-        <TagCloud />
         <slot name="siderbar" />
       </aside>
     </main>
 
-    <Footer />
+    <footer
+      id="footer"
+      class="flex flex-col basis-1/5 justify-center items-center text-inherit w-[inherit] my-10 container"
+    >
+      <small>
+        {author} &copy; {year}
+        <a href="https://github.com/XtrueT" class="">view on Github</a>
+      </small>
+      <Togglebar />
+    </footer>
   </body>
 </html>

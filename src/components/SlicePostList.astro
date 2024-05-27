@@ -13,7 +13,7 @@ interface Props {
 const { sliceNum = config.sliceNum } = Astro.props;
 ---
 
-<section class="w-full">
+<section>
   <ul class="flex flex-col">
     {posts.slice(0, sliceNum).map((post) => <PostItem post={post} />)}
   </ul>

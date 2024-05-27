@@ -5,6 +5,7 @@ import Tocbar from "@components/Tocbar.astro";
 import Tag from "@components/Tag.astro";
 import { config } from "@config";
 import ValineComm from "@components/ValineComm.astro";
+import TagCloud from "@components/TagCloud.astro";
 
 const { frontmatter, headings, description } = Astro.props;
 ---
@@ -54,7 +55,7 @@ hover:prose-a:text-purple-500
   </article>
   {config.valine.enable && <ValineComm valine={config.valine} />}
 
-  <section slot="siderbar"></section>
+  <TagCloud slot="siderbar" />
 
   <Tocbar headings={headings} slot="siderbar" title={frontmatter.title} />
 </DefaultLayout>

@@ -2,7 +2,9 @@
 import ToggleBtn from "./ToggleBtn.astro";
 ---
 
-<div class="flex flex-col justify-center items-center fixed lg:bottom-10 lg:right-10 bottom-2 right-2">
+<div
+  class="flex flex-col justify-center items-center fixed lg:bottom-10 lg:right-10 bottom-2 right-2"
+>
   <ToggleBtn id="theme-toggle" text="切换模式">
     <span class="hidden dark:inline">
       <svg
@@ -68,7 +70,6 @@ import ToggleBtn from "./ToggleBtn.astro";
     const header = document.getElementById("header");
     const navbar = document.getElementById("navbar");
 
-          
     // 切换主题
     // 监听按钮点击事件
     toggleButton?.addEventListener("click", () => {
