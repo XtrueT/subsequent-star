@@ -1,13 +1,12 @@
 ---
+import SectionItem from "./SectionItem.astro";
+
 const { valine } = Astro.props;
 ---
 
-<section
-  id="comment"
-  class="my-5 w-full flex justify-center items-center mt-2 p-2 acrylic"
->
+<SectionItem title="欢迎留言">
   <div id="valine" class="flex-grow" data-config={JSON.stringify(valine)}></div>
-</section>
+</SectionItem>
 
 <script is:inline src={valine.src}></script>
 <script is:inline>

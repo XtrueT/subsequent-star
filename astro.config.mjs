@@ -6,6 +6,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import matter from 'gray-matter';
 import { visit } from 'unist-util-visit'
+import { timeStamp } from 'console';
 
 // https://astro.build/config
 export default defineConfig({
@@ -53,7 +54,7 @@ export default defineConfig({
 							...data, pubDate
 						};
 					});
-					const searchIndexData = JSON.stringify(searchData);
+					const searchIndexData = JSON.stringify({version:Date.now(),data:searchData});
 					const outputPath = path.join(process.cwd(), 'public/data', 'searchData.json'); // 确保目标文件夹存在
 					await fs.ensureDir(path.dirname(outputPath));
 					await fs.writeFile(outputPath, searchIndexData);

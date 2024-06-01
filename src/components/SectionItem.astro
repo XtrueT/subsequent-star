@@ -1,0 +1,19 @@
+---
+interface Props {
+  title?: String;
+}
+const { title } = Astro.props;
+---
+
+<section class="flex flex-col w-full justify-start items-start p-1">
+  {
+    title && (
+      <div class="border-purple-500 border-l-4  font-bold text-3xl">
+        {title}
+      </div>
+    )
+  }
+  <div class="p-5 w-full">
+    <slot />
+  </div>
+</section>

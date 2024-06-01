@@ -6,7 +6,7 @@ import ToggleBtn from "./ToggleBtn.astro";
   class="flex flex-col justify-center items-center fixed lg:bottom-10 lg:right-10 bottom-2 right-2"
 >
   <ToggleBtn id="theme-toggle" text="切换模式">
-    <span class="hidden dark:inline">
+    <span class="dark:hidden ">
       <svg
         viewBox="0 0 24 24"
         fill="none"
@@ -22,8 +22,8 @@ import ToggleBtn from "./ToggleBtn.astro";
           class="stroke-current"></path>
       </svg>
     </span>
-
-    <span class="dark:hidden">
+ 
+    <span class="hidden dark:inline">
       <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6">
         <path
           fill-rule="evenodd"
@@ -82,7 +82,7 @@ import ToggleBtn from "./ToggleBtn.astro";
     const headerObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          navbar?.classList.toggle("fixed-nav", !entry.isIntersecting);
+          navbar?.classList.toggle("shadow-md", !entry.isIntersecting);
           if (entry.isIntersecting) {
             backtopToggle?.classList.add("hidden");
             backtopToggle?.classList.remove("flex");
@@ -94,7 +94,7 @@ import ToggleBtn from "./ToggleBtn.astro";
       },
       {
         root: null, // 相对于视口观察
-        rootMargin: "0px",
+        rootMargin: "-20%",
         threshold: 0.1, // 元素与视口交叉的阈值
       }
     );

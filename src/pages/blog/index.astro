@@ -1,12 +1,15 @@
 ---
 import SlicePostList from "@components/SlicePostList.astro";
+import State from "@components/State.astro";
 import TagCloud from "@components/TagCloud.astro";
 
 import DefaultLayout from "src/layouts/DefaultLayout.astro";
 ---
 
-<DefaultLayout title="Index-Blog">
-  <SlicePostList sliceNum={3} />
-  <a href="/archives" type="button rounded-full p-3">View all</a>
-  <TagCloud slot="siderbar" />
+<DefaultLayout title="欢迎访问我的主页">
+  <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
+    <TagCloud />
+    <State/>
+    <SlicePostList sliceNum={3} />
+  </div>
 </DefaultLayout>

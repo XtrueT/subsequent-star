@@ -1,12 +1,13 @@
 ---
-import TagCloud from "@components/TagCloud.astro";
+import Linked from "@components/Linked.astro";
 import ValineComm from "@components/ValineComm.astro";
 import { config } from "@config";
 import DefaultLayout from "src/layouts/DefaultLayout.astro";
 ---
 
-<DefaultLayout title="About">
-  <h1>About</h1>
-  {config.valine.enable && <ValineComm valine={config.valine} />}
-  <TagCloud slot="siderbar"/>
+<DefaultLayout title="欢迎留言">
+  <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
+    <Linked/>
+    {config.valine.enable && <ValineComm valine={config.valine} />}
+  </div>
 </DefaultLayout>

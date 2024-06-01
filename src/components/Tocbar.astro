@@ -1,4 +1,5 @@
 ---
+import SectionItem from "./SectionItem.astro";
 import TocLink from "./TocLink.astro";
 
 interface Props {
@@ -35,30 +36,25 @@ const generateToc = (headings: any[]) => {
         : toc.push(currentHeading);
     }
   }
-  // console.log(toc);
   return toc;
 };
 ---
 
-<section id="tocbar" class="w-full  acrylic">
-
-  {
-    headings.length > 0 && (
-      <nav class="p-4  w-full">
-        <h1 id="tocTitle" class="py-2">
-          {title}-目录
-        </h1>
+{
+  headings.length > 0 && (
+    <SectionItem title="文章目录">
+      <nav class="w-full">
+        <h2>{title}</h2>
+        <hr/>
         <ul id="tocList" class="max-h-[50vh] h-full overflow-y-auto">
           {generateToc(headings).map((heading) => (
             <TocLink heading={heading} />
           ))}
         </ul>
       </nav>
-    )
-  }
-
-
-</section>
+    </SectionItem>
+  )
+}
 
 <script>
   // JavaScript 逻辑
@@ -116,8 +112,3 @@ const generateToc = (headings: any[]) => {
     );
   });
 </script>
-<style>
-  .fixed-toc {
-    @apply sticky top-[20%] right-[15%] max-w-lg;
-  }
-</style>

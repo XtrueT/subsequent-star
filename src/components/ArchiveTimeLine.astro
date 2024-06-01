@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry } from "astro:content";
 import ArchiveItem from "./ArchiveItem.astro";
+import SectionItem from "./SectionItem.astro";
 
 type Props = {
   page: {
@@ -32,25 +33,23 @@ posts.forEach((post) => {
 });
 ---
 
-<section class="acrylic w-full">
-  <ul class="flex flex-col">
+<SectionItem title="文章归档">
+  <ul class="flex flex-col divide-y">
     {
       [...postsByYear.entries()].map(([year, posts]) => {
         return (
-          <li class="flex flex-col justify-start items-start w-full ">
-            <div class="p-2 my-2 border-b-4 border-transparent hover:border-purple-500 transition-all duration-300 ease-in">
-              <span class="text-2xl font-bold ">{year}</span>
+          <li class="flex flex-col justify-start items-start">
+            <div class="my-2">
+              <h1 class="text-3xl font-bold">{year}</h1>
             </div>
-            <div class="w-full">
-              <ul class="">
-                {posts.map((post) => {
-                  return <ArchiveItem post={post} />;
-                })}
-              </ul>
-            </div>
+            <ul class="divide-y px-10">
+              {posts.map((post) => {
+                return <ArchiveItem post={post} />;
+              })}
+            </ul>
           </li>
         );
       })
     }
   </ul>
-</section>
+</SectionItem>

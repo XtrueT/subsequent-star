@@ -1,0 +1,22 @@
+---
+import { config } from "@config";
+import SectionItem from "./SectionItem.astro";
+
+const { linked } = config;
+---
+
+<SectionItem title="站外链接">
+  {
+    linked && 
+      <ul class="divide-y">
+        {
+          linked.map((item) => (
+            <li class="">
+              <span>{item.title}:</span>
+              <a href={item.href} target={"_blank"}>{item.href}</a>
+            </li>
+          ))
+        }
+      </ul>
+  }
+</SectionItem>

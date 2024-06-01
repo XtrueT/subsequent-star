@@ -2,8 +2,8 @@
 
 ---
 
-<section class="w-full max-w-md px-5 mx-auto bg-inherit text-inherit">
-  <div class="relative pb-1 bg-inherit">
+<section class="w-full max-w-md px-5 mx-auto bg-inherit text-inherit ">
+  <div class="relative pb-1">
     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
       <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
         <path
@@ -18,15 +18,13 @@
     <input
       type="search"
       id="search-input"
-      class="w-full py-3 pl-10 pr-4 border-b border-slate-500 bg-inherit focus:outline-none"
+      class="w-full py-3 pl-10 pr-4 border-b border-slate-500 focus:outline-none bg-inherit text-inherit"
       placeholder="Search..."
     />
-    <div
-      class="absolute inset-x-0 overflow-y-auto max-h-72 shadow-md bg-inherit"
-    >
+    <div class="absolute inset-x-0 overflow-y-auto max-h-72 shadow-md">
       <ul
         id="results-container"
-        class="flex flex-col w-full justify-around items-start list-none bg-black/90"
+        class="flex flex-col w-full justify-around items-start list-none divide-y theme"
       >
         <!-- 这里插入搜索结果列表项 -->
       </ul>
@@ -51,7 +49,7 @@
     // 合并用户提供的选项和默认选项
     const settings = Object.assign({}, defaults, options);
 
-    console.log("settings", settings);
+    // console.log("settings", settings);
 
     const regexPost = (data, query) => {
       const regex = new RegExp(
@@ -98,6 +96,7 @@
         if (now < expirationTime) {
           results.push(...parsedData.data);
         }
+        regexPost(results, query);
       } else {
         fetch(settings.json)
           .then((response) => {
@@ -110,7 +109,7 @@
             // 在这里处理获取到的JSON数据
 
             // 添加新获取的数据到结果中
-            results.push(...data);
+            results.push(...data.data);
             // 设置数据的有效期
             const expirationTime = new Date(
               Date.now() + 1000 * 60 * 60 * 24
@@ -124,6 +123,7 @@
 
             // console.log(data); // 这里可以看到获取到的JSON数据
             // 接下来你可以将这个数据传递给搜索功能进行处理
+            regexPost(results, query);
           })
           .catch((error) => {
             console.error(
@@ -132,7 +132,6 @@
             );
           });
       }
-      regexPost(results, query);
     }
 
     // 渲染搜索结果的函数
@@ -146,23 +145,13 @@
         results.forEach((result) => {
           let tagHTML = "";
           //   // 遍历标签数组，为每个标签生成 HTML 元素
-          const {
-            path,
-            slug,
-            title,
-            description,
-            pubDate,
-            author,
-            heroImage,
-            tags,
-          } = result;
+          const { path, slug, title, pubDate, author, tags } = result;
           tags.forEach((tag) => {
             tagHTML += `<a href="/tags/${tag}" type="button" class="tag">#${tag}</a>`;
           });
-          container.innerHTML += `<li class="mt-1 p-2 w-full flex flex-col justify-between items-start border-b-2 border-slate-500  ">
+          container.innerHTML += `<li class="mt-1 p-2 w-full flex flex-col justify-between items-start ">
                                         <a class="m-2 p-1 inline-block hover:underline" href="/blog/${slug ? slug : path.toLowerCase()}/" title="${title}">
-                                            ${title} 
-                                            <span>${author}</span>
+                                            ${title}
                                         </a>
                                         <div class="flex flex-row justify-between items-center w-full ">
                                             <div class="flex flex-row justify-around items-start">${tagHTML}</div>

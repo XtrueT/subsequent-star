@@ -1,0 +1,158 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import SectionItem from "./SectionItem.astro";
+
+// 获取 `src/content/blog/` 中的所有条目
+const allBlogPosts = await getCollection("blog");
+
+const tagsWithCount = allBlogPosts.reduce((acc, post) => {
+  // 假设每个帖子都有一个 `tags` 字段，它是一个字符串数组
+  post.data.tags.forEach((tag: any) => {
+    acc.set(tag, (acc.get(tag) || 0) + 1);
+  });
+  return acc;
+}, new Map());
+// 将Map对象转换为数组，以便在Astro组件中渲染
+const postsByYear: Map<number, CollectionEntry<"blog">[]> = new Map();
+allBlogPosts
+  .sort((a, b) => {
+    return a.data.pubDate.getTime() - b.data.pubDate.getTime();
+  })
+  .forEach((post) => {
+    const year = post.data.pubDate.getFullYear();
+    if (postsByYear.has(year)) {
+      postsByYear.get(year)!.push(post);
+    } else {
+      postsByYear.set(year, [post]);
+    }
+  });
+
+const yearData = [...postsByYear.entries()].map(([year, posts]) => [
+  year,
+  posts.length,
+]);
+const tagData = [...tagsWithCount.entries()];
+---
+
+<SectionItem title="文章统计">
+  <div class="">
+    <span>文章总数：{allBlogPosts.length}</span>
+    <span>标签总数：{tagsWithCount.size}</span>
+  </div>
+  <div
+    id="charts"
+    data-charts={JSON.stringify({ yearData, tagData })}
+    class="flex flex-wrap justify-center items-center"
+  >
+    <div id="tagcharts" class="w-[600px] h-[400px] my-5"></div>
+    <div id="timecharts" class="w-[600px] h-[400px] my-5"></div>
+  </div>
+</SectionItem>
+
+<script>
+  import * as echarts from "echarts/core";
+  import {
+    TooltipComponent,
+    LegendComponent,
+    TitleComponent,
+    GridComponent,
+  } from "echarts/components";
+  import { PieChart, BarChart } from "echarts/charts";
+  import { LabelLayout } from "echarts/features";
+  import { CanvasRenderer } from "echarts/renderers";
+
+  echarts.use([
+    TooltipComponent,
+    LegendComponent,
+    TitleComponent,
+    GridComponent,
+    PieChart,
+    BarChart,
+    CanvasRenderer,
+    LabelLayout,
+  ]);
+
+  document.addEventListener("astro:page-load", function () {
+    const tagcharts = document.getElementById("tagcharts");
+    const timecharts = document.getElementById("timecharts");
+    const dataset = document.getElementById("charts")?.dataset;
+    const chartsData = dataset?.charts ? JSON.parse(dataset.charts) : "";
+    dataset &&
+      echarts.init(tagcharts).setOption({
+        title: {
+          text: "所有标签",
+          left: "center",
+        },
+        tooltip: {
+          trigger: "item",
+        },
+        // legend: {
+        //   orient: "vertical",
+        //   left: "center",
+        // },
+        series: [
+          {
+            name: "All",
+            type: "pie",
+            radius: ["50%", "80%"],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: "#fff",
+              borderWidth: 2,
+            },
+            label: {
+              show: false,
+              position: "center",
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: 40,
+                fontWeight: "bold",
+              },
+            },
+            labelLine: {
+              show: false,
+            },
+            data: chartsData.tagData.map(([tag, count]) => ({
+              name: tag,
+              value: count,
+            })),
+          },
+        ],
+      });
+
+    dataset &&
+      echarts.init(timecharts).setOption({
+        title: {
+          text: "所有文章",
+          left: "center",
+        },
+        tooltip: {
+          trigger: "item",
+        },
+        // legend: {
+        //   orient: "vertical",
+        //   left: "center",
+        // },
+        xAxis: {
+          type: "category",
+          data: chartsData.yearData.map((item) => item[0]),
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            data: chartsData.yearData.map((item) => item[1]),
+            type: "bar",
+            showBackground: true,
+            backgroundStyle: {
+              color: "rgba(180, 180, 180, 0.2)",
+            },
+          },
+        ],
+      });
+  });
+</script>

@@ -28,21 +28,19 @@ type Props = {
   };
 };
 const { page } = Astro.props;
-
-
-
 ---
 
 <DefaultLayout title="Archive">
-  <ArchiveTimeLine page={page} />
-  <Pagination
-    previous={page.url.prev}
-    next={page.url.next}
-    current={page.currentPage}
-    last={page.lastPage}
-    url="/archives"
-    paginate_max_links={config.paginate_max_links}
-  />
-  <TagCloud slot="siderbar"/>
+  <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
+    <TagCloud />
+    <ArchiveTimeLine page={page} />
+    <Pagination
+      previous={page.url.prev}
+      next={page.url.next}
+      current={page.currentPage}
+      last={page.lastPage}
+      url="/archives"
+      paginate_max_links={config.paginate_max_links}
+    />
+  </div>
 </DefaultLayout>
-

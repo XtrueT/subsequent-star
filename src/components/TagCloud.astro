@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import ActiveLink from "./ActiveLink.astro";
 import Tag from "./Tag.astro";
+import SectionItem from "./SectionItem.astro";
 const allPosts = await getCollection("blog");
 
 // 使用reduce方法累积标签的计数
@@ -19,16 +20,16 @@ const tagsArray = Array.from(tagsWithCount.entries()).sort(
 );
 ---
 
-<section class="shadow-sm w-full mb-5 p-8 acrylic">
+<SectionItem title="标签链接">
   <div class="table-cell">
     {
       tagsArray.map(([tag, count]) => (
         <ActiveLink href={`/tags/${tag}`}>
-          <>
-            <Tag tag={tag}><sup class="p-1 text-purple-500">{count}</sup></Tag>
-          </>
+          <Tag tag={tag}>
+            <sup class="p-1 text-purple-500">{count}</sup>
+          </Tag>
         </ActiveLink>
       ))
     }
   </div>
-</section>
+</SectionItem>

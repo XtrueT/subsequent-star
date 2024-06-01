@@ -18,20 +18,10 @@ export const config = {
         { title: '关于', href: '/about' },
         { title: '归档', href: '/archives' },
     ],
-    bg_images: {
-        enable: true,
-        src: '/image/bg.jpg',
-        alt: 'background'
-    },
     header_images: {
         enable: true,
-        src: '/image/header.jpg',
+        src: '/image/header.webp',
         alt: 'header'
-    },
-    aside_images: {
-        enable: true,
-        src: '/image/aside.jpg',
-        alt: 'aside'
     },
     simple_search: {
         enable: true,
@@ -49,6 +39,9 @@ export const config = {
         highlight: true, //# 代码高亮
         avatarForce: false,// # 每次访问强制拉取最新的评论列表头像
         recordIP: true,// # 记录评论者IP
-    }
+    },
+    linked: [
+        {title: 'jekyll blog', href: 'https://xtruet.github.io/'}
+    ]
 
 }
