@@ -6,8 +6,13 @@ import { config } from "@config";
 type Props = {
   title?: string;
   description?: string;
+  keyword?: string;
 };
-const { title = config.title, description = config.description } = Astro.props;
+const {
+  title = config.title,
+  description = config.description,
+  keyword = config.keyword,
+} = Astro.props;
 const year = new Date().getFullYear();
 const { author, url } = config;
 ---
@@ -15,49 +20,48 @@ const { author, url } = config;
 <!doctype html>
 <html lang="zh-cn" class="m-0 p-0 font-mono scroll-smooth">
   <head>
-    <Head title={title} description={description} />
+    <Head title={title} description={description} keyword={keyword} />
   </head>
 
   <body class="theme">
+    <header id="header" class="w-full mt-16 max-sm:mt-28">
+      {
+        config.header_images.enable && (
+          <div
+            class="relative bg-cover bg-top w-full h-[50vh]  text-inherit flex justify-center items-center"
+            style={`background-image: url(${config.header_images.src});`}
+          >
+            <div
+              class="absolute top-0 right-0 w-full  h-full 
+                bg-black/50"
+            />
+            <div class="max-w-md text-center text-2xl text-white z-[1]">
+              {title}
+            </div>
+          </div>
+        )
+      }
+    </header>
     <div
-      class="flex flex-col flex-1 items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container theme"
+      class="flex flex-col flex-1 items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container"
     >
       <Navbar />
-      <header id="header" class="w-full mt-16 max-sm:mt-28">
-        {
-          config.header_images.enable && (
-            <div
-              class="relative bg-cover bg-top w-full h-[50vh]  text-inherit flex justify-center items-center"
-              style={`background-image: url(${config.header_images.src});`}
-            >
-              <div
-                class="absolute top-0 right-0 w-full  h-full 
-                bg-gray-950/50"
-              />
-              <div class="max-w-md text-center text-2xl    text-white z-[1]">
-                {title}
-              </div>
-            </div>
-          )
-        }
-      </header>
-
       <main id="main" class="lg:px-24 relative min-h-screen w-full">
-        <div class="-mt-32 pb-5 theme shadow-md">
+        <div class="-mt-32 pb-5 shadow-md theme">
           <slot />
         </div>
       </main>
-
       <footer
         id="footer"
         class="flex flex-col justify-center items-center my-10 w-full"
       >
         <small>
           {author} &copy; {year}
-          <a href={url} class="">view on Github</a>
+          <a href={url} class="" target="_blank">view on Github</a>
+          Generator by {Astro.generator}
         </small>
-        <Togglebar />
       </footer>
+      <Togglebar />
     </div>
   </body>
 </html>

@@ -1,8 +1,7 @@
 ---
 
 ---
-
-<section class="w-full max-w-md px-5 mx-auto bg-inherit text-inherit ">
+<div class="px-5 mx-auto bg-inherit text-inherit">
   <div class="relative pb-1">
     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
       <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
@@ -16,7 +15,7 @@
     </span>
 
     <input
-      type="search"
+      type="text"
       id="search-input"
       class="w-full py-3 pl-10 pr-4 border-b border-slate-500 focus:outline-none bg-inherit text-inherit"
       placeholder="Search..."
@@ -30,7 +29,7 @@
       </ul>
     </div>
   </div>
-</section>
+</div>
 <script>
   import { config } from "../consts";
 
@@ -86,7 +85,7 @@
       }
 
       // 尝试从 localStorage 中获取缓存的 JSON 数据
-      const cachedData = localStorage.getItem("searchCache");
+      const cachedData = sessionStorage.getItem("searchCache");
       if (cachedData) {
         // 解析缓存数据
         const parsedData = JSON.parse(cachedData);
@@ -96,6 +95,8 @@
         if (now < expirationTime) {
           results.push(...parsedData.data);
         }
+      }
+      if (results.length > 0) {
         regexPost(results, query);
       } else {
         fetch(settings.json)
@@ -107,7 +108,6 @@
           })
           .then((data) => {
             // 在这里处理获取到的JSON数据
-
             // 添加新获取的数据到结果中
             results.push(...data.data);
             // 设置数据的有效期
@@ -119,8 +119,7 @@
               data: results,
               expirationTime: expirationTime,
             };
-            localStorage.setItem("searchCache", JSON.stringify(updatedData));
-
+            sessionStorage.setItem("searchCache", JSON.stringify(updatedData));
             // console.log(data); // 这里可以看到获取到的JSON数据
             // 接下来你可以将这个数据传递给搜索功能进行处理
             regexPost(results, query);

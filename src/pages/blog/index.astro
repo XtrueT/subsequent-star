@@ -1,5 +1,5 @@
 ---
-import SlicePostList from "@components/SlicePostList.astro";
+import SlicePostList from "@components/SliceList.astro";
 import State from "@components/State.astro";
 import TagCloud from "@components/TagCloud.astro";
 
@@ -10,6 +10,6 @@ import DefaultLayout from "src/layouts/DefaultLayout.astro";
   <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
     <TagCloud />
     <State/>
-    <SlicePostList sliceNum={3} />
+    <SlicePostList sliceNum={3} title="最近文章"/>
   </div>
 </DefaultLayout>

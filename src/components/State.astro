@@ -44,8 +44,16 @@ const tagData = [...tagsWithCount.entries()];
     data-charts={JSON.stringify({ yearData, tagData })}
     class="flex flex-wrap justify-center items-center"
   >
-    <div id="tagcharts" class="w-[600px] h-[400px] my-5"></div>
-    <div id="timecharts" class="w-[600px] h-[400px] my-5"></div>
+    <div
+      id="tagcharts"
+      class="md:w-[600px] md:h-[400px] my-5 max-sm:w-[300px] max-sm:h-[200px] w-full"
+    >
+    </div>
+    <div
+      id="timecharts"
+      class="md:w-[600px] md:h-[400px] my-5 max-sm:w-[300px] max-sm:h-[200px] w-full"
+    >
+    </div>
   </div>
 </SectionItem>
 
@@ -77,8 +85,11 @@ const tagData = [...tagsWithCount.entries()];
     const timecharts = document.getElementById("timecharts");
     const dataset = document.getElementById("charts")?.dataset;
     const chartsData = dataset?.charts ? JSON.parse(dataset.charts) : "";
-    dataset &&
-      echarts.init(tagcharts).setOption({
+    if (dataset) {
+      const chart1 = echarts.init(tagcharts);
+      const chart2 = echarts.init(timecharts);
+
+      chart1.setOption({
         title: {
           text: "所有标签",
           left: "center",
@@ -123,8 +134,7 @@ const tagData = [...tagsWithCount.entries()];
         ],
       });
 
-    dataset &&
-      echarts.init(timecharts).setOption({
+      chart2.setOption({
         title: {
           text: "所有文章",
           left: "center",
@@ -154,5 +164,10 @@ const tagData = [...tagsWithCount.entries()];
           },
         ],
       });
+      window.addEventListener("resize", () => {
+        chart1.resize();
+        chart2.resize();
+      });
+    }
   });
 </script>

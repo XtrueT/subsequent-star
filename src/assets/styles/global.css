@@ -1,5 +1,5 @@
 .tag {
-  @apply inline-block  hover:text-purple-500 px-3 py-1 mx-1 text-sm;
+  @apply inline-block text-sm border-dashed border-b border-purple-500;
 }
 a.active {
   @apply text-purple-500;
@@ -7,10 +7,11 @@ a.active {
 body a {
   @apply hover:text-purple-500;
 }
+
 .pubDate {
   @apply text-sm;
 }
 
 .theme {
-  @apply dark:bg-zinc-900 dark:text-white bg-zinc-100 text-black;
+  @apply dark:bg-zinc-900 dark:text-white bg-zinc-100 text-zinc-900 text-base lg:text-lg transition-all duration-300 ease-in-out;
 }

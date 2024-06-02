@@ -1,0 +1,40 @@
+---
+import { config } from "@config";
+import { getCollection, type CollectionEntry } from "astro:content";
+import ArticleItem from "./ArticleItem.astro";
+import SectionItem from "./SectionItem.astro";
+interface Props {
+  sliceNum?: number;
+  title?: string;
+  entry?: CollectionEntry<"blog">;
+}
+const { sliceNum = config.sliceNum, title, entry } = Astro.props;
+let posts: CollectionEntry<"blog">[];
+if (entry) {
+  const allPosts = await getCollection("blog");
+  const uniquePosts = new Set();
+  entry.data.tags.forEach((tag) => {
+    allPosts.forEach((post) => {
+      if (post.data.tags.includes(tag) && post.id !== entry.id) {
+        uniquePosts.add(post);
+      }
+    });
+  });
+  posts = (Array.from(uniquePosts) as CollectionEntry<"blog">[]).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+} else {
+  posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+}
+---
+
+<SectionItem title={title}>
+  <ul class="flex flex-col justify-center items-center divide-y space-y-5">
+    {posts.slice(0, sliceNum).map((post) => <ArticleItem post={post} />)}
+  </ul>
+  <div class="flex justify-center items-center">
+    <a href="/archives" class="inline-block">查看全部</a>
+  </div>
+</SectionItem>

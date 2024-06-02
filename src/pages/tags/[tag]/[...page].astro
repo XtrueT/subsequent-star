@@ -3,7 +3,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import { config } from "@config";
 import Pagination from "@components/Pagination.astro";
 import DefaultLayout from "src/layouts/DefaultLayout.astro";
-import PostItem from "@components/PostItem.astro";
+import ArticleItem from "@components/ArticleItem.astro";
 import TagCloud from "@components/TagCloud.astro";
 import SectionItem from "@components/SectionItem.astro";
 
@@ -59,9 +59,7 @@ const { page } = Astro.props;
   <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
     <TagCloud />
     <SectionItem title=`${tag}-相关文章`>
-      <ul>
-        {page.data.map((post) => <PostItem post={post} />)}
-      </ul>
+        {page.data.map((post) => <ArticleItem post={post} />)}
     </SectionItem>
     <Pagination
       previous={page.url.prev}
