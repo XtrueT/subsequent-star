@@ -1,3 +1,60 @@
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+/* ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px
+} */
+/*定义滚动条轨道*/
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  background-color: #abc2d3;
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, .4) 75%, transparent 75%, transparent);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em
+}
+
+img:not([src]) {
+  /* 隐藏Chrome alt文字以及银色边框 */
+  visibility: hidden;
+}
+
+img::before {
+  /* 淡蓝色占位背景 */
+  content: "Break";
+  color: #fff;
+  position: absolute;
+  text-align: justify;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: visible;
+  background-color:#323232;
+}
+
+img::after {
+  /* 黑色alt信息条 */
+  content: "\f127"attr(alt) " 加载失败 ";
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  line-height: 30px;
+  background-color: #323232;
+  color: #fff;
+  font-size: 14px;
+  transform: translateY(100%);
+  /* 来点过渡动画效果 */
+  transition: transform .2s;
+  visibility: visible;
+}
+
 .tag {
   @apply inline-block text-sm border-dashed border-b border-purple-500;
 }

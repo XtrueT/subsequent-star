@@ -24,21 +24,38 @@ const { title, description, pubDate, author, heroImage, tags, categories } =
   description={description ? description : entry.body.substring(0, 150)}
   keyword={`${tags.join(",")},${categories.join(",")}`}
 >
-  <div class="min-h-screen flex justify-between items-start flex-wrap w-full">
+  <div
+    class="min-h-screen flex lg:flex-row flex-col justify-between items-start w-full"
+  >
+    <input
+      id="sidebar-toggle"
+      role="checkbox"
+      class="hidden"
+      type="checkbox"
+      aria-label="打开侧边栏 open sidebar "
+    />
+    <label for="sidebar-toggle" class="sidebar-toggle-button">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </label>
     <aside
-      class="flex flex-col order-2 justify-start items-center basis-full lg:basis-1/3 md:pl-2 lg:sticky max-md:relative lg:top-20"
+      id="sidebar"
+      class="flex flex-col order-2 justify-start items-center basis-full lg:basis-1/3 lg:pl-2 lg:sticky lg:top-20 theme"
     >
+
       <TagCloud />
       <Tocbar headings={headings} title={title} />
       <SliceList title="相关文章" entry={entry} />
     </aside>
+
     <div
       class="flex flex-col order-1 justify-start items-center flex-auto w-full lg:relative min-h-screen lg:overflow-y-auto"
     >
       <article
-        class="w-full p-5 prose-lg
+        class="w-full p-5 prose-base lg:prose-lg
               prose-h1:font-bold
-              prose-a:text-blue-500
+            prose-a:text-blue-500
             hover:prose-a:text-purple-500
               prose-p:text-justify
               prose-img:rounded-md
@@ -75,7 +92,43 @@ const { title, description, pubDate, author, heroImage, tags, categories } =
         }
         <slot />
       </article>
+
       {config.valine.enable && <ValineComm valine={config.valine} />}
     </div>
   </div>
 </DefaultLayout>
+<style>
+#sidebar {
+  @apply max-lg:fixed max-lg:top-0 max-lg:z-10 max-lg:pointer-events-none max-lg:-right-full max-lg:h-full max-lg:w-full max-lg:break-all  max-lg:overflow-y-auto max-lg:overflow-x-hidden;
+}
+
+#sidebar-toggle:checked ~ #sidebar {
+  right: 0; /* 显示侧边栏 */
+}
+
+/* CSS样式 */
+.sidebar-toggle-button {  
+  @apply fixed z-50 top-3.5 right-2 lg:hidden
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 3px auto;
+  background-color: #333;
+  transition: transform 0.3s ease;
+}
+
+#sidebar-toggle:checked ~ .sidebar-toggle-button .bar:nth-child(1) {
+  transform: translateY(6px) rotate(-45deg);
+}
+  
+#sidebar-toggle:checked ~ .sidebar-toggle-button .bar:nth-child(2) {
+  opacity: 0;
+}
+
+#sidebar-toggle:checked ~ .sidebar-toggle-button .bar:nth-child(3) {
+  transform: translateY(-6px) rotate(45deg);
+}
+</style>

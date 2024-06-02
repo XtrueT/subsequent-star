@@ -55,11 +55,10 @@ const { author, url } = config;
         id="footer"
         class="flex flex-col justify-center items-center my-10 w-full"
       >
-        <small>
-          {author} &copy; {year}
-          <a href={url} class="" target="_blank">view on Github</a>
-          Generator by {Astro.generator}
+        <small class="inline-block ">
+          {author} &copy; {year} <a href={url} target="_blank">view on Github</a>
         </small>
+        <small class="inline-block ">Generator by {Astro.generator}</small>
       </footer>
       <Togglebar />
     </div>
