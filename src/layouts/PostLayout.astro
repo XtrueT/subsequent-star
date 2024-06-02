@@ -35,24 +35,34 @@ const { title, description, pubDate, author, heroImage, tags, categories } =
     <div
       class="flex flex-col order-1 justify-start items-center flex-auto w-full lg:relative min-h-screen lg:overflow-y-auto"
     >
-      <h1 class="text-3xl font-bold">{title}</h1>
-      <div
-        class="flex justify-start items-baseline space-x-1 text-zinc-500 text-sm"
+      <article
+        class="w-full p-5 prose-lg
+              prose-h1:font-bold
+              prose-a:text-blue-500
+            hover:prose-a:text-purple-500
+              prose-p:text-justify
+              prose-img:rounded-md
+              prose-img:m-auto
+              prose-headings:underline
+              dark:prose-invert"
       >
-        <span>{author}</span>
-        <span>发布于</span>
-        <FormattedDate date={pubDate} />
+        <h1>{title}</h1>
+        <div
+          class="flex justify-start items-baseline space-x-1 text-zinc-500 text-sm"
+        >
+          <span>{author}</span>
+          <span>发布于</span>
+          <FormattedDate date={pubDate} />
+          {
+            tags.map((tag) => (
+              <a href={`/tags/${tag}`}>
+                <Tag tag={tag} />
+              </a>
+            ))
+          }
+        </div>
         {
-          tags.map((tag) => (
-            <a href={`/tags/${tag}`}>
-              <Tag tag={tag} />
-            </a>
-          ))
-        }
-      </div>
-      {
-        heroImage && (
-          <a href={href} title={title}>
+          heroImage && (
             <figure id="heroImage" class="w-auto h-full min-w-28 min-h-20">
               <img
                 src={heroImage}
@@ -61,20 +71,8 @@ const { title, description, pubDate, author, heroImage, tags, categories } =
                 class="object-contain rounded-md"
               />
             </figure>
-          </a>
-        )
-      }
-      <article
-        class="w-full p-5 prose-lg
-              prose-h1:font-bold
-              prose-a:text-blue-500 
-            hover:prose-a:text-purple-500
-              prose-p:text-justify
-              prose-img:rounded-md
-              prose-img:m-auto
-              prose-headings:underline
-              dark:prose-invert"
-      >
+          )
+        }
         <slot />
       </article>
       {config.valine.enable && <ValineComm valine={config.valine} />}
