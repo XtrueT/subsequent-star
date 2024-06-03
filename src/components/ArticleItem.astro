@@ -8,7 +8,7 @@ const { title, description, pubDate, author, heroImage, tags } = post.data;
 const href = `/blog/${post.slug}/`;
 ---
 
-<article class="mx-auto w-auto md:max-w-screen-sm lg:max-w-screen-md break-all">
+<article class="mx-auto w-full md:max-w-screen-sm lg:max-w-screen-md break-all">
   <div class="flex flex-col p-5 space-y-5">
     <h2>
       <a href={href} class="text-2xl font-bold hover:underline">{title}</a>

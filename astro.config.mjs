@@ -1,10 +1,6 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
-import glob from 'fast-glob';
-import fs from 'fs-extra';
-import path from 'path';
-import matter from 'gray-matter';
 import { visit } from 'unist-util-visit'
 
 
