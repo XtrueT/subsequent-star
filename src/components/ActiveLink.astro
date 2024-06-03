@@ -1,6 +1,6 @@
 ---
 const { href, class: className, ...props } = Astro.props;
 const { pathname } = Astro.url;
-const isActive = decodeURI(pathname).includes(href);
+const isActive = decodeURI(pathname)==='/'?href==='/':decodeURI(pathname).includes(href)&&href!=='/'||decodeURI(pathname).includes('tags')&&href==='/archives';
 ---
 <a href={href} class:list={[className, { active: isActive }]} {...props}><slot /></a>

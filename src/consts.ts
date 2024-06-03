@@ -14,7 +14,7 @@ export const config = {
     paginate_max_links: 3,
     sliceNum: 3,
     nav: [
-        { title: '主页', href: '/blog' },
+        { title: '主页', href: '/' },
         { title: '关于', href: '/about' },
         { title: '归档', href: '/archives' },
     ],
@@ -26,7 +26,8 @@ export const config = {
     simple_search: {
         enable: true,
         placeholder: '搜索',
-        json: '/data/searchData.json',
+        // json: '/data/searchData.json',
+        json: `${import.meta.env.PROD ? import.meta.env.SITE : "http://localhost:4321"}/content.json`,
     },
     valine: {
         enable: true,

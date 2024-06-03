@@ -1,6 +1,3 @@
----
-
----
 <div class="px-5 mx-auto bg-inherit text-inherit">
   <div class="relative pb-1">
     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -44,12 +41,8 @@
       limit: 10,
       fuzzy: false,
     };
-
     // 合并用户提供的选项和默认选项
     const settings = Object.assign({}, defaults, options);
-
-    // console.log("settings", settings);
-
     const regexPost = (data, query) => {
       const regex = new RegExp(
         query.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"),
@@ -57,27 +50,25 @@
       );
       const results: any[] = [];
       data.forEach((post) => {
-        // console.log(post);
+        const { data } = post;
         if (
           (settings.fuzzy &&
-            (post.title.match(regex) ||
-              post.tags.join(",").match(regex) ||
-              post.pubDate.match(regex))) ||
+            (data.title.match(regex) ||
+              data.tags.join(",").match(regex) ||
+              data.pubDate.match(regex))) ||
           (!settings.fuzzy &&
-            (post.title.toLowerCase().includes(query.toLowerCase()) ||
-              post.tags.join(",").toLowerCase().includes(query.toLowerCase()) ||
-              post.pubDate.toLowerCase().includes(query.toLowerCase())))
+            (data.title.toLowerCase().includes(query.toLowerCase()) ||
+              data.tags.join(",").toLowerCase().includes(query.toLowerCase()) ||
+              data.pubDate.toLowerCase().includes(query.toLowerCase())))
         ) {
           results.push(post);
         }
       });
-      // console.log(results.slice(0, settings.limit));
-      // 渲染搜索结果
       renderResults(results.slice(0, settings.limit));
     };
 
     // 执行搜索的函数
-    function search(query) {
+    async function search(query) {
       const results: any[] = [];
       if (query === "") {
         settings.resultsContainer.innerHTML = "";
@@ -99,37 +90,19 @@
       if (results.length > 0) {
         regexPost(results, query);
       } else {
-        fetch(settings.json)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            // 在这里处理获取到的JSON数据
-            // 添加新获取的数据到结果中
-            results.push(...data.data);
-            // 设置数据的有效期
-            const expirationTime = new Date(
-              Date.now() + 1000 * 60 * 60 * 24
-            ).getTime(); // 设置有效期为 24 小时
-            // 更新缓存数据并存储
-            const updatedData = {
-              data: results,
-              expirationTime: expirationTime,
-            };
-            sessionStorage.setItem("searchCache", JSON.stringify(updatedData));
-            // console.log(data); // 这里可以看到获取到的JSON数据
-            // 接下来你可以将这个数据传递给搜索功能进行处理
-            regexPost(results, query);
-          })
-          .catch((error) => {
-            console.error(
-              "There was a problem with your fetch operation:",
-              error
-            );
-          });
+        const content = await fetch(settings.json);
+        const { posts } = await content.json();
+        // 设置数据的有效期
+        const expirationTime = new Date(
+          Date.now() + 1000 * 60 * 60 * 24
+        ).getTime(); // 设置有效期为 24 小时
+        // 更新缓存数据并存储
+        const updatedData = {
+          data: posts,
+          expirationTime: expirationTime,
+        };
+        sessionStorage.setItem("searchCache", JSON.stringify(updatedData));
+        regexPost(posts, query);
       }
     }
 
@@ -144,16 +117,17 @@
         results.forEach((result) => {
           let tagHTML = "";
           //   // 遍历标签数组，为每个标签生成 HTML 元素
-          const { path, slug, title, pubDate, author, tags } = result;
+          const { slug, data } = result;
+          const { title, pubDate, tags } = data;
           tags.forEach((tag) => {
             tagHTML += `<a href="/tags/${tag}" type="button" class="tag">#${tag}</a>`;
           });
           container.innerHTML += `<li class="mt-1 p-2 w-full flex flex-col justify-between items-start ">
-                                        <a class="m-2 p-1 inline-block hover:underline" href="/blog/${slug ? slug : path.toLowerCase()}/" title="${title}">
+                                        <a class="m-2 p-1 inline-block hover:underline" href="/blog/${slug}/" title="${title}">
                                             ${title}
                                         </a>
                                         <div class="flex flex-row justify-between items-center w-full ">
-                                            <div class="flex flex-row justify-around items-start">${tagHTML}</div>
+                                            <div class="flex flex-row justify-around items-start space-x-2">${tagHTML}</div>
                                             <div class="pubDate">${pubDate}</div>
                                         </div>
                                     </li>

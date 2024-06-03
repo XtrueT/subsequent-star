@@ -5,15 +5,13 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<section class="flex flex-col w-full justify-start items-start p-1 break-words text-balance max-sm:w-[100vw] max-sm:overflow-hidden ">
+<section class="flex flex-col w-full justify-start items-start p-1">
   {
     title && (
-      <div class="border-purple-500 border-l-4 font-bold text-3xl">
-        {title}
-      </div>
+      <div class="border-purple-500 border-l-4 font-bold text-3xl">{title}</div>
     )
   }
-  <div class="p-5 w-full">
+  <div class="w-full">
     <slot />
   </div>
 </section>

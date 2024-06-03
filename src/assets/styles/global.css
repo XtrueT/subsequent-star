@@ -25,36 +25,6 @@ img:not([src]) {
   visibility: hidden;
 }
 
-img::before {
-  /* 淡蓝色占位背景 */
-  content: "Break";
-  color: #fff;
-  position: absolute;
-  text-align: justify;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  visibility: visible;
-  background-color:#323232;
-}
-
-img::after {
-  /* 黑色alt信息条 */
-  content: "\f127"attr(alt) " 加载失败 ";
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  line-height: 30px;
-  background-color: #323232;
-  color: #fff;
-  font-size: 14px;
-  transform: translateY(100%);
-  /* 来点过渡动画效果 */
-  transition: transform .2s;
-  visibility: visible;
-}
-
 .tag {
   @apply inline-block text-sm border-dashed border-b border-purple-500;
 }

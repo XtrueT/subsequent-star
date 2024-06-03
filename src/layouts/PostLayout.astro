@@ -41,7 +41,7 @@ const { title, description, pubDate, author, heroImage, tags, categories } =
     </label>
     <aside
       id="sidebar"
-      class="flex flex-col order-2 justify-start items-center basis-full lg:basis-1/3 lg:pl-2 lg:sticky lg:top-20 theme"
+      class="flex flex-col order-2 justify-start items-center  min-h-screen lg:basis-1/3 lg:pl-2 lg:sticky lg:top-20 theme"
     >
 
       <TagCloud />
@@ -60,7 +60,8 @@ const { title, description, pubDate, author, heroImage, tags, categories } =
               prose-p:text-justify
               prose-img:rounded-md
               prose-img:m-auto
-              prose-headings:underline
+              prose-headings:border-purple-500 border-l-4
+              prose-headings:border-l-4
               dark:prose-invert"
       >
         <h1>{title}</h1>
@@ -78,18 +79,6 @@ const { title, description, pubDate, author, heroImage, tags, categories } =
             ))
           }
         </div>
-        {
-          heroImage && (
-            <figure id="heroImage" class="w-auto h-full min-w-28 min-h-20">
-              <img
-                src={heroImage}
-                alt={title}
-                loading="lazy"
-                class="object-contain rounded-md"
-              />
-            </figure>
-          )
-        }
         <slot />
       </article>
 
@@ -99,7 +88,7 @@ const { title, description, pubDate, author, heroImage, tags, categories } =
 </DefaultLayout>
 <style>
 #sidebar {
-  @apply max-lg:fixed max-lg:top-0 max-lg:z-10  max-lg:-right-full max-lg:h-full max-lg:w-full max-lg:break-all  max-lg:overflow-y-auto max-lg:overflow-x-hidden;
+  @apply max-lg:fixed max-lg:top-0 max-lg:z-10  max-lg:-right-full max-lg:h-full  max-lg:w-full max-lg:break-all  max-lg:overflow-y-auto max-lg:overflow-x-hidden;
 }
 
 #sidebar-toggle:checked ~ #sidebar {
