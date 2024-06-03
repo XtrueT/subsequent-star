@@ -34,15 +34,15 @@ posts.forEach((post) => {
 ---
 
 <SectionItem title="文章归档">
-  <div class="flex flex-col  items-center divide-y">
+  <div class="flex flex-col justify-center items-center divide-y ">
     {
       [...postsByYear.entries()].map(([year, posts]) => {
         return (
-          <div class="flex flex-col justify-start items-start">
-            <div class="my-2">
-              <h1 class="text-3xl font-bold">{year}</h1>
-            </div>
+          <div class="flex flex-col w-full ">
             <div class="divide-y">
+              <div class="my-2">
+                <h1 class="text-3xl font-bold">{year}</h1>
+              </div>
               {posts.map((post) => {
                 return <ArticleItem post={post} />;
               })}
