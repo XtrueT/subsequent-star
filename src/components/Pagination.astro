@@ -40,8 +40,8 @@ if (last < paginate_max_links) {
 }
 ---
 
-<section class="flex flex-col justify-center items-center">
-  <ul class="flex flex-row justify-around items-center space-x-2 ">
+<section class="flex flex-col justify-center items-center mx-auto w-full md:max-w-screen-sm lg:max-w-screen-md ">
+  <ul class="flex flex-row flex-auto justify-around items-center space-x-3 ">
     {
       previous && (
         <PaginationLink href={previous}>
