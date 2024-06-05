@@ -1,11 +1,11 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import { config } from "@config";
-import Pagination from "@components/Pagination.astro";
-import DefaultLayout from "src/layouts/DefaultLayout.astro";
 import ArticleItem from "@components/ArticleItem.astro";
-import TagCloud from "@components/TagCloud.astro";
+import Pagination from "@components/Pagination.astro";
 import SectionItem from "@components/SectionItem.astro";
+import TagCloud from "@components/TagCloud.astro";
+import { config } from "@config";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
   const posts = await getCollection("blog");
@@ -21,8 +21,6 @@ export async function getStaticPaths({ paginate }: { paginate: Function }) {
       });
     }
   });
-  const tags = [...tagsMap.keys()];
-
   return [...tagsMap.entries()]
     .map((tagMap) => {
       tagMap[1].sort((a, b) => {
@@ -33,7 +31,6 @@ export async function getStaticPaths({ paginate }: { paginate: Function }) {
     .flatMap((tagMap) => {
       return paginate(tagMap[1], {
         params: { tag: tagMap[0] },
-        props: { tags },
         pageSize: config.paginate,
       });
     });
@@ -55,11 +52,11 @@ const { tag } = Astro.params;
 const { page } = Astro.props;
 ---
 
-<DefaultLayout title=`Tags-${tag}`>
+<DefaultLayout title=`标签-${tag}` headerText="标签归类">
   <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
     <TagCloud />
     <SectionItem title=`${tag}-相关文章`>
-        {page.data.map((post) => <ArticleItem post={post} />)}
+      {page.data.map((post) => <ArticleItem post={post} />)}
     </SectionItem>
     <Pagination
       previous={page.url.prev}

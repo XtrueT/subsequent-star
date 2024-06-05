@@ -2,10 +2,11 @@
 import Linked from "@components/Linked.astro";
 import ValineComm from "@components/ValineComm.astro";
 import { config } from "@config";
-import DefaultLayout from "src/layouts/DefaultLayout.astro";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+
 ---
 
-<DefaultLayout title="欢迎留言">
+<DefaultLayout title="关于我" headerText="欢迎留言">
   <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
     <Linked/>
     {config.valine.enable && <ValineComm valine={config.valine} />}

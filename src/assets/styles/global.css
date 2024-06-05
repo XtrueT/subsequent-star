@@ -1,24 +1,3 @@
-/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
-/* ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px
-} */
-/*定义滚动条轨道*/
-::-webkit-scrollbar-track {
-  background-color: transparent;
-  -webkit-border-radius: 2em;
-  -moz-border-radius: 2em;
-  border-radius: 2em
-}
-
-/*定义滑块 内阴影+圆角*/
-::-webkit-scrollbar-thumb {
-  background-color: #abc2d3;
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, .4) 75%, transparent 75%, transparent);
-  -webkit-border-radius: 2em;
-  -moz-border-radius: 2em;
-  border-radius: 2em
-}
 
 img:not([src]) {
   /* 隐藏Chrome alt文字以及银色边框 */
@@ -40,5 +19,5 @@ body a {
 }
 
 .theme {
-  @apply dark:bg-zinc-900 dark:text-white bg-zinc-100 text-zinc-900 text-base lg:text-lg transition-all duration-300 ease-in-out;
+  @apply dark:bg-zinc-900 dark:text-white bg-zinc-100 text-zinc-900 text-base lg:text-lg transition-all duration-300 ease-in-out break-all;
 }

@@ -1,18 +1,21 @@
 {
   "name": "subsequent-star",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.1.5",
     "@astrojs/tailwind": "^5.1.0",
     "@tailwindcss/typography": "^0.5.13",
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "@vite-pwa/astro": "^0.4.0",
     "astro": "^4.8.5",
     "echarts": "^5.5.0",
     "tailwindcss": "^3.4.3",

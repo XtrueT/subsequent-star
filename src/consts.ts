@@ -4,12 +4,12 @@
 
 // constants.ts
 export const config = {
-    title: 'XTRUET',
+    title: 'Mr.Miao Blog',
     url: 'https://github.com/XtrueT',
     author: '霁',
     avatar: 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/pp.1.cd298366.xLed3zwhuhnRsSFcnjqzJQ.jpg?1567248569',
-    description: '霁的博客 | Mr.Miao 的博客 | XtrueT 的博客',
-    keyword: 'XtrueT的博客',
+    description: '霁的博客 | Mr.Miao 的博客 | XtrueT 的博客| ',
+    keyword: 'XtrueT的博客,Astro,JavaScript,HTML,CSS,Blog',
     paginate: 8,
     paginate_max_links: 3,
     sliceNum: 3,
@@ -26,12 +26,11 @@ export const config = {
     simple_search: {
         enable: true,
         placeholder: '搜索',
-        // json: '/data/searchData.json',
         json: `${import.meta.env.PROD ? import.meta.env.SITE : "http://localhost:4321"}/content.json`,
     },
     valine: {
         enable: true,
-        src: 'https://unpkg.com/valine/dist/Valine.min.js',
+        src: 'https://unpkg.com/valine@1.5.1/dist/Valine.min.js',
         appId: 'SrzzGzdqbBXFOBE3ia8dVAnc-gzGzoHsz',
         appKey: '0L9sFb0zNzyK7dRMunmGxbhx',
         avatar: 'identicon',
@@ -42,7 +41,7 @@ export const config = {
         recordIP: true,// # 记录评论者IP
     },
     linked: [
-        {title: 'jekyll blog', href: 'https://xtruet.github.io/'}
+        { title: 'jekyll blog', href: 'https://xtruet.github.io/' }
     ]
 
 }

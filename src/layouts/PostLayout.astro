@@ -9,13 +9,14 @@ import { config } from "@config";
 import type { CollectionEntry } from "astro:content";
 import DefaultLayout from "./DefaultLayout.astro";
 
+
 interface Props {
   entry: CollectionEntry<"blog">;
 }
 const { entry } = Astro.props;
 const { headings } = await entry.render();
 
-const { title, description, pubDate, author, heroImage, tags, categories } =
+const { title, description, pubDate, author, tags, categories } =
   entry.data;
 ---
 

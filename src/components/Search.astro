@@ -20,7 +20,7 @@
     <div class="absolute inset-x-0 overflow-y-auto max-h-72 shadow-md">
       <ul
         id="results-container"
-        class="flex flex-col w-full justify-around items-start list-none divide-y theme"
+        class="flex flex-col w-full justify-around divide-y space-y-1 theme"
       >
         <!-- 这里插入搜索结果列表项 -->
       </ul>
@@ -122,12 +122,12 @@
           tags.forEach((tag) => {
             tagHTML += `<a href="/tags/${tag}" type="button" class="tag">#${tag}</a>`;
           });
-          container.innerHTML += `<li class="mt-1 p-2 w-full flex flex-col justify-between items-start ">
-                                        <a class="m-2 p-1 inline-block hover:underline" href="/blog/${slug}/" title="${title}">
+          container.innerHTML += `<li class="flex flex-col flex-auto justify-between p-5 space-y-2">
+                                        <a class="inline-block hover:underline" href="/blog/${slug}/" title="${title}">
                                             ${title}
                                         </a>
-                                        <div class="flex flex-row justify-between items-center w-full ">
-                                            <div class="flex flex-row justify-around items-start space-x-2">${tagHTML}</div>
+                                        <div class="flex justify-between items-center w-full ">
+                                            <div class="flex  justify-around space-x-2">${tagHTML}</div>
                                             <div class="pubDate">${pubDate}</div>
                                         </div>
                                     </li>
@@ -159,13 +159,28 @@
       resultsContainer.innerHTML = ""; // 清空搜索结果容器的内容，或者隐藏搜索结果容器
     }
 
+    let debounceTimer;
+    const debounceDelay = 300; // 防抖延迟（毫秒）
+
+    function debounce(func, delay) {
+      return function (...args) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
+
+    const handleInputDebounced = debounce(async (keyword) => {
+      await search(keyword);
+      // 更新组件状态或 DOM 元素
+    }, debounceDelay);
+
     // 初始化搜索功能
     function init() {
       const input = settings.searchInput;
       if (!input) return;
 
       input.addEventListener("input", function (event) {
-        search(event.target.value);
+        handleInputDebounced(event.target.value);
       });
     }
 

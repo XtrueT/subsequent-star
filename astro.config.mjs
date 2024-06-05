@@ -1,8 +1,8 @@
-import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
-import { visit } from 'unist-util-visit'
-
+import { defineConfig } from 'astro/config';
+import { visit } from 'unist-util-visit';
+import AstroPWA from '@vite-pwa/astro'
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,5 +29,38 @@ export default defineConfig({
 	integrations: [
 		sitemap(),
 		tailwind({ nesting: true }),
-	],
+		AstroPWA({
+			registerType: 'autoUpdate',
+			includeAssets: ['favicon.ico'],
+			manifest: {
+				name: 'Mr.Miao Blog',
+				short_name: 'Mr.Miao',
+				theme_color: '#ffffff'
+			}, pwaAssets: {
+				config: true
+			},
+			workbox: {
+				navigateFallback: '/',
+				globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,json,txt}'],
+				runtimeCaching: [{
+					handler: 'CacheFirst',
+					urlPattern: 'https://unpkg.com/valine@1.5.1/dist/Valine.min.js',
+					options: {
+						cacheName: 'valine',
+						// 这是必须的
+						cacheableResponse: {
+							statuses: [0, 200]
+						}
+					}
+				}]
+			},
+			devOptions: {
+				enabled: true,
+				navigateFallbackAllowlist: [/^\//],
+			},
+			experimental: {
+				directoryAndTrailingSlashHandler: true,
+			}
+		})
+	]
 });

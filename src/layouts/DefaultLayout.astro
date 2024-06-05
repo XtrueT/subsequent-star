@@ -3,15 +3,18 @@ import Head from "@components/Head.astro";
 import Navbar from "@components/Navbar.astro";
 import Togglebar from "@components/Togglebar.astro";
 import { config } from "@config";
+
 type Props = {
   title?: string;
   description?: string;
   keyword?: string;
+  headerText?: string;
 };
 const {
   title = config.title,
   description = config.description,
   keyword = config.keyword,
+  headerText = title,
 } = Astro.props;
 const year = new Date().getFullYear();
 const { author, url } = config;
@@ -36,7 +39,7 @@ const { author, url } = config;
                 bg-black/50"
             />
             <div class="max-w-md text-center text-2xl text-white z-[1]">
-              {title}
+              {headerText}
             </div>
           </div>
         )
@@ -55,10 +58,11 @@ const { author, url } = config;
         id="footer"
         class="flex flex-col justify-center items-center my-10 w-full"
       >
-        <small class="inline-block ">
-          {author} &copy; {year} <a href={url} target="_blank">view on Github</a>
+        <small class="inline-block">
+          {author} &copy; {year}
+          <a href={url} target="_blank">view on Github</a>
         </small>
-        <small class="inline-block ">Generator by {Astro.generator}</small>
+        <small class="inline-block">Generator by {Astro.generator}</small>
       </footer>
       <Togglebar />
     </div>
