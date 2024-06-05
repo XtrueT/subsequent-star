@@ -4,15 +4,24 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@assets/*": ["src/assets/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@config": ["src/consts.ts"]
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@config": [
+        "src/consts.ts"
+      ]
     },
     "types": [
       "astro/client",
       "vite-plugin-pwa/vanillajs",
-      "vite-plugin-pwa/info"
+      "vite-plugin-pwa/info",
+      "vite-plugin-pwa/client"
     ]
   }
 }

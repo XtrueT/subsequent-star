@@ -6,7 +6,7 @@ interface Props {
 const { date } = Astro.props;
 ---
 
-<time class="pubDate" datetime={date.toISOString()}>
+<time class="text-sm" datetime={date.toISOString()}>
   {
     date.toLocaleDateString("zh-cn", {
       year: "numeric",
