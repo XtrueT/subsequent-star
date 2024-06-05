@@ -31,9 +31,9 @@ if (entry) {
 ---
 
 <SectionItem title={title}>
-  <ul class="flex flex-col justify-center items-center divide-y space-y-5">
+  <div class="flex flex-col justify-center items-center divide-y space-y-5">
     {posts.slice(0, sliceNum).map((post) => <ArticleItem post={post} />)}
-  </ul>
+  </div>
   <div class="flex justify-center items-center">
     <a href="/archives" class="inline-block">查看全部</a>
   </div>
