@@ -4,6 +4,22 @@ import { defineConfig } from 'astro/config';
 import { visit } from 'unist-util-visit';
 import AstroPWA from '@vite-pwa/astro'
 
+const runtimeCaches = (cacheName, urlPattern) => ({
+
+	handler: 'CacheFirst',
+	urlPattern,
+	options: {
+		cacheName,
+		expiration: {
+			maxEntries: 500,
+			maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+		},
+		cacheableResponse: {
+			statuses: [0, 200]
+		}
+	}
+
+});
 // https://astro.build/config
 export default defineConfig({
 
@@ -28,51 +44,41 @@ export default defineConfig({
 	},
 	integrations: [
 		sitemap(),
-		tailwind({ nesting: true }),
+		tailwind(),
 		AstroPWA({
 			registerType: 'autoUpdate',
-			includeAssets: ['favicon.ico'],
 			manifest: {
 				name: 'Mr.Miao Blog',
 				short_name: 'Mr.Miao',
 				theme_color: '#ffffff',
 				icons: [
 					{
-					  src: 'pwa-192x192.png',
-					  sizes: '192x192',
-					  type: 'image/png',
+						src: 'pwa-64x64.png',
+						sizes: '64x64',
+						type: 'image/png',
 					},
 					{
-					  src: 'pwa-512x512.png',
-					  sizes: '512x512',
-					  type: 'image/png',
+						src: 'pwa-192x192.png',
+						sizes: '192x192',
+						type: 'image/png',
 					},
 					{
-					  src: 'pwa-512x512.png',
-					  sizes: '512x512',
-					  type: 'image/png',
-					  purpose: 'any maskable',
-					},
-				  ],
+						src: 'pwa-512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+					}
+				],
 			},
 			workbox: {
-				navigateFallback: '/',
-				globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,json,txt}'],
-				runtimeCaching: [{
-					handler: 'CacheFirst',
-					urlPattern: 'https://unpkg.com/valine@1.5.1/dist/Valine.min.js',
-					options: {
-						cacheName: 'valine',
-						// 这是必须的
-						cacheableResponse: {
-							statuses: [0, 200]
-						}
-					}
-				}]
+				navigateFallback: null,
+				globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,jpg,jpeg,json}'],
+				runtimeCaching: [
+					runtimeCaches('all-js-css-ts', '/(.*?)\.(js|css|ts)/'), 
+					runtimeCaches('all-image', '/(.*?)\.(png|jpe?g|svg|webp|gif|bmp|psd|tiff|tga|eps')
+				]
 			},
 			devOptions: {
-				enabled: true,
-				navigateFallbackAllowlist: [/^\//],
+				enabled: true
 			},
 			experimental: {
 				directoryAndTrailingSlashHandler: true,

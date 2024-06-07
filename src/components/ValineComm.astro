@@ -1,33 +1,37 @@
 ---
+import { config } from "@config";
 import SectionItem from "./SectionItem.astro";
 
 const { valine } = Astro.props;
 ---
 
 <SectionItem title="欢迎留言">
-  <div id="valine" class="flex-grow" data-config={JSON.stringify(valine)}></div>
+  <div id="valine" class="flex-grow"></div>
 </SectionItem>
 
-<script is:inline src={valine.src}></script>
-<script is:inline>
-  // Use import
-  //   import Valine from "valine";
+<script is:inline define:vars={{ valine }}>
   document.addEventListener(
     "astro:page-load",
-    function () {
-      const dataset = document.getElementById("valine")?.dataset;
-      const valine = dataset?.config ? JSON.parse(dataset.config) : "";
-      new Valine({
-        appId: valine.appId,
-        appKey: valine.appKey,
-        avatar: valine.avatar,
-        placeholder: valine.placeholder,
-        highlight: valine.highlight,
-        avatarForce: valine.avatarForce,
-        visitor: valine.visitor,
-        recordIP: valine.recordIP,
-        el: "#valine",
-      });
+    () => {
+      // 创建并加载Valine的CDN脚本
+      const valineScript = document.createElement("script");
+      valineScript.src = valine.src;
+      valineScript.async = true;
+      valineScript.onload = function () {
+        new Valine({
+          appId: valine.appId,
+          appKey: valine.appKey,
+          avatar: valine.avatar,
+          placeholder: valine.placeholder,
+          highlight: valine.highlight,
+          avatarForce: valine.avatarForce,
+          visitor: valine.visitor,
+          recordIP: valine.recordIP,
+          el: "#valine",
+        });
+        console.info("valine load");
+      };
+      document.head.appendChild(valineScript);
     },
     { once: true }
   );
