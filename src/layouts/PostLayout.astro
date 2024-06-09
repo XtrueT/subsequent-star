@@ -47,7 +47,6 @@ const { title, description, pubDate, author, tags, categories } =
 
       <TagCloud />
       <Tocbar headings={headings} title={title} />
-      <SliceList title="相关文章" entry={entry} />
     </aside>
 
     <div
@@ -61,7 +60,7 @@ const { title, description, pubDate, author, tags, categories } =
               prose-p:text-justify
               prose-img:rounded-md
               prose-img:m-auto
-              prose-headings:border-purple-500 border-l-4
+              prose-headings:border-purple-500
               prose-headings:border-l-4
               dark:prose-invert"
       >
@@ -82,7 +81,7 @@ const { title, description, pubDate, author, tags, categories } =
         </div>
         <slot />
       </article>
-
+      <SliceList title="相关文章" entry={entry} />
       {config.valine.enable && <ValineComm valine={config.valine} />}
     </div>
   </div>

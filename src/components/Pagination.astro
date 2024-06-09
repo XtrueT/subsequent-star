@@ -18,30 +18,73 @@ const {
   url = "",
   paginate_max_links = 3,
 } = Astro.props;
-const half_max_links = Math.floor(paginate_max_links / 2);
 
-// 计算lowerBound和upperBound
-let lowerBound = current - half_max_links;
-let upperBound = current + half_max_links;
+const renderPaginator = (
+  totalPages: number,
+  currentPage: number,
+  href: string,
+  maxLinks: number
+) => {
+  const paginationLinks: any[] = [];
 
-// 调整lowerBound和upperBound以确保始终显示5个页码
-if (lowerBound < 1) {
-  lowerBound = 1;
-  upperBound = paginate_max_links;
-} else if (upperBound > last) {
-  upperBound = last;
-  lowerBound = last - paginate_max_links + 1;
-}
+  // 计算分页器的起始页码和结束页码
+  let startPage: number, endPage: number;
+  if (totalPages <= maxLinks) {
+    startPage = 1;
+    endPage = totalPages;
+  } else {
+    let halfmaxLinks = Math.floor(maxLinks / 2);
+    startPage = Math.max(1, currentPage - halfmaxLinks);
+    endPage = Math.min(totalPages, currentPage + halfmaxLinks);
+    if (endPage - startPage < maxLinks - 1) {
+      if (currentPage <= halfmaxLinks) {
+        endPage = Math.min(maxLinks, totalPages);
+      } else if (currentPage >= totalPages - halfmaxLinks) {
+        startPage = Math.max(totalPages - maxLinks + 1, 1);
+      }
+    }
+  }
 
-// 如果last小于5，则调整lowerBound和upperBound以确保显示所有页码
-if (last < paginate_max_links) {
-  lowerBound = 1;
-  upperBound = last;
-}
+  // 如果起始页码大于1，添加"1..."按钮
+  if (startPage > 1) {
+    paginationLinks.push({ page: 1, isActive: false, href });
+    if (startPage > 2) {
+      paginationLinks.push({ page: "···", isActive: false, href: "#" });
+    }
+  }
+
+  // 添加页码按钮
+  for (let page = startPage; page <= endPage; page++) {
+    paginationLinks.push({
+      page,
+      isActive: page === currentPage,
+      href: page > 1 ? `${href}/${page}` : `${href}`,
+    });
+  }
+
+  // 如果结束页码小于总页数，添加"...n"按钮
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      paginationLinks.push({ page: "···", isActive: false, href: "#" });
+    }
+    paginationLinks.push({
+      page: totalPages,
+      isActive: false,
+      href: `${href}/${totalPages}`,
+    });
+  }
+
+  return paginationLinks;
+};
+
+const paginationLinks = renderPaginator(last, current, url, paginate_max_links);
+
 ---
 
-<section class="flex flex-col justify-center items-center mx-auto w-full md:max-w-screen-sm lg:max-w-screen-md ">
-  <ul class="flex flex-row flex-auto justify-around items-center space-x-3 ">
+<section
+  class="flex flex-col justify-center items-center mx-auto w-full md:max-w-screen-sm lg:max-w-screen-md"
+>
+  <ul class="flex flex-row flex-auto justify-around items-center space-x-3">
     {
       previous && (
         <PaginationLink href={previous}>
@@ -60,27 +103,13 @@ if (last < paginate_max_links) {
         </PaginationLink>
       )
     }
-    {lowerBound > 1 && <PaginationLink href={url}>1</PaginationLink>}
-    {lowerBound > 2 && <PaginationLink href="#">···</PaginationLink>}
     {
       last > 1 &&
-        Array.from(
-          { length: upperBound - lowerBound + 1 },
-          (_, index) => index + lowerBound
-        ).map((page) => (
-          <PaginationLink
-            href={page > 1 ? `${url}/${page}` : `${url}/`}
-            isActive={page === current}
-          >
+        paginationLinks.map(({ page, isActive, href }) => (
+          <PaginationLink href={href} isActive={isActive}>
             {page}
           </PaginationLink>
         ))
-    }
-    {upperBound < last - 1 && <PaginationLink href="#">···</PaginationLink>}
-    {
-      upperBound < last && (
-        <PaginationLink href={`${url}/${last}`}>{last}</PaginationLink>
-      )
     }
     {
       next && (

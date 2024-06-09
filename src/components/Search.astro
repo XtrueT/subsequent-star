@@ -159,20 +159,15 @@
       resultsContainer.innerHTML = ""; // 清空搜索结果容器的内容，或者隐藏搜索结果容器
     }
 
-    let debounceTimer;
-    const debounceDelay = 300; // 防抖延迟（毫秒）
-
     function debounce(func, delay) {
+      let debounceTimer;
       return function (...args) {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => func.apply(this, args), delay);
       };
     }
 
-    const handleInputDebounced = debounce(async (keyword) => {
-      await search(keyword);
-      // 更新组件状态或 DOM 元素
-    }, debounceDelay);
+    const handleInputDebounced = debounce(search, 300);
 
     // 初始化搜索功能
     function init() {

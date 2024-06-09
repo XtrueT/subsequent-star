@@ -3,7 +3,8 @@ import "@assets/styles/global.css";
 import BaiduAnalysis from "@components/BaiduAnalysis.astro";
 import { config } from "@config";
 import { ViewTransitions } from "astro:transitions";
-import { pwaInfo } from "virtual:pwa-info";
+import PWA from "@components/PWA.astro";
+
 interface Props {
   title: string;
   description: string;
@@ -18,10 +19,6 @@ const { title, description, keyword } = Astro.props;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
-  <link rel="mask-icon" href="/maskable-icon-512x512.png" color="#FFFFFF" />
-  <meta name="msapplication-TileColor" content="#FFFFFF" />
-  <meta name="theme-color" content="#FFFFFF" />
   <meta name="generator" content={Astro.generator} />
 
   <!-- Canonical URL -->
@@ -39,6 +36,5 @@ const { title, description, keyword } = Astro.props;
   </script>
   {import.meta.env.PROD && <BaiduAnalysis />}
   <ViewTransitions />
-  {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
-  <script src="/src/pwa.ts"></script>
+  <PWA />
 </head>

@@ -71,10 +71,10 @@ export default defineConfig({
 			},
 			workbox: {
 				navigateFallback: null,
-				globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,jpg,jpeg,json}'],
+				globPatterns: ['**/*.{css,js,ts,html,png,ico,webp,json}'],
 				runtimeCaching: [
-					runtimeCaches('all-js-css-ts', '/(.*?)\.(js|css|ts)/'), 
-					runtimeCaches('all-image', '/(.*?)\.(png|jpe?g|svg|webp|gif|bmp|psd|tiff|tga|eps')
+					runtimeCaches('all-js', '**/*.{css,js,ts,html,json}'), 
+					runtimeCaches('all-image', '**/*.{svg,png,webp,jpg,jpeg,avif}')
 				]
 			},
 			devOptions: {

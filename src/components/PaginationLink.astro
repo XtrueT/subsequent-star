@@ -18,6 +18,9 @@ const { href, isActive = false } = Astro.props;
     @apply flex items-center justify-center p-1 transition-all duration-300 transform rounded-md hover:text-purple-500;
   }
   .pagination-link a.active {
-    @apply  pointer-events-none text-purple-500;
+    @apply pointer-events-none text-purple-500;
+  }
+  .pagination-link a[href="#"] {
+    @apply pointer-events-none;
   }
 </style>

@@ -5,7 +5,7 @@ import { config } from "@config";
 ---
 
 <nav id="navbar" class="fixed-nav h-16 max-w-screen max-sm:h-28 z-10 theme">
-  <div class="container mx-auto flex flex-wrap">
+  <div class="container mx-auto flex flex-wrap lg:px-24">
     <ul class="flex flex-row justify-start  items-center flex-auto">
       <li class="nav-link">
         <ActiveLink href={config.url} target={"_blank"}>
@@ -15,7 +15,6 @@ import { config } from "@config";
             loading="lazy"
             class="size-10 rounded-full"
           />
-          <span class="ml-3">{config.author}</span>
         </ActiveLink>
       </li>
       {

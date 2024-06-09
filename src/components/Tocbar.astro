@@ -45,8 +45,8 @@ const generateToc = (headings: any[]) => {
     <SectionItem title="文章目录">
       <nav class="w-full">
         <h2>{title}</h2>
-        <hr/>
-        <ul id="tocList" class="max-h-[50vh] h-full overflow-y-auto">
+        <hr />
+        <ul id="tocList" class="max-h-[40vh] h-full overflow-y-auto">
           {generateToc(headings).map((heading) => (
             <TocLink heading={heading} />
           ))}
@@ -59,6 +59,7 @@ const generateToc = (headings: any[]) => {
 <script>
   // JavaScript 逻辑
   function scrollToAnchor(link) {
+    console.log("11");
     const href = link.getAttribute("href");
     const targetElement = document.getElementById(href.substring(1));
     if (targetElement) {
@@ -77,12 +78,8 @@ const generateToc = (headings: any[]) => {
           const link = document.querySelector(
             `.toc-link[href="#${entry.target.id}"]`
           );
-          if (link) {
-            link.classList.toggle("active", entry.isIntersecting);
-            // if (link.classList.contains("active")) {
-            //   link.scrollIntoView({});
-            // }
-          }
+          link?.classList.toggle("active", entry.isIntersecting);
+          debouncedHandleScrollEnd();
         });
       },
       {
@@ -102,12 +99,50 @@ const generateToc = (headings: any[]) => {
     });
   }
 
+  function setScrollTo() {
+    const activeLinks = document.querySelectorAll(".toc-link.active");
+    const activeLastLink = activeLinks[activeLinks.length - 1] as HTMLElement;
+    const tocList = document.getElementById("tocList");
+    if (
+      activeLastLink &&
+      tocList &&
+      tocList.scrollHeight > tocList.offsetHeight &&
+      activeLastLink.classList.contains("active")
+    ) {
+      // 获取所有高亮的目录项
+      const newtop =
+        activeLastLink.offsetTop -
+        tocList.clientHeight / 2 -
+        tocList.offsetTop -
+        activeLastLink.offsetHeight / 2;
+      // console.log(activeLastLink.offsetTop);
+      // console.log(newtop);
+      // 确保高亮的目录项在滚动区域内部是可见的
+      tocList.scrollTo({
+        top: newtop < 0 ? 0 : newtop,
+        behavior: "smooth",
+      });
+    }
+  }
+
+  function debounce(func, delay) {
+    let debounceTimer;
+    return function (...args) {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
+  const debouncedHandleScrollEnd = debounce(setScrollTo, 500);
+  const debouncedHandleScrollToAnchor = debounce(scrollToAnchor, 300);
+
   document.addEventListener("astro:page-load", function () {
     setupTocLinkObserver();
     document.querySelectorAll(".toc-link").forEach((link) =>
       link.addEventListener("click", (event) => {
         event.preventDefault(); // 阻止默认的点击行为，避免直接跳转到锚点
-        scrollToAnchor(link);
+        // scrollToAnchor(link);
+        debouncedHandleScrollToAnchor(link);
       })
     );
   });

@@ -25,12 +25,13 @@ type Props = {
     };
     currentPage: number;
     lastPage: number;
+    total: number;
   };
 };
 const { page } = Astro.props;
 ---
 
-<DefaultLayout title="归档" headerText="归档文章">
+<DefaultLayout title="归档"  headerText="归档文章">
   <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
     <TagCloud />
     <ArchiveTimeLine page={page} />

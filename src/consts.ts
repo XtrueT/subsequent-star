@@ -4,12 +4,12 @@
 
 // constants.ts
 export const config = {
-    title: 'Mr.Miao Blog',
+    title: '水逺烟微',
     url: 'https://github.com/XtrueT',
-    author: '霁',
+    author: '水逺烟微',
     avatar: 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/pp.1.cd298366.xLed3zwhuhnRsSFcnjqzJQ.jpg?1567248569',
-    description: '霁的博客 | Mr.Miao 的博客 | XtrueT 的博客| ',
-    keyword: 'XtrueT的博客,Astro,JavaScript,HTML,CSS,Tailwincss,Blog',
+    description: '水逺烟微的博客',
+    keyword: '水逺烟微的博客,Astro,JavaScript,HTML,CSS,Tailwincss,Blog',
     paginate: 8,
     paginate_max_links: 3,
     sliceNum: 3,
@@ -20,7 +20,7 @@ export const config = {
     ],
     header_images: {
         enable: true,
-        src: '/image/header.webp',
+        src: '/image/header.avif',
         alt: 'header'
     },
     simple_search: {

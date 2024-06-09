@@ -5,17 +5,12 @@ import Togglebar from "@components/Togglebar.astro";
 import { config } from "@config";
 
 type Props = {
-  title?: string;
+  title: string;
   description?: string;
   keyword?: string;
   headerText?: string;
 };
-const {
-  title = config.title,
-  description = config.description,
-  keyword = config.keyword,
-  headerText = title,
-} = Astro.props;
+const { title, description='', keyword='', headerText = title } = Astro.props;
 const year = new Date().getFullYear();
 const { author, url } = config;
 ---
