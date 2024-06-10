@@ -3,7 +3,7 @@ const { id, text } = Astro.props;
 ---
 
 <div class="relative inline-block group">
-  <button id={id} class="p-2 flex items-center hover:text-purple-500">
+  <button id={id} aria-label={text} class="p-2 flex items-center hover:text-purple-500">
     <slot />
   </button>
 

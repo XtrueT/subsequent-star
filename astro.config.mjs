@@ -48,8 +48,8 @@ export default defineConfig({
 		AstroPWA({
 			registerType: 'autoUpdate',
 			manifest: {
-				name: 'Mr.Miao Blog',
-				short_name: 'Mr.Miao',
+				name: '水逺烟微',
+				short_name: '水逺烟微',
 				theme_color: '#ffffff',
 				icons: [
 					{
@@ -66,15 +66,34 @@ export default defineConfig({
 						src: 'pwa-512x512.png',
 						sizes: '512x512',
 						type: 'image/png',
-					}
+					},
+					{
+						src: 'maskable-icon-512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+						purpose: 'maskable'
+					},
 				],
 			},
 			workbox: {
 				navigateFallback: null,
-				globPatterns: ['**/*.{css,js,ts,html,png,ico,webp,json}'],
+				globPatterns: ['**/*.{css,js,ts,png,ico,avif,json}'],
 				runtimeCaching: [
-					runtimeCaches('all-js', '**/*.{css,js,ts,html,json}'), 
-					runtimeCaches('all-image', '**/*.{svg,png,webp,jpg,jpeg,avif}')
+					runtimeCaches('all', '**/*'),
+					{
+						urlPattern: '/http://unpkg.com/*/*.js/',
+						handler: 'StaleWhileRevalidate',
+						options: {
+							cacheName: 'unpkg-assets',
+							expiration: {
+								maxEntries: 10,
+								maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+							},
+							cacheableResponse: {
+								statuses: [0, 200],
+							},
+						},
+					},
 				]
 			},
 			devOptions: {

@@ -3,7 +3,7 @@
 title: seatunnel-web部署
 pubDate: 2023-11-25
 author: 霁
-heroImage: '/image/header.webp'
+heroImage: ''
 slug: '2023/1'
 categories:
 - 学习
