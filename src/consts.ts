@@ -7,7 +7,7 @@ export const config = {
     title: '水逺烟微',
     url: 'https://github.com/XtrueT',
     author: '水逺烟微',
-    avatar: 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/pp.1.cd298366.xLed3zwhuhnRsSFcnjqzJQ.jpg?1567248569',
+    avatar: '/image/avatar.jpg',
     description: '水逺烟微的博客',
     keyword: '水逺烟微的博客,Astro,JavaScript,HTML,CSS,Tailwincss,Blog',
     paginate: 8,

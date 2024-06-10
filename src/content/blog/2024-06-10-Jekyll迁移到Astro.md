@@ -87,7 +87,7 @@ tags:
 并将内容集合content的 `config.ts` 进行更新可以参考 
 [Zod](https://github.com/colinhacks/Zod)进行配置
 
-``` JavaScript
+```javascript
 import { defineCollection, z } from 'astro:content';
 
 const blog = defineCollection({

@@ -23,17 +23,38 @@ const { title, description, keyword } = Astro.props;
 
   <!-- Canonical URL -->
   <link rel="canonical" href={canonicalURL} />
-
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title={title}
+    href={`${Astro.site}rss.xml`}
+  />
   <!-- Primary Meta Tags -->
   <title>{`${config.title}-${title}`}</title>
   <meta name="title" content={title} />
   <meta name="description" content={`${config.description}|${description}`} />
   <meta name="keyword" content={`${config.keyword}|${keyword}`} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={Astro.url} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(config.header_images.src, Astro.url)} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={Astro.url} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={new URL(config.header_images.src, Astro.url)} />
+
   <script is:inline>
     localStorage.theme && !document.documentElement.classList.contains("dark")
       ? document.documentElement.classList.add("dark")
       : "";
   </script>
+
   {import.meta.env.PROD && <BaiduAnalysis />}
   <ViewTransitions />
   <PWA />

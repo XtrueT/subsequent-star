@@ -4,15 +4,19 @@ import { defineConfig } from 'astro/config';
 import { visit } from 'unist-util-visit';
 import AstroPWA from '@vite-pwa/astro'
 
-const runtimeCaches = (cacheName, urlPattern) => ({
+const runtimeCaches = (cacheName, handler, urlPattern) => ({
 
-	handler: 'CacheFirst',
-	urlPattern,
+	handler: handler || 'CacheFirst',
+	urlPattern: new RegExp(urlPattern),
 	options: {
 		cacheName,
 		expiration: {
-			maxEntries: 500,
+			maxEntries: 50,
 			maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+		},
+		fetchOptions: {
+			mode: 'cors',
+			credentials: 'omit',
 		},
 		cacheableResponse: {
 			statuses: [0, 200]
@@ -77,23 +81,10 @@ export default defineConfig({
 			},
 			workbox: {
 				navigateFallback: null,
-				globPatterns: ['**/*.{css,js,ts,png,ico,avif,json}'],
+				globPatterns: ['**/*.{css,js,html,png,ico,avif,json,xml}'],
 				runtimeCaching: [
-					runtimeCaches('all', '**/*'),
-					{
-						urlPattern: '/http://unpkg.com/*/*.js/',
-						handler: 'StaleWhileRevalidate',
-						options: {
-							cacheName: 'unpkg-assets',
-							expiration: {
-								maxEntries: 10,
-								maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
-							},
-							cacheableResponse: {
-								statuses: [0, 200],
-							},
-						},
-					},
+					runtimeCaches('all-unpkg','CacheFirst','^https://unpkg\\.com'),
+					runtimeCaches('all-image','CacheFirst','.*.(?:png|jpg|jpeg|svg|gif|avif|webp)'),
 				]
 			},
 			devOptions: {
