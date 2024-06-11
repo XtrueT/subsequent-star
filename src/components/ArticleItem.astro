@@ -1,6 +1,6 @@
 ---
 import FormattedDate from "@components/FormattedDate.astro";
-
+import { Image } from 'astro:assets';
 import Tag from "@components/Tag.astro";
 
 const { post } = Astro.props;
@@ -32,10 +32,12 @@ const href = `/blog/${post.slug}/`;
       heroImage && (
         <a href={href} title={title}>
           <figure id="heroImage" class="w-auto h-full min-w-28 min-h-20">
-            <img
+            <Image
               src={heroImage}
               alt={title}
               loading="lazy"
+              width="1920"
+              height="1080"
               class="object-contain rounded-md"
             />
           </figure>

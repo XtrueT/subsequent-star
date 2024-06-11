@@ -1,5 +1,6 @@
 ---
 import ActiveLink from "@components/ActiveLink.astro";
+import { Image } from 'astro:assets';
 import Search from "./Search.astro";
 import { config } from "@config";
 ---
@@ -9,10 +10,12 @@ import { config } from "@config";
     <ul class="flex flex-row justify-start  items-center flex-auto">
       <li class="nav-link">
         <ActiveLink href={config.url} target={"_blank"}>
-          <img
+          <Image
             src={config.avatar}
             alt={config.author}
             loading="lazy"
+            width="40"
+            height="40"
             class="size-10 rounded-full"
           />
         </ActiveLink>

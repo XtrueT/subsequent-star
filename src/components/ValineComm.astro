@@ -8,7 +8,7 @@ const { valine } = Astro.props;
   <div id="valine" class="flex-grow"></div>
 </SectionItem>
 
-<script is:inline define:vars={{ valine }}>
+<script is:inline data-astro-rerun define:vars={{ valine }}>
   document.addEventListener(
     "astro:page-load",
     () => {
