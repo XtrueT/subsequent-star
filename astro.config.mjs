@@ -27,7 +27,7 @@ const runtimeCaches = (cacheName, handler, urlPattern) => ({
 // https://astro.build/config
 export default defineConfig({
 
-	site: 'https://subsequent-star.vercel.app',
+	site: 'https://subsequent.pages.dev',
 	prefetch: {
 		prefetchAll: true
 	},
