@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+
+const { src, alt, text } = Astro.props;
+---
+
+<div class="hero grid grid-rows-1 grid-cols-1 relative">
+  <div class="hero-area grid items-center overflow-hidden relative">
+      <Image
+        src={src}
+        alt={alt}
+        loading="lazy"
+        class="w-full h-[380px] object-cover"
+        width="1920"
+        height="1080"
+      />
+  </div>
+  <div class="hero-area grid z-[1] items-center relative bg-black/30">
+    <div class="m-auto">
+      <h1 class="text-3xl font-bold text-white">{text}</h1>
+      <p class="text-xl text-white mt-4">
+        <slot />
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero {
+    grid-template-areas: "overflow";
+  }
+  .hero-area {
+    grid-area: overflow;
+  }
+</style>

@@ -30,11 +30,19 @@ if (entry) {
 }
 ---
 
-<SectionItem title={title}>
-  <div class="flex flex-col justify-center items-center divide-y space-y-5">
-    {posts.slice(0, sliceNum).map((post) => <ArticleItem post={post} />)}
-  </div>
-  <div class="flex justify-center items-center">
-    <a href="/archives" class="inline-block">查看全部</a>
-  </div>
-</SectionItem>
+{
+  posts.length > 0 && (
+    <SectionItem title={title}>
+      <div class="flex flex-col justify-center items-center divide-y space-y-5">
+        {posts.slice(0, sliceNum).map((post) => (
+          <ArticleItem post={post} />
+        ))}
+      </div>
+      <div class="flex justify-center items-center">
+        <a href="/archives" class="inline-block">
+          查看全部
+        </a>
+      </div>
+    </SectionItem>
+  )
+}

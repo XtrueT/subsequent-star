@@ -81,7 +81,7 @@ export default defineConfig({
 			},
 			workbox: {
 				navigateFallback: null,
-				globPatterns: ['**/*.{css,js,html,png,jpg,ico,avif,json,xml}'],
+				globPatterns: ['**/*.{css,js,html,png,jpg,ico,avif,webp,json,xml}'],
 				runtimeCaching: [
 					runtimeCaches('all-unpkg','CacheFirst','^https://unpkg\\.com'),
 					// runtimeCaches('all-image','CacheFirst','.*.(?:png|jpg|jpeg|svg|gif|avif|webp)'),
