@@ -3,12 +3,12 @@ const { id, text } = Astro.props;
 ---
 
 <div class="relative inline-block group">
-  <button id={id} aria-label={text} class="p-2 flex items-center hover:text-purple-500">
+  <button id={id} aria-label={text} class="p-2 flex items-center">
     <slot />
   </button>
 
   <p
-    class="absolute bg-inherit items-center justify-center w-20 p-1 -mx-2 rounded-lg shadow-lg -left-[185%] top-[10%] hidden group-hover:flex"
+    class="absolute bg-inherit items-center justify-center w-20 p-1 -mx-2 -left-[185%] top-[10%] hidden group-hover:flex"
   >
     <span class="truncate">{text}</span>
   </p>

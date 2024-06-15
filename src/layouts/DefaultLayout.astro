@@ -26,22 +26,26 @@ const { author, url } = config;
       {
         config.header_images.enable && (
           <div
-            class="relative bg-cover bg-top w-full h-[50vh]  text-inherit flex justify-center items-center"
+            class="relative bg-cover bg-top w-full h-[50vh] text-inherit flex justify-center items-center"
             style={`background-image: url(${config.header_images.src});`}
           >
             <div
               class="absolute top-0 right-0 w-full  h-full 
-                bg-black/50"
+                bg-black/30"
             />
-            <div class="max-w-md text-center text-2xl text-white z-[1]">
+            <div class="text-center text-2xl text-white z-[1]"> 
               {headerText}
             </div>
+            <div class="w-full absolute bottom-0">
+
+            </div>
+
           </div>
         )
       }
     </header>
     <div
-      class="flex flex-col flex-1 items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container"
+      class="flex flex-col items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container"
     >
       <Navbar />
       <main id="main" class="lg:px-24 relative min-h-screen w-full">

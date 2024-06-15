@@ -6,10 +6,10 @@ import { config } from "@config";
 ---
 
 <nav id="navbar" class="fixed-nav h-16 max-w-screen max-sm:h-28 z-10 theme">
-  <div class="container mx-auto flex flex-wrap lg:px-24">
-    <ul class="flex flex-row justify-start  items-center flex-auto">
+  <div class="container mx-auto flex flex-wrap lg:px-24 items-center">
+    <ul class="flex flex-row justify-start items-center flex-auto">
       <li class="nav-link">
-        <ActiveLink href={config.url} target={"_blank"}>
+        <ActiveLink href={config.url} target={"_blank"} title={config.author}>
           <Image
             src={config.avatar}
             alt={config.author}
@@ -21,19 +21,19 @@ import { config } from "@config";
         </ActiveLink>
       </li>
       <li class="nav-link">
-        <ActiveLink href="/rss.xml" target={"_blank"}>
-          订阅
+        <ActiveLink href="/rss.xml" target={"_blank"} title="订阅">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-6 fill-current" viewBox="0 0 24 24"><path fill="current" d="M5 21q-.825 0-1.412-.587T3 19t.588-1.412T5 17t1.413.588T7 19t-.587 1.413T5 21m12 0q0-2.925-1.1-5.462t-3-4.438t-4.437-3T3 7V4q3.55 0 6.625 1.325t5.4 3.65t3.65 5.4T20 21zm-6 0q0-1.675-.625-3.113T8.65 15.35t-2.537-1.725T3 13v-3q2.3 0 4.288.863t3.487 2.362t2.363 3.488T14 21z"/></svg>
         </ActiveLink>
       </li>
       {
         config.nav.map((item) => (
           <li class="nav-link">
-            <ActiveLink href={item.href}>{item.title}</ActiveLink>
+            <ActiveLink href={item.href} title={item.title}>{item.title}</ActiveLink>
           </li>
         ))
       }
     </ul>
-    <div class="lg:basis-1/3 max-sm:basis-full">
+    <div class="lg:basis-1/3 md:basis-1/2 max-sm:basis-full ">
       {config.simple_search.enable && <Search />}
     </div>
   </div>
@@ -41,16 +41,14 @@ import { config } from "@config";
 
 <style>
   .nav-link {
-    @apply flex justify-center items-center w-auto h-14 px-2;
+    @apply flex justify-center items-center mx-2 h-14 ;
   }
 
   .nav-link a {
-    @apply flex justify-center items-center w-full h-full mx-2  py-1 
-     border-b-4 border-transparent 
-    hover:text-purple-500 hover:border-purple-500;
+    @apply inline-block mx-1 py-1 border-b-4 border-transparent;
   }
   .nav-link a.active {
-    @apply border-purple-500 text-purple-500;
+    @apply  border-purple-800 dark:border-purple-300 text-purple-800 dark:text-purple-300;
   }
   .fixed-nav {
     @apply w-full fixed top-0 left-0;
