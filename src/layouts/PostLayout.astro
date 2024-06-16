@@ -8,6 +8,7 @@ import ValineComm from "@components/ValineComm.astro";
 import { config } from "@config";
 import type { CollectionEntry } from "astro:content";
 import DefaultLayout from "./DefaultLayout.astro";
+import Prose from "@components/Prose.astro";
 
 interface Props {
   entry: CollectionEntry<"blog">;
@@ -48,7 +49,6 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
       id="sidebar"
       class="flex flex-col order-2 justify-start items-center min-h-screen lg:basis-1/3 lg:pl-2 lg:sticky lg:top-20 theme"
     >
-      
       <Tocbar headings={headings} title={title} />
       <TagCloud />
     </aside>
@@ -56,21 +56,10 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
     <div
       class="flex flex-col order-1 justify-start items-center flex-auto w-full lg:relative min-h-screen lg:overflow-y-auto"
     >
-      <article
-        class="w-full break-all p-5 prose-base lg:prose-lg
-              prose-h1:font-bold
-            prose-a:text-blue-500
-            hover:prose-a:text-purple-500
-              prose-p:text-justify
-              prose-img:rounded-md
-              prose-img:m-auto
-              prose-headings:border-purple-500
-              prose-headings:border-l-4
-              dark:prose-invert"
-      >
-        <h1>{title}</h1>
+      <Prose
+        ><h1>{title}</h1>
         <div
-          class="flex justify-start items-baseline space-x-1  text-zinc-800  dark:text-zinc-100 text-sm"
+          class="flex justify-start items-baseline space-x-1 text-zinc-800 dark:text-zinc-100 text-sm"
         >
           <span>{author}</span>
           <span>发布于</span>
@@ -84,7 +73,7 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
           }
         </div>
         <slot />
-      </article>
+      </Prose>
       <SliceList title="相关文章" entry={entry} />
       {config.valine.enable && <ValineComm valine={config.valine} />}
     </div>

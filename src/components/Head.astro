@@ -29,7 +29,7 @@ const { title, description, keyword } = Astro.props;
   <title>{`${config.title}-${title}`}</title>
   <meta name="title" content={title} />
   <meta name="description" content={`${config.description}|${description}`} />
-  <meta name="keyword" content={`${config.keyword}|${keyword}`} />
+  <meta name="keywords" content={`${config.keyword}|${keyword}`} />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />

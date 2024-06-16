@@ -21,7 +21,7 @@ posts.sort((a, b) => {
   return b.data.pubDate.getTime() - a.data.pubDate.getTime();
 });
 
-// group by year
+
 const postsByYear: Map<number, CollectionEntry<"blog">[]> = new Map();
 posts.forEach((post) => {
   const year = post.data.pubDate.getFullYear();
@@ -34,7 +34,7 @@ posts.forEach((post) => {
 ---
 
 <SectionItem title="文章归档">
-  <div class="flex flex-col justify-center items-center divide-y">
+  <div class="flex flex-col justify-center items-center">
     {
       [...postsByYear.entries()].map(([year, posts]) => {
         return (

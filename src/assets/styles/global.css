@@ -15,5 +15,9 @@ a,button{
 }
 
 .theme {
-  @apply dark:bg-zinc-900 dark:text-white bg-zinc-100 text-zinc-900 text-base lg:text-lg transition-all duration-300 ease-in-out break-all;
+  @apply dark:bg-zinc-900 dark:text-zinc-100 bg-zinc-100 text-zinc-900 text-base lg:text-lg transition-all duration-300 ease-in-out break-all dark:border-zinc-500;
+}
+
+*, ::before, ::after {
+  @apply dark:border-zinc-500;
 }
