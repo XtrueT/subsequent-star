@@ -81,11 +81,10 @@ export default defineConfig({
 			},
 			workbox: {
 				navigateFallback: null,
-				globPatterns: ['**/*.{css,js,png,jpg,ico,avif,webp,json,xml}'],
+				globPatterns: ['**/*.{css,js,html,png,jpg,ico,avif,webp,json,xml}'],
 				runtimeCaching: [
 					runtimeCaches('all-unpkg', 'CacheFirst', '^https://unpkg\\.com'),
-					runtimeCaches('html','StaleWhileRevalidate','.*.(?:html)')
-					// runtimeCaches('all-image','CacheFirst','.*.(?:png|jpg|jpeg|svg|gif|avif|webp)'),
+					// runtimeCaches('html','StaleWhileRevalidate','*.html')
 				]
 			},
 			devOptions: {
