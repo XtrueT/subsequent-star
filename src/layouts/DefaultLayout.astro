@@ -39,17 +39,18 @@ const { author, url } = config;
         )
       }
     </header>
-    <Navbar />
-    <Togglebar />
+
     <main
       id="main"
       class="flex flex-col items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container z-[2]"
     >
+      <Navbar />
       <div class="lg:px-24 relative min-h-screen w-full">
         <div class="pb-5 theme">
           <slot />
         </div>
       </div>
+      <Togglebar />
     </main>
 
     <footer id="footer" class="theme border-t-2 w-full">
