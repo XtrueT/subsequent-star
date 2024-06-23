@@ -39,27 +39,24 @@ const { author, url } = config;
         )
       }
     </header>
-
+    <Navbar />
+    <Togglebar />
     <main
       id="main"
       class="flex flex-col items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container z-[2]"
     >
-      <Navbar />
       <div class="lg:px-24 relative min-h-screen w-full">
         <div class="pb-5 theme">
           <slot />
         </div>
       </div>
-      <Togglebar />
     </main>
 
     <footer id="footer" class="theme border-t-2 w-full">
       <div class="container px-6 py-8 mx-auto">
         <div class="flex flex-col items-center text-center mt-5">
-          <h2 class="mb-5">{author}</h2>
-          <div
-            class="flex flex-wrap justify-evenly items-center  space-x-2 "
-          >
+          <div class="mb-5 font-bold text-3xl">{author}</div>
+          <div class="flex flex-wrap justify-evenly items-center space-x-2">
             <div class="flex flex-wrap justify-center flex-auto">
               {
                 config.nav.map((item) => (
@@ -80,6 +77,7 @@ const { author, url } = config;
                     href={item.href}
                     class="mx-4 text-sm"
                     aria-label={item.title}
+                    target="_blank"
                   >
                     {item.title}
                   </a>
@@ -88,10 +86,8 @@ const { author, url } = config;
             </div>
           </div>
         </div>
-        <div
-          class="flex flex-col justify-between items-center space-x-2  mt-5"
-        >
-          <div class="flex flex-wrap justify-center  space-x-2">
+        <div class="flex flex-col justify-between items-center space-x-2 mt-5">
+          <div class="flex flex-wrap justify-center space-x-2">
             <a href="/rss.xml" target="_blank" aria-label="Rss" title="Rss">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +130,9 @@ const { author, url } = config;
             </a>
           </div>
           <div class="flex flex-wrap justify-center space-x-2">
-            <small class="block">Copyright &copy; {year} All Rights Reserved.</small>
+            <small class="block"
+              >Copyright &copy; {year} All Rights Reserved.</small
+            >
             <small class="block">Generator by {Astro.generator}</small>
             <small class="block">BY-SA 4.0（除特别声明或转载文章外）</small>
           </div>

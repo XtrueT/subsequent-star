@@ -27,7 +27,7 @@ const { title, description, keyword } = Astro.props;
   <link rel="alternate" type="application/rss+xml" title={title} href={`${Astro.site}rss.xml`} />
   <!-- Primary Meta Tags -->
   <title>{`${config.title}-${title}`}</title>
-  <meta name="title" content={title} />
+  <meta name="title" content={`${config.title}-${title}`} />
   <meta name="description" content={`${config.description}|${description}`} />
   <meta name="keywords" content={`${config.keyword}|${keyword}`} />
   <meta name="msvalidate.01" content="419860CEB9D718497614927D5421945B" />

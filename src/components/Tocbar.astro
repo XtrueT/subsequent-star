@@ -43,15 +43,14 @@ const generateToc = (headings: any[]) => {
 {
   headings.length > 0 && (
     <SectionItem title="文章目录">
-      <nav class="w-full">
-        <h2>{title}</h2>
-        <hr />
+      <details class="p-2 mt-5" open>
+        <summary class="">{title}</summary>
         <ul id="tocList" class="max-h-[40vh] h-full overflow-y-auto">
           {generateToc(headings).map((heading) => (
             <TocLink heading={heading} />
           ))}
         </ul>
-      </nav>
+      </details>
     </SectionItem>
   )
 }
@@ -64,8 +63,7 @@ const generateToc = (headings: any[]) => {
     if (targetElement) {
       targetElement.scrollIntoView({
         behavior: "smooth",
-        block: "center",
-        inline: "nearest",
+        block: "start",
       });
     }
   }
@@ -74,27 +72,31 @@ const generateToc = (headings: any[]) => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const link = document.querySelector(
-            `.toc-link[href="#${entry.target.id}"]`
-          );
-          link?.classList.toggle("active", entry.isIntersecting);
-          debouncedHandleScrollEnd();
+          if (entry.isIntersecting) {
+            const link = document.querySelector(
+              `.toc-link[href="#${entry.target.id}"]`
+            );
+            if (link) {
+              document.querySelectorAll(".toc-link").forEach((item) => {
+                item.classList.remove("active");
+              });
+              link.classList.add("active");
+            }
+          }
         });
+        debouncedHandleScrollEnd();
       },
       {
-        root: null, // 相对于视口观察
-        rootMargin: "-5% 0px -5% 0px",
-        threshold: 0.1, // 元素与视口交叉的阈值
+        root: document, // 相对于视口观察
+        rootMargin: "-5% 0px -75% 0px",
+        threshold: 1, // 元素与视口交叉的阈值
       }
     );
-
     // 为每个锚点设置观察器
     document.querySelectorAll(".toc-link").forEach((link) => {
       const href = link.getAttribute("href") || "";
       const targetElement = document.getElementById(href.substring(1));
-      if (targetElement) {
-        observer.observe(targetElement);
-      }
+      targetElement && observer.observe(targetElement);
     });
   }
 
