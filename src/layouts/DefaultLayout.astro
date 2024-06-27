@@ -46,7 +46,7 @@ const { author, url } = config;
     >
       <Navbar />
       <div class="lg:px-24 relative min-h-screen w-full">
-        <div class="pb-5 theme">
+        <div class="py-5 theme">
           <slot />
         </div>
       </div>
@@ -70,6 +70,14 @@ const { author, url } = config;
                   </a>
                 ))
               }
+              <a
+                href="/sitemap-0.xml"
+                class="mx-4 text-sm"
+                target="_blank"
+                aria-label="网站地图"
+              >
+                网站地图
+              </a>
             </div>
             <div class="flex flex-wrap justify-center flex-auto">
               {

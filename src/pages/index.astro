@@ -1,12 +1,12 @@
 ---
 import SlicePostList from "@components/SliceList.astro";
-import State from "@components/State.astro";
+import ChartState from "@components/ChartState.astro";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 ---
 
 <DefaultLayout title="主页" headerText="欢迎访问我的主页">
   <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
-    <State/>
+    <ChartState />
     <SlicePostList sliceNum={3} title="最近文章"/>
   </div>
 </DefaultLayout>

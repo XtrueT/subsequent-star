@@ -20,13 +20,13 @@ const tagsArray = Array.from(tagsWithCount.entries()).sort(
 );
 ---
 
-<SectionItem title="标签链接">
-  <div class="table-cell">
+<SectionItem title="标签">
+  <div class="table-cell p-5">
     {
       tagsArray.map(([tag, count]) => (
         <ActiveLink href={`/tags/${tag}`}>
           <Tag tag={tag}>
-            <sup class="p-1">{count}</sup>
+            <span class="p-1 bg-purple-800 text-white">{count}</span>
           </Tag>
         </ActiveLink>
       ))

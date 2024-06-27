@@ -16,6 +16,7 @@ const { valine } = Astro.props;
       const valineScript = document.createElement("script");
       valineScript.src = valine.src;
       valineScript.async = true;
+      valineScript.crossOrigin="anonymous";
       valineScript.onload = function () {
         new Valine({
           appId: valine.appId,

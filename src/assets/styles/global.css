@@ -5,8 +5,9 @@ img:not([src]) {
 }
 
 .tag {
-  @apply inline-block text-sm border-dashed border-b border-purple-800 dark:border-purple-300;
+  @apply inline-block text-sm border-dashed border border-purple-800 dark:border-purple-300 p-1 hover:bg-purple-800 hover:text-white;
 }
+
 a.active {
   @apply text-purple-800 dark:text-purple-300;
 }

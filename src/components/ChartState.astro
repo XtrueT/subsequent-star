@@ -1,0 +1,137 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import SectionItem from "./SectionItem.astro";
+import StateItem from "./StateItem.astro";
+
+// 获取 `src/content/blog/` 中的所有条目
+const allBlogPosts = await getCollection("blog");
+
+const tagsWithCount = allBlogPosts.reduce((acc, post) => {
+  // 假设每个帖子都有一个 `tags` 字段，它是一个字符串数组
+  post.data.tags.forEach((tag: any) => {
+    acc.set(tag, (acc.get(tag) || 0) + 1);
+  });
+  return acc;
+}, new Map());
+// 将Map对象转换为数组，以便在Astro组件中渲染
+const postsByYear: Map<number, CollectionEntry<"blog">[]> = new Map();
+allBlogPosts
+  .sort((a, b) => {
+    return a.data.pubDate.getTime() - b.data.pubDate.getTime();
+  })
+  .forEach((post) => {
+    const year = post.data.pubDate.getFullYear();
+    if (postsByYear.has(year)) {
+      postsByYear.get(year)!.push(post);
+    } else {
+      postsByYear.set(year, [post]);
+    }
+  });
+
+const yearData = [...postsByYear.entries()].map(([year, posts]) => [
+  year,
+  posts.length,
+]);
+const tagData = [...tagsWithCount.entries()];
+---
+
+<div
+  id="charts"
+  data-charts={JSON.stringify({ yearData, tagData })}
+  class="w-full flex flex-wrap justify-between  items-center"
+>
+  <StateItem>
+    <div class="p-5 size-48 flex flex-col items-center">
+      <div>文章总数</div>
+      <p class="text-5xl">{allBlogPosts.length}</p>
+    </div>
+  </StateItem>
+  <StateItem>
+    <div class="p-5 size-48 flex flex-col items-center">
+      <div>标签总数</div>
+      <p class="text-5xl">{tagsWithCount.size}</p>
+    </div>
+  </StateItem>
+  <StateItem>
+    <canvas id="tagcharts" aria-label="tags" role="img"> </canvas>
+  </StateItem>
+  <StateItem>
+    <canvas id="timecharts" aria-label="postByYear" role="img"> </canvas>
+  </StateItem>
+</div>
+
+<script>
+  declare var Chart: any;
+  document.addEventListener("astro:page-load", function () {
+    const chartScript = document.createElement("script");
+    chartScript.src = "https://cdn.jsdelivr.net/npm/chart.js";
+    chartScript.crossOrigin = "anonymous";
+    chartScript.async = true;
+    chartScript.onload = function () {
+      const tagcharts = document.getElementById(
+        "tagcharts"
+      ) as HTMLCanvasElement;
+      const timecharts = document.getElementById(
+        "timecharts"
+      ) as HTMLCanvasElement;
+      const dataset = document.getElementById("charts")?.dataset;
+      const chartsData = dataset?.charts ? JSON.parse(dataset.charts) : "";
+      if (dataset && tagcharts && timecharts) {
+        const borderColor = [] as any[];
+        const backgroundColor = [] as any[];
+        chartsData.yearData.forEach(() => {
+          const colors = `${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)}`;
+          backgroundColor.push(`rgba(${colors},0.2)`);
+          borderColor.push(`rgba(${colors})`);
+        });
+        const chart1 = new Chart(timecharts, {
+          type: "bar",
+          data: {
+            labels: chartsData.yearData.map((item) => item[0]),
+            datasets: [
+              {
+                label: "文章数",
+                data: chartsData.yearData.map((item) => item[1]),
+                backgroundColor,
+                borderColor,
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        const borderColor2 = [] as any[];
+        const backgroundColor2 = [] as any[];
+        chartsData.tagData.forEach(() => {
+          const colors = `${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)}`;
+          backgroundColor2.push(`rgba(${colors},0.2)`);
+          borderColor2.push(`rgba(${colors})`);
+        });
+        const chart2 = new Chart(tagcharts, {
+          type: "doughnut",
+          data: {
+            labels: chartsData.tagData.map((item) => item[0]),
+            datasets: [
+              {
+                label: "文章数",
+                data: chartsData.tagData.map((item) => item[1]),
+                backgroundColor: backgroundColor2,
+                borderColor: borderColor2,
+                borderWidth: 1,
+              },
+            ],
+          },
+        });
+      }
+      console.info("chartScript load");
+    };
+    document.head.appendChild(chartScript);
+  });
+</script>

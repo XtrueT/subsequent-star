@@ -84,6 +84,7 @@ export default defineConfig({
 				globPatterns: ['**/*.{css,js,html,png,jpg,ico,avif,webp,json,xml}'],
 				runtimeCaching: [
 					runtimeCaches('all-unpkg', 'CacheFirst', '^https://unpkg\\.com'),
+					runtimeCaches('all-jsdelivr', 'CacheFirst', '^https://cdn\\.jsdelivr\\.net'),
 					// runtimeCaches('html','StaleWhileRevalidate','*.html')
 				]
 			},
