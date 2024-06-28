@@ -10,7 +10,7 @@ export const config = {
     avatar: '/image/avatar.jpg',
     description: '水逺烟微的博客',
     keyword: '水逺烟微的博客,Astro,JavaScript,HTML,CSS,Tailwincss,Blog',
-    paginate: 8,
+    paginate: 5,
     paginate_max_links: 3,
     sliceNum: 3,
     nav: [

@@ -3,7 +3,7 @@
 title: 从Jekyll迁移到Astro要做什么？
 pubDate: 2024-06-10
 author: 霁
-heroImage: '/image/header.avif'
+heroImage: 
 slug: '2024-01'
 categories:
 - JavaScript

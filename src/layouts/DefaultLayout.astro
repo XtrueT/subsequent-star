@@ -35,7 +35,7 @@ const { author, url } = config;
             src={config.header_images.src}
             alt={config.header_images.alt}
             text={headerText}
-          />
+          ><slot name="hero"/></HeroBanner>
         )
       }
     </header>
