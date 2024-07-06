@@ -8,9 +8,11 @@ import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { Content as README } from "README.md";
 ---
 
-<DefaultLayout title="关于我" headerText="欢迎留言">
-  <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
-    <SectionItem title="README"><Prose><README /></Prose></SectionItem>
+<DefaultLayout
+  title='关于我'
+  headerText='欢迎留言'>
+  <div class='min-h-screen flex flex-col justify-start items-center space-y-5'>
+    <SectionItem title='README'><Prose><README /></Prose></SectionItem>
     {config.valine.enable && <ValineComm valine={config.valine} />}
   </div>
 </DefaultLayout>

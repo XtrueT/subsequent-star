@@ -52,8 +52,10 @@ const { tag } = Astro.params;
 const { page } = Astro.props;
 ---
 
-<DefaultLayout title=`标签-${tag}` headerText="标签归类">
-  <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
+<DefaultLayout
+  title=`标签-${tag}`
+  headerText='标签归类'>
+  <div class='min-h-screen flex flex-col justify-start items-center space-y-5'>
     <TagCloud />
     <SectionItem title=`${tag}-相关文章`>
       {page.data.map((post) => <ArticleItem post={post} />)}

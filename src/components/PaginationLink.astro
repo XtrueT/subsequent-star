@@ -1,9 +1,12 @@
 ---
-const { href, isActive = false,...props} = Astro.props;
+const { href, isActive = false, ...props } = Astro.props;
 ---
 
-<li class="pagination-link">
-  <a href={href} class:list={[{ active: isActive }]} {...props}>
+<li class='pagination-link'>
+  <a
+    href={href}
+    class:list={[{ active: isActive }]}
+    {...props}>
     <slot />
   </a>
 </li>

@@ -1,27 +1,30 @@
-<div class="px-5 mx-auto bg-inherit text-inherit">
-  <search class="relative pb-1">
-    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+<div class='px-5 mx-auto bg-inherit text-inherit'>
+  <search class='relative pb-1'>
+    <span class='absolute inset-y-0 left-0 flex items-center pl-3'>
+      <svg
+        class='w-5 h-5'
+        viewBox='0 0 24 24'
+        fill='none'>
         <path
-          d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
+          d='M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+        ></path>
       </svg>
     </span>
 
     <input
-      type="text"
-      id="search-input"
-      class="w-full py-3 pl-10 pr-4 border-b border-slate-500 focus:outline-none bg-inherit text-inherit"
-      placeholder="Search..."
+      type='text'
+      id='search-input'
+      class='w-full py-3 pl-10 pr-4 border-b border-primary focus:outline-none bg-inherit text-inherit'
+      placeholder='Search...'
     />
-    <div class="absolute inset-x-0 overflow-y-auto max-h-72 shadow-md">
+    <div class='absolute inset-x-0 overflow-y-auto max-h-72 shadow-md'>
       <ul
-        id="results-container"
-        class="flex flex-col w-full justify-around divide-y space-y-1 theme"
-      >
+        id='results-container'
+        class='flex flex-col w-full justify-around divide-y space-y-1 theme'>
         <!-- 这里插入搜索结果列表项 -->
       </ul>
     </div>
@@ -44,18 +47,13 @@
     // 合并用户提供的选项和默认选项
     const settings = Object.assign({}, defaults, options);
     const regexPost = (data, query) => {
-      const regex = new RegExp(
-        query.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"),
-        "gi"
-      );
+      const regex = new RegExp(query.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "gi");
       const results: any[] = [];
       data.forEach((post) => {
         const { data } = post;
         if (
           (settings.fuzzy &&
-            (data.title.match(regex) ||
-              data.tags.join(",").match(regex) ||
-              data.pubDate.match(regex))) ||
+            (data.title.match(regex) || data.tags.join(",").match(regex) || data.pubDate.match(regex))) ||
           (!settings.fuzzy &&
             (data.title.toLowerCase().includes(query.toLowerCase()) ||
               data.tags.join(",").toLowerCase().includes(query.toLowerCase()) ||
@@ -93,9 +91,7 @@
         const content = await fetch(settings.json);
         const { posts } = await content.json();
         // 设置数据的有效期
-        const expirationTime = new Date(
-          Date.now() + 1000 * 60 * 60 * 24
-        ).getTime(); // 设置有效期为 24 小时
+        const expirationTime = new Date(Date.now() + 1000 * 60 * 60 * 24).getTime(); // 设置有效期为 24 小时
         // 更新缓存数据并存储
         const updatedData = {
           data: posts,

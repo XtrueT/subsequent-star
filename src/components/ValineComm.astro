@@ -4,8 +4,11 @@ import SectionItem from "./SectionItem.astro";
 const { valine } = Astro.props;
 ---
 
-<SectionItem title="欢迎留言">
-  <div id="valine" class="flex-grow"></div>
+<SectionItem title='欢迎留言'>
+  <div
+    id='valine'
+    class='flex-auto'>
+  </div>
 </SectionItem>
 
 <script is:inline data-astro-rerun define:vars={{ valine }}>
@@ -16,7 +19,7 @@ const { valine } = Astro.props;
       const valineScript = document.createElement("script");
       valineScript.src = valine.src;
       valineScript.async = true;
-      valineScript.crossOrigin="anonymous";
+      valineScript.crossOrigin = "anonymous";
       valineScript.onload = function () {
         new Valine({
           appId: valine.appId,

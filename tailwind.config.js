@@ -12,6 +12,11 @@ export default {
         },
       },
       colors: {
+        primary:{
+          light: '#ffffff',
+          DEFAULT: '#806d9e',// 
+          dark: '#161823', //
+        }
       },
     },
   },

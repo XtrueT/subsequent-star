@@ -4,13 +4,15 @@ import ActiveLink from "./ActiveLink.astro";
 const { heading } = Astro.props;
 ---
 
-<li class="toc-item">
-  <ActiveLink href={`#${heading.slug}`} class="toc-link"
+<li class='toc-item'>
+  <ActiveLink
+    href={`#${heading.slug}`}
+    class='toc-link'
     >{heading.text}</ActiveLink
   >
   {
     heading.sub && heading.sub.length > 0 && (
-      <ul class="ml-4">
+      <ul class='ml-4'>
         {heading.sub.map((subheading) => (
           <Astro.self heading={subheading} />
         ))}
@@ -18,4 +20,3 @@ const { heading } = Astro.props;
     )
   }
 </li>
-

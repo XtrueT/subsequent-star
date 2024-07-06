@@ -1,32 +1,26 @@
-
-img:not([src]) {
-  /* 隐藏Chrome alt文字以及银色边框 */
-  visibility: hidden;
+a {
+  @apply text-primary-dark hover:text-primary dark:text-primary-light dark:hover:text-primary;
 }
 
 .tag {
-  @apply inline-block text-sm border-dashed border border-purple-800 dark:border-purple-300 px-1 hover:bg-purple-800 hover:text-white;
+  @apply inline-block text-sm border-dashed border border-primary dark:border-primary px-1 m-1 hover:bg-primary hover:text-primary-light;
 }
-a.active .tag{
-  @apply  bg-purple-800 text-white;
-
-}
-
-.toc-item a.active{
-  @apply  bg-purple-800 text-white px-1;
+a.active .tag {
+  @apply bg-primary text-primary-light;
 }
 
+.toc-item a.active {
+  @apply bg-primary text-primary-light;
+}
 a.active {
-  @apply text-purple-800 dark:text-purple-300;
+  @apply text-primary;
 }
-a,button{
-  @apply hover:text-purple-800  dark:hover:text-purple-300 transition-all duration-300 ease-in-out;
-}
-
 .theme {
-  @apply dark:bg-zinc-900 dark:text-zinc-100 bg-zinc-100 text-zinc-900 text-base lg:text-lg transition-all duration-300 ease-in-out break-all dark:border-zinc-500;
+  @apply dark:bg-primary-dark dark:text-primary-light bg-primary-light text-primary-dark text-base lg:text-lg transition-all duration-300 ease-in-out break-all;
 }
 
-*, ::before, ::after {
-  @apply dark:border-zinc-500;
+*,
+::before,
+::after {
+  @apply dark:border-primary;
 }

@@ -1,6 +1,6 @@
 ---
 import FormattedDate from "@components/FormattedDate.astro";
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 import Tag from "@components/Tag.astro";
 
 const { post } = Astro.props;
@@ -8,15 +8,17 @@ const { title, description, pubDate, author, heroImage, tags } = post.data;
 const href = `/blog/${post.slug}/`;
 ---
 
-<article class="mx-auto w-full md:max-w-screen-sm lg:max-w-screen-md break-all">
-  <div class="flex flex-col p-5 space-y-5">
+<article class='mx-auto w-full md:max-w-screen-sm lg:max-w-screen-md break-all'>
+  <div class='flex flex-col p-5 space-y-5'>
     <h2>
-      <a href={href} class="text-2xl font-bold hover:underline">{title}</a>
+      <a
+        href={href}
+        class='text-2xl font-bold hover:underline'
+        >{title}</a
+      >
     </h2>
 
-    <div
-      class="flex justify-start flex-wrap items-baseline space-x-1 text-zinc-800  dark:text-zinc-100 text-sm"
-    >
+    <div class='flex justify-start flex-wrap items-baseline space-x-1 text-sm text-primary-dark/70 dark:text-primary-light/70'>
       <span>{author}</span>
       <span>发布于</span>
       <FormattedDate date={pubDate} />
@@ -30,15 +32,19 @@ const href = `/blog/${post.slug}/`;
     </div>
     {
       heroImage && (
-        <a href={href} title={title}>
-          <figure id="heroImage" class="w-auto h-full min-w-28 min-h-20">
+        <a
+          href={href}
+          title={title}>
+          <figure
+            id='heroImage'
+            class='w-auto h-full min-w-28 min-h-20'>
             <Image
               src={heroImage}
               alt={title}
-              loading="lazy"
-              width="1920"
-              height="1080"
-              class="object-contain rounded-md"
+              loading='lazy'
+              width='1920'
+              height='1080'
+              class='object-contain rounded-md'
             />
           </figure>
         </a>
@@ -49,7 +55,9 @@ const href = `/blog/${post.slug}/`;
       {description ? description : post.body.substring(0, 50)}
     </p>
     <p>
-      <a href={href} class="border-dashed border-b border-purple-500">
+      <a
+        href={href}
+        class='border-dashed border-b border-primary'>
         阅读全文 »</a
       >
     </p>

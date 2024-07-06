@@ -28,35 +28,39 @@ allBlogPosts
     }
   });
 
-const yearData = [...postsByYear.entries()].map(([year, posts]) => [
-  year,
-  posts.length,
-]);
+const yearData = [...postsByYear.entries()].map(([year, posts]) => [year, posts.length]);
 const tagData = [...tagsWithCount.entries()];
 ---
 
 <div
-  id="charts"
+  id='charts'
   data-charts={JSON.stringify({ yearData, tagData })}
-  class="w-full flex flex-wrap justify-center items-center space-x-1 "
->
+  class='w-full flex flex-wrap justify-center items-center space-x-1'>
   <StateItem>
-    <div class="p-5 size-48 flex flex-col items-center">
+    <div class='p-5 size-48 flex flex-col items-center'>
       <div>文章总数</div>
-      <p class="text-5xl">{allBlogPosts.length}</p>
+      <p class='text-5xl'>{allBlogPosts.length}</p>
     </div>
   </StateItem>
   <StateItem>
-    <div class="p-5 size-48 flex flex-col items-center">
+    <div class='p-5 size-48 flex flex-col items-center'>
       <div>标签总数</div>
-      <p class="text-5xl">{tagsWithCount.size}</p>
+      <p class='text-5xl'>{tagsWithCount.size}</p>
     </div>
   </StateItem>
   <StateItem>
-    <canvas id="tagcharts" aria-label="tags" role="img"> </canvas>
+    <canvas
+      id='tagcharts'
+      aria-label='tags'
+      role='img'>
+    </canvas>
   </StateItem>
   <StateItem>
-    <canvas id="timecharts" aria-label="postByYear" role="img"> </canvas>
+    <canvas
+      id='timecharts'
+      aria-label='postByYear'
+      role='img'>
+    </canvas>
   </StateItem>
 </div>
 
@@ -68,12 +72,8 @@ const tagData = [...tagsWithCount.entries()];
     chartScript.crossOrigin = "anonymous";
     chartScript.async = true;
     chartScript.onload = function () {
-      const tagcharts = document.getElementById(
-        "tagcharts"
-      ) as HTMLCanvasElement;
-      const timecharts = document.getElementById(
-        "timecharts"
-      ) as HTMLCanvasElement;
+      const tagcharts = document.getElementById("tagcharts") as HTMLCanvasElement;
+      const timecharts = document.getElementById("timecharts") as HTMLCanvasElement;
       const dataset = document.getElementById("charts")?.dataset;
       const chartsData = dataset?.charts ? JSON.parse(dataset.charts) : "";
       if (dataset && tagcharts && timecharts) {

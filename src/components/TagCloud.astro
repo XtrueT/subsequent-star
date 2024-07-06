@@ -15,18 +15,16 @@ const tagsWithCount = allPosts.reduce((acc, post) => {
 }, new Map());
 
 // 将Map对象转换为数组，以便在Astro组件中渲染
-const tagsArray = Array.from(tagsWithCount.entries()).sort(
-  (a, b) => b[1] - a[1]
-);
+const tagsArray = Array.from(tagsWithCount.entries()).sort((a, b) => b[1] - a[1]);
 ---
 
-<SectionItem title="标签">
-  <div class="table-cell p-5">
+<SectionItem title='标签'>
+  <div class='table-cell p-5'>
     {
       tagsArray.map(([tag, count]) => (
         <ActiveLink href={`/tags/${tag}`}>
           <Tag tag={tag}>
-            <span class="p-1 bg-purple-800 text-white">{count}</span>
+            <span class='p-1.5 bg-primary text-primary-light'>{count}</span>
           </Tag>
         </ActiveLink>
       ))

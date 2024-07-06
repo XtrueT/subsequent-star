@@ -1,24 +1,18 @@
 ---
-import { Image } from "astro:assets";
-
-const { src, alt, text } = Astro.props;
+const { src, text } = Astro.props;
 ---
 
-<div class="hero grid grid-rows-1 grid-cols-1 relative">
-  <div class="hero-area grid items-center overflow-hidden relative ">
-      <Image
-        src={src}
-        alt={alt}
-        loading="lazy"
-        class="w-full h-[40vh] object-cover max-sm:object-[65%]"
-        width="1920"
-        height="380"
-      />
+<div class='hero grid grid-rows-1 grid-cols-1 relative'>
+  <div class='hero-area grid items-center overflow-hidden relative'>
+    <div
+      class='w-screen md:h-[40vh] h-[25vh] bg-cover bg-no-repeat bg-[65%]'
+      style={`background-image: url(${src});`}>
+    </div>
   </div>
-  <div class="hero-area grid z-[1] items-center relative bg-black/50">
-    <div class="m-auto p-5">
-      <div class="text-3xl font-bold text-white">{text}</div>
-      <div class="text-xl text-white mt-4">
+  <div class='hero-area grid z-[1] items-center relative w-full h-full bg-primary-dark/50'>
+    <div class='m-auto p-5'>
+      <div class='text-2xl font-bold text-primary-light'>{text}</div>
+      <div class='text-xl text-primary-light mt-4'>
         <slot />
       </div>
     </div>

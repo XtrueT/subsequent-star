@@ -31,9 +31,7 @@ const generateToc = (headings: any[]) => {
       toc.push(currentHeading);
     } else {
       const parentHeading = parentHeadings.get(depth - 1);
-      parentHeading
-        ? parentHeading.sub.push(currentHeading)
-        : toc.push(currentHeading);
+      parentHeading ? parentHeading.sub.push(currentHeading) : toc.push(currentHeading);
     }
   }
   return toc;
@@ -42,10 +40,14 @@ const generateToc = (headings: any[]) => {
 
 {
   headings.length > 0 && (
-    <SectionItem title="文章目录">
-      <details class="p-2 mt-5" open>
-        <summary class="">{title}</summary>
-        <ul id="tocList" class="max-h-[40vh] h-full overflow-y-auto">
+    <SectionItem title='文章目录'>
+      <details
+        class='mt-5'
+        open>
+        <summary class='mb-5'>{title}</summary>
+        <ul
+          id='tocList'
+          class='max-h-[50vh] h-full overflow-y-auto'>
           {generateToc(headings).map((heading) => (
             <TocLink heading={heading} />
           ))}
@@ -70,9 +72,7 @@ const generateToc = (headings: any[]) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const link = document.querySelector(
-              `.toc-link[href="#${entry.target.id}"]`
-            );
+            const link = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
             if (link) {
               document.querySelectorAll(".toc-link").forEach((item) => {
                 item.classList.remove("active");
@@ -111,10 +111,7 @@ const generateToc = (headings: any[]) => {
     ) {
       // 获取所有高亮的目录项
       const newtop =
-        activeLastLink.offsetTop -
-        tocList.clientHeight / 2 -
-        tocList.offsetTop -
-        activeLastLink.offsetHeight / 2;
+        activeLastLink.offsetTop - tocList.clientHeight / 2 - tocList.offsetTop - activeLastLink.offsetHeight / 2;
       // console.log(activeLastLink.offsetTop);
       // console.log(newtop);
       // 确保高亮的目录项在滚动区域内部是可见的
