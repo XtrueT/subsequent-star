@@ -74,8 +74,8 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
         </div>
         <slot />
       </Prose>
-      <SliceList title="相关文章" entry={entry} />
       {config.valine.enable && <ValineComm valine={config.valine} />}
+      <SliceList title="相关文章" entry={entry} />
     </div>
   </div>
 </DefaultLayout>

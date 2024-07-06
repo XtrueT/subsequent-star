@@ -61,10 +61,7 @@ const generateToc = (headings: any[]) => {
     const href = link.getAttribute("href");
     const targetElement = document.getElementById(href.substring(1));
     if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      targetElement.scrollIntoView(true);
     }
   }
 
@@ -79,8 +76,10 @@ const generateToc = (headings: any[]) => {
             if (link) {
               document.querySelectorAll(".toc-link").forEach((item) => {
                 item.classList.remove("active");
+                item.parentElement?.classList.remove("active");
               });
               link.classList.add("active");
+              link.parentElement?.classList.add("active");
             }
           }
         });
@@ -88,7 +87,7 @@ const generateToc = (headings: any[]) => {
       },
       {
         root: document, // 相对于视口观察
-        rootMargin: "-5% 0px -75% 0px",
+        rootMargin: "0px 0px -75% 0px",
         threshold: 1, // 元素与视口交叉的阈值
       }
     );

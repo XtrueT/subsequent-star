@@ -5,7 +5,15 @@ img:not([src]) {
 }
 
 .tag {
-  @apply inline-block text-sm border-dashed border border-purple-800 dark:border-purple-300 p-1 hover:bg-purple-800 hover:text-white;
+  @apply inline-block text-sm border-dashed border border-purple-800 dark:border-purple-300 px-1 hover:bg-purple-800 hover:text-white;
+}
+a.active .tag{
+  @apply  bg-purple-800 text-white;
+
+}
+
+.toc-item a.active{
+  @apply  bg-purple-800 text-white px-1;
 }
 
 a.active {

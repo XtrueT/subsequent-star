@@ -1,5 +1,6 @@
 ---
 import ArchiveTimeLine from "@components/ArchiveTimeLine.astro";
+import ChartState from "@components/ChartState.astro";
 import Pagination from "@components/Pagination.astro";
 import TagCloud from "@components/TagCloud.astro";
 import { config } from "@config";
@@ -33,6 +34,7 @@ const { page } = Astro.props;
 
 <DefaultLayout title="归档"  headerText="归档文章">
   <div class="min-h-screen flex flex-col justify-start items-center space-y-5">
+    <ChartState />
     <TagCloud />
     <ArchiveTimeLine page={page} />
     <Pagination
