@@ -79,7 +79,6 @@ import ToggleBtn from "./ToggleBtn.astro";
     const toggleButton = document.getElementById("theme-toggle");
     const htmlElement = document.documentElement;
     const header = document.getElementById("header");
-    const navbar = document.getElementById("navbar");
 
     // 切换主题
     // 监听按钮点击事件
@@ -93,7 +92,6 @@ import ToggleBtn from "./ToggleBtn.astro";
     const headerObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          navbar?.classList.toggle("shadow-md", !entry.isIntersecting);
           if (entry.isIntersecting) {
             backtopToggle?.classList.add("hidden");
             backtopToggle?.classList.remove("flex");

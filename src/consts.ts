@@ -20,7 +20,7 @@ export const config = {
     ],
     header_images: {
         enable: true,
-        src: '/image/header.webp',
+        src: '',
         alt: 'header'
     },
     simple_search: {

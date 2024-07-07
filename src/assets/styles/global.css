@@ -3,7 +3,7 @@ a {
 }
 
 .tag {
-  @apply inline-block text-sm border-dashed border border-primary dark:border-primary px-1 m-1 hover:bg-primary hover:text-primary-light;
+  @apply inline-block text-sm border-dashed border border-primary dark:border-primary px-1 m-1 hover:bg-primary hover:text-primary-light dark:hover:text-primary-light;
 }
 a.active .tag {
   @apply bg-primary text-primary-light;
@@ -16,7 +16,8 @@ a.active {
   @apply text-primary;
 }
 .theme {
-  @apply dark:bg-primary-dark dark:text-primary-light bg-primary-light text-primary-dark text-base lg:text-lg transition-all duration-300 ease-in-out break-all;
+  @apply dark:bg-primary-dark dark:text-primary-light bg-primary-light text-primary-dark 
+  text-base lg:text-lg transition-all duration-300 ease-in-out break-all shadow rounded-md shadow-primary;
 }
 
 *,

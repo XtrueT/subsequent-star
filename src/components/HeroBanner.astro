@@ -1,15 +1,24 @@
 ---
+import Waves from "@components/Waves.astro";
 const { src, text } = Astro.props;
 ---
 
 <div class='hero grid grid-rows-1 grid-cols-1 relative'>
   <div class='hero-area grid items-center overflow-hidden relative'>
-    <div
-      class='w-screen md:h-[40vh] h-[25vh] bg-cover bg-no-repeat bg-[65%]'
-      style={`background-image: url(${src});`}>
-    </div>
+    {
+      src ? (
+        <div
+          class='w-screen md:h-[60vh] h-[25vh] bg-cover bg-no-repeat bg-[65%]'
+          style={`background-image: url(${src});`}
+        />
+      ) : (
+        <div class='w-full'>
+          <Waves />
+        </div>
+      )
+    }
   </div>
-  <div class='hero-area grid z-[1] items-center relative w-full h-full bg-primary-dark/50'>
+  <div class='hero-area grid z-[1] items-center relative w-full h-full bg-primary-dark/30'>
     <div class='m-auto p-5'>
       <div class='text-2xl font-bold text-primary-light'>{text}</div>
       <div class='text-xl text-primary-light mt-4'>

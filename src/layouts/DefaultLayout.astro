@@ -46,19 +46,17 @@ const { author, url } = config;
 
     <main
       id='main'
-      class='flex flex-col items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container z-[2]'>
+      class='flex flex-col items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container z-[2] md:-mt-12 lg:-mt-32 lg:px-32'>
       <Navbar />
-      <div class='lg:px-24 relative min-h-screen w-full'>
-        <div class='py-5 theme'>
-          <slot />
-        </div>
+      <div class='relative min-h-screen w-full'>
+        <slot />
       </div>
       <Togglebar />
     </main>
 
     <footer
       id='footer'
-      class='theme border-t-2 w-full'>
+      class='border-t-2 w-full mt-5'>
       <div class='container px-6 py-8 mx-auto'>
         <div class='flex flex-col items-center text-center mt-5'>
           <div class='mb-5 font-bold text-3xl'>{author}</div>

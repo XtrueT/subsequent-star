@@ -32,37 +32,27 @@ const yearData = [...postsByYear.entries()].map(([year, posts]) => [year, posts.
 const tagData = [...tagsWithCount.entries()];
 ---
 
-<div
-  id='charts'
-  data-charts={JSON.stringify({ yearData, tagData })}
-  class='w-full flex flex-wrap justify-center items-center space-x-1'>
-  <StateItem>
-    <div class='p-5 size-48 flex flex-col items-center'>
-      <div>文章总数</div>
-      <p class='text-5xl'>{allBlogPosts.length}</p>
-    </div>
-  </StateItem>
-  <StateItem>
-    <div class='p-5 size-48 flex flex-col items-center'>
-      <div>标签总数</div>
-      <p class='text-5xl'>{tagsWithCount.size}</p>
-    </div>
-  </StateItem>
-  <StateItem>
-    <canvas
-      id='tagcharts'
-      aria-label='tags'
-      role='img'>
-    </canvas>
-  </StateItem>
-  <StateItem>
-    <canvas
-      id='timecharts'
-      aria-label='postByYear'
-      role='img'>
-    </canvas>
-  </StateItem>
-</div>
+<SectionItem title={`文章总数：${allBlogPosts.length}|标签总数：${tagsWithCount.size}`}>
+  <div
+    id='charts'
+    data-charts={JSON.stringify({ yearData, tagData })}
+    class='w-full flex flex-wrap justify-center items-center'>
+    <StateItem>
+      <canvas
+        id='tagcharts'
+        aria-label='tags'
+        role='img'>
+      </canvas>
+    </StateItem>
+    <StateItem>
+      <canvas
+        id='timecharts'
+        aria-label='postByYear'
+        role='img'>
+      </canvas>
+    </StateItem>
+  </div>
+</SectionItem>
 
 <script>
   declare var Chart: any;
