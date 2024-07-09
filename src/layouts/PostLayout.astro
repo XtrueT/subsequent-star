@@ -84,10 +84,10 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
 </DefaultLayout>
 <style>
   #sidebar {
-    @apply max-lg:fixed max-lg:top-0 max-lg:z-20  
+    @apply max-lg:fixed max-lg:top-0 max-lg:z-20  max-lg:px-1
     max-lg:-right-full max-lg:h-full  
     max-lg:w-[70vw] max-lg:break-all  
-    max-lg:overflow-y-auto max-lg:overflow-x-hidden;
+    max-lg:overflow-y-auto max-lg:overflow-x-hidden max-lg:dark:bg-primary-dark  max-lg:bg-primary-light;
   }
 
   #sidebar-toggle:checked ~ #sidebar {
@@ -97,7 +97,6 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
     @apply block;
   }
 
-  /* CSS样式 */
   .sidebar-toggle-button {
     @apply fixed z-50 top-3.5 right-2 lg:hidden;
   }
