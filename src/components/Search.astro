@@ -1,38 +1,36 @@
-<div class='px-5 mx-auto bg-inherit text-inherit'>
-  <search class='relative pb-1'>
-    <span class='absolute inset-y-0 left-0 flex items-center pl-3'>
-      <svg
-        class='w-5 h-5'
-        viewBox='0 0 24 24'
-        fill='none'>
-        <path
-          d='M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z'
-          stroke='currentColor'
-          stroke-width='2'
-          stroke-linecap='round'
-          stroke-linejoin='round'
-        ></path>
-      </svg>
-    </span>
+---
+import { config } from "@config";
+---
 
-    <input
-      type='text'
-      id='search-input'
-      class='w-full py-3 pl-10 pr-4 border-b border-primary focus:outline-none bg-inherit text-inherit'
-      placeholder='Search...'
-    />
-    <div class='absolute inset-x-0 overflow-y-auto max-h-72 shadow-md'>
-      <ul
-        id='results-container'
-        class='flex flex-col w-full justify-around divide-y space-y-1 theme'>
-        <!-- 这里插入搜索结果列表项 -->
-      </ul>
-    </div>
-  </search>
-</div>
+<search>
+  <span>
+    <svg
+      class='size-5'
+      viewBox='0 0 24 24'
+      fill='none'>
+      <path
+        d='M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z'
+        stroke='currentColor'
+        stroke-width='2'
+        stroke-linecap='round'
+        stroke-linejoin='round'
+      ></path>
+    </svg>
+  </span>
+  <input
+    type='text'
+    id='search-input'
+    data-json={config.simple_search.json}
+    placeholder={config.simple_search.placeholder}
+  />
+  <ul
+    id='results-container'
+    class='theme divide-y'>
+    <!-- 这里插入搜索结果列表项 -->
+  </ul>
+</search>
+
 <script>
-  import { config } from "../consts";
-
   // 定义一个搜索函数
   function SimpleSearch(options) {
     const defaults = {
@@ -116,15 +114,15 @@
           const { slug, data } = result;
           const { title, pubDate, tags } = data;
           tags.forEach((tag) => {
-            tagHTML += `<a href="/tags/${tag}" type="button" class="tag">#${tag}</a>`;
+            tagHTML += `<a href="/tags/${tag}" class="tag">#${tag}</a>`;
           });
           container.innerHTML += `<li class="flex flex-col flex-auto justify-between p-5 space-y-2">
-                                        <a class="inline-block hover:underline" href="/blog/${slug}/" title="${title}">
-                                            ${title}
+                                        <a class="inline-block" href="/blog/${slug}/" title="${title}">
+                                            <h2>${title}</h2>
                                         </a>
                                         <div class="flex justify-between items-center w-full ">
-                                            <div class="flex  justify-around space-x-2">${tagHTML}</div>
-                                            <div class="text-sm">${pubDate}</div>
+                                            <div class="flex justify-around space-x-2">${tagHTML}</div>
+                                            <time>${pubDate}</time>
                                         </div>
                                     </li>
                                     `;
@@ -186,7 +184,22 @@
     SimpleSearch({
       searchInput: document.getElementById("search-input"),
       resultsContainer: document.getElementById("results-container"),
-      json: `${config.simple_search.json}`, // 你的博客文章数据
+      json: `${document.getElementById("search-input")?.dataset.json}`, // 你的博客文章数据
     }).init();
   });
 </script>
+
+<style>
+  search {
+    @apply relative lg:w-1/2 w-full h-full flex justify-center py-1;
+  }
+  span {
+    @apply absolute inset-y-0 left-0 flex items-center pl-5;
+  }
+  input {
+    @apply flex-auto w-full pl-10  border-b border-primary focus:outline-none bg-inherit text-inherit;
+  }
+  ul {
+    @apply absolute inset-x-0 top-full overflow-y-auto max-h-72 shadow flex flex-col ;
+  }
+</style>

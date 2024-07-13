@@ -7,10 +7,10 @@ import { config } from "@config";
 
 <nav
   id='navbar'
-  class='fixed-nav h-16 max-w-screen max-sm:h-28 z-10 theme'>
-  <div class='container mx-auto flex flex-wrap lg:px-24 items-center'>
-    <ul class='flex flex-row justify-start items-center flex-auto'>
-      <li class='nav-link'>
+  class='theme'>
+  <div>
+    <ul role='menu'>
+      <li>
         <ActiveLink
           href={config.url}
           target={"_blank"}
@@ -25,7 +25,7 @@ import { config } from "@config";
           />
         </ActiveLink>
       </li>
-      <li class='nav-link'>
+      <li>
         <ActiveLink
           href='/rss.xml'
           target={"_blank"}
@@ -43,7 +43,7 @@ import { config } from "@config";
       </li>
       {
         config.nav.map((item) => (
-          <li class='nav-link'>
+          <li>
             <ActiveLink
               href={item.href}
               title={item.title}>
@@ -52,26 +52,36 @@ import { config } from "@config";
           </li>
         ))
       }
+      <li>
+      </li>
     </ul>
-    <div class='lg:basis-1/3 md:basis-1/2 max-sm:basis-full'>
-      {config.simple_search.enable && <Search />}
-    </div>
+    <ul>
+      <li>{config.simple_search.enable && <Search />}</li>
+    </ul>
   </div>
 </nav>
 
 <style>
-  .nav-link {
-    @apply flex justify-center items-center mx-2 h-14;
+  nav {
+    @apply max-sm:h-28 z-10 w-full fixed top-0 left-0;
   }
-
-  .nav-link a {
-    @apply inline-block mx-0.5 py-1 px-1.5 rounded;
+  div {
+    @apply container mx-auto flex flex-wrap justify-evenly items-center;
   }
-  .nav-link a.active {
+  ul {
+    @apply flex justify-evenly items-center flex-auto;
+  }
+  [role="menu"] {
+    @apply justify-start;
+  }
+  li {
+    @apply flex justify-center items-center flex-auto h-14 mx-1;
+  }
+  li a {
+    @apply flex justify-center items-center h-full w-full;
+  }
+  li a:hover,
+  li a.active {
     @apply bg-primary text-primary-light;
-  }
-  .fixed-nav {
-    @apply w-full fixed top-0 left-0;
-    margin-right: calc(100% - 100vw);
   }
 </style>
