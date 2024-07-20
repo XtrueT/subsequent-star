@@ -20,7 +20,7 @@ export const config = {
     ],
     header_images: {
         enable: true,
-        src: '',
+        src: '/image/header.webp',
         alt: 'header'
     },
     simple_search: {
@@ -45,3 +45,16 @@ export const config = {
     ]
 
 }
+
+export const gaodeApi = {
+    key: '660177da232d9fee719cdb922e85c6e4',
+    weather: 'https://restapi.amap.com/v3/weather/weatherInfo',
+    ip: 'https://restapi.amap.com/v3/ip'
+}
+
+export const holidays = [
+    { name: '中秋节', date: '2024-09-17' },
+    { name: '国庆', date: '2024-10-01' },
+    { name: '元旦', date: '2025-01-01' },
+    { name: '春节', date: '2025-01-29' },
+]

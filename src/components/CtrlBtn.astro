@@ -1,0 +1,77 @@
+---
+import { config } from "@config";
+import Card from "./Card.astro";
+import Togglebar from "./Togglebar.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<Card>
+  <header class='p-5 inline-flex justify-between'><h2 class="border-b-2 border-primary/30">链接</h2></header>
+  <div class='p-5'>
+    <ul>
+      <li>
+        <a
+          href='/rss.xml'
+          target='_blank'
+          aria-label='Rss'
+          title='Rss'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            class='size-6 fill-current'
+            viewBox='0 0 24 24'
+            ><path
+              fill='current'
+              d='M5 21q-.825 0-1.412-.587T3 19t.588-1.412T5 17t1.413.588T7 19t-.587 1.413T5 21m12 0q0-2.925-1.1-5.462t-3-4.438t-4.437-3T3 7V4q3.55 0 6.625 1.325t5.4 3.65t3.65 5.4T20 21zm-6 0q0-1.675-.625-3.113T8.65 15.35t-2.537-1.725T3 13v-3q2.3 0 4.288.863t3.487 2.362t2.363 3.488T14 21z'
+            ></path></svg
+          >
+        </a>
+      </li>
+      <li>
+        <a
+          href={config.url}
+          target='_blank'
+          aria-label='Github'
+          title='Github'>
+          <svg
+            class='size-6 fill-current'
+            viewBox='0 0 24 24'
+            fill='current'
+            xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M12.026 2C7.13295 1.99937 2.96183 5.54799 2.17842 10.3779C1.395 15.2079 4.23061 19.893 8.87302 21.439C9.37302 21.529 9.55202 21.222 9.55202 20.958C9.55202 20.721 9.54402 20.093 9.54102 19.258C6.76602 19.858 6.18002 17.92 6.18002 17.92C5.99733 17.317 5.60459 16.7993 5.07302 16.461C4.17302 15.842 5.14202 15.856 5.14202 15.856C5.78269 15.9438 6.34657 16.3235 6.66902 16.884C6.94195 17.3803 7.40177 17.747 7.94632 17.9026C8.49087 18.0583 9.07503 17.99 9.56902 17.713C9.61544 17.207 9.84055 16.7341 10.204 16.379C7.99002 16.128 5.66202 15.272 5.66202 11.449C5.64973 10.4602 6.01691 9.5043 6.68802 8.778C6.38437 7.91731 6.42013 6.97325 6.78802 6.138C6.78802 6.138 7.62502 5.869 9.53002 7.159C11.1639 6.71101 12.8882 6.71101 14.522 7.159C16.428 5.868 17.264 6.138 17.264 6.138C17.6336 6.97286 17.6694 7.91757 17.364 8.778C18.0376 9.50423 18.4045 10.4626 18.388 11.453C18.388 15.286 16.058 16.128 13.836 16.375C14.3153 16.8651 14.5612 17.5373 14.511 18.221C14.511 19.555 14.499 20.631 14.499 20.958C14.499 21.225 14.677 21.535 15.186 21.437C19.8265 19.8884 22.6591 15.203 21.874 10.3743C21.089 5.54565 16.9181 1.99888 12.026 2Z'>
+            </path>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a
+          href='https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans'
+          target='_blank'
+          aria-label='license'
+          title='license'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            class='size-6 fill-current'
+            viewBox='0 0 24 24'
+            ><path
+              fill='current'
+              d='M12 13q-1.25 0-2.125-.875T9 10t.875-2.125T12 7t2.125.875T15 10t-.875 2.125T12 13M6 23v-7.725q-.95-1.05-1.475-2.4T4 10q0-3.35 2.325-5.675T12 2t5.675 2.325T20 10q0 1.525-.525 2.875T18 15.275V23l-6-2zm6-7q2.5 0 4.25-1.75T18 10t-1.75-4.25T12 4T7.75 5.75T6 10t1.75 4.25T12 16m-4 4.025L12 19l4 1.025v-3.1q-.875.5-1.888.788T12 18t-2.113-.288T8 16.926zm4-1.55'
+            ></path></svg
+          >
+        </a>
+      </li>
+      <li>
+        <ThemeToggle/>
+      </li>
+    </ul>
+  </div>
+</Card>
+
+<style>
+  ul {
+    @apply flex flex-wrap justify-around;
+  }
+  li {
+    @apply flex-auto m-2 p-2 flex justify-center items-center;
+  }
+</style>

@@ -1,0 +1,87 @@
+---
+import Card from "./Card.astro";
+---
+
+<Card>
+  <header class='p-5 inline-flex justify-between'>
+    <h2 class="border-b-2 border-primary/30">实况天气</h2>
+    <button id='getGaodeInfo'>刷新</button>
+  </header>
+
+  <ul class="p-5">
+    <li>省份：<span id='province'></span></li>
+    <li>城市：<span id='city'></span></li>
+    <li>区域编码：<span id='adcode'></span></li>
+    <li>天气现象：<span id='weather'></span></li>
+    <li>实时气温：<span id='temperature'></span>°C</li>
+    <li>风向：<span id='winddirection'></span></li>
+    <li>风力级别：<span id='windpower'></span></li>
+    <li>空气湿度：<span id='humidity'></span>%</li>
+    <li class='report-time'>报告时间：<span id='reporttime'></span></li>
+  </ul>
+</Card>
+
+<script>
+  import { gaodeApi } from "@config";
+
+  async function getGaodeApiData(url, sessionStorageKey, isCache = true, cacheTime = 1000 * 60 * 60 * 24) {
+    let results: any;
+    const cachedData = isCache ? sessionStorage.getItem(sessionStorageKey) : null;
+    if (cachedData) {
+      // 解析缓存数据
+      const parsedData = JSON.parse(cachedData);
+      // 检查数据是否已过期
+      const now = new Date().getTime();
+      const expirationTime = parsedData.expirationTime || now;
+      if (now < expirationTime) {
+        results = parsedData.data;
+      }
+    }
+    if (!results) {
+      const content = await fetch(url);
+      const { ...data } = await content.json();
+      if (isCache) {
+        // 设置数据的有效期
+        const expirationTime = new Date(Date.now() + cacheTime).getTime(); // 设置有效期为 24 小时
+        // 更新缓存数据并存储
+        const updatedData = {
+          data,
+          expirationTime: expirationTime,
+        };
+        sessionStorage.setItem(sessionStorageKey, JSON.stringify(updatedData));
+      }
+      results = data;
+    }
+    return results;
+  }
+
+  function renderGaodeInfo(data) {
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        const element = document.getElementById(key);
+        if (element) {
+          element.textContent = data[key];
+        }
+      }
+    }
+  }
+
+  function getInfo() {
+    const ipUrl = `${gaodeApi.ip}?output=json&key=${gaodeApi.key}`;
+
+    getGaodeApiData(ipUrl, gaodeApi.ip).then((results) => {
+      const weatherUrl = `${gaodeApi.weather}?city=${results.adcode}&key=${gaodeApi.key}`;
+      // 缓存30分钟
+      getGaodeApiData(weatherUrl, gaodeApi.weather, true, 1000 * 60 * 30).then((results) => {
+        console.log(results);
+        renderGaodeInfo(results.lives[0]);
+      });
+    });
+  }
+  document.addEventListener("astro:page-load", () => {
+    document.getElementById("getGaodeInfo")?.addEventListener("click", getInfo);
+    // 初始化显示
+    getInfo();
+    setInterval(getInfo, 1000 * 60 * 30);
+  });
+</script>

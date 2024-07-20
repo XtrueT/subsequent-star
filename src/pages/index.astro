@@ -1,15 +1,62 @@
 ---
+import Card from "@components/Card.astro";
+import ChartState from "@components/ChartState.astro";
+import CtrlBtn from "@components/CtrlBtn.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import GaodeInfo from "@components/GaodeInfo.astro";
+import SectionItem from "@components/SectionItem.astro";
 import SlicePostList from "@components/SliceList.astro";
+import TimeInfo from "@components/TimeInfo.astro";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+let posts: CollectionEntry<"blog">[];
+
+posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <DefaultLayout
   title='主页'
   headerText='欢迎访问我的主页'>
-  <div class='min-h-screen flex flex-col justify-start items-center space-y-5'>
-    <SlicePostList
-      sliceNum={3}
-      title='最近文章'
-    />
+  <div class='min-h-screen flex flex-col items-center'>
+    <div class="flex flex-wrap justify-evenly">
+      <Card>
+        <header class='p-5 inline-flex justify-between'>
+          <h2 class="border-b-2 border-primary/30">最近文章</h2>
+          <span>
+            <a
+              href='/archives'
+              class=''>
+              查看全部
+            </a></span
+          >
+        </header>
+        <ul class='container flex flex-col space-y-1'>
+          {
+            posts.slice(0, 5).map((item) => (
+              <li class='p-5 flex-auto flex justify-between items-start'>
+                <a
+                  href={`blog/${item.slug}`}
+                  class='hover:underline underline-offset-4'>
+                  {item.data.title}
+                </a>
+                <span>
+                  <FormattedDate date={item.data.pubDate} />
+                </span>
+              </li>
+            ))
+          }
+        </ul></Card
+      >
+    
+      <Card>
+        <header class='p-5 inline-flex justify-between'>
+          <h2 class="border-b-2 border-primary/30">统计</h2>
+        </header>
+        <ChartState />
+      </Card>
+      <CtrlBtn />
+      <GaodeInfo />
+      <TimeInfo />
+    </div>
   </div>
 </DefaultLayout>

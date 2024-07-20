@@ -1,0 +1,61 @@
+---
+import Card from "./Card.astro";
+---
+
+<Card>
+  <header class='p-5 inline-flex justify-between'>
+    <h2 class="border-b-2 border-primary/30">
+      <span
+        class='countdown font-mono text-2xl'
+        id='current-time'
+      ></span>
+    </h2>
+  </header>
+  <ul
+    id='info'
+    class='p-5'>
+  </ul>
+</Card>
+
+<script>
+  import { holidays } from "@config";
+
+  function updateDateTime() {
+    const timeEle = document.getElementById("current-time");
+    if (timeEle) {
+      timeEle.textContent = `${new Date().toLocaleTimeString()}`;
+    }
+  }
+
+  function calculateCountdown(targetDate) {
+    const now = new Date() as any;
+    const countdownDate = new Date(targetDate) as any;
+    const timeDiff = countdownDate - now;
+    return Math.ceil(timeDiff / (1000 * 3600 * 24));
+  }
+
+  function updateCountdowns() {
+    let info = `<li>小助手提醒您,今天是: ${new Date().toLocaleDateString("zh-cn", {
+      year: "numeric",
+      month: "2-digit",
+      day: "numeric",
+    })}</li>
+        `;
+    holidays.map(({ name, date }) => {
+      const countdown = calculateCountdown(date);
+      info += `<li>距离【${name}】还有 ${countdown} 天</li>`;
+    });
+
+    const infoEle = document.getElementById("info");
+    if (infoEle) {
+      infoEle.innerHTML = info;
+    }
+  }
+  document.addEventListener("astro:page-load", () => {
+    // 初始化显示
+    updateDateTime();
+    updateCountdowns();
+    setInterval(updateDateTime, 1000);
+    setInterval(updateCountdowns, 1000 * 60 * 60 * 24);
+  });
+</script>
