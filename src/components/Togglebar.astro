@@ -2,31 +2,10 @@
 import ToggleBtn from "./ToggleBtn.astro";
 ---
 
-<details
-  open
-  id='togglebar'
-  class='flex flex-col justify-center items-center fixed bottom-5 -right-full z-50 theme'
-  style='margin-right: calc(100% - 100vw);'>
-  <summary class='list-none p-2 flex items-center justify-center hover:bg-primary hover:text-primary-light'>
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      width='24'
-      height='24'
-      viewBox='0 0 24 24'
-      ><path
-        fill='none'
-        class='stroke-current'
-        stroke-linecap='round'
-        stroke-linejoin='round'
-        stroke-width='1.5'
-        d='M7 4v16m10-1V4m-7 3S7.79 4 7 4S4 7 4 7m16 10s-2.21 3-3 3s-3-3-3-3'
-      ></path></svg
-    >
-  </summary>
-
-  <ToggleBtn
-    id='backtop-toggle'
-    text='返回顶部'>
+<div
+  class='hidden fixed bottom-5 right-5 z-50'
+  id='backtop-toggle'>
+  <ToggleBtn text='返回顶部'>
     <svg
       xmlns='http://www.w3.org/2000/svg'
       width='24'
@@ -42,33 +21,26 @@ import ToggleBtn from "./ToggleBtn.astro";
       ></svg
     >
   </ToggleBtn>
-</details>
+</div>
+
 <script>
-
-
   document.addEventListener("astro:page-load", () => {
     const backtopToggle = document.getElementById("backtop-toggle");
-    const header = document.getElementById('header-title');
-
-    // 使用 Intersection Observer API 观察 header 元素是否在视窗内
-    const headerObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          document.getElementById("togglebar")?.classList.toggle("-right-full", entry.isIntersecting);
-          document.getElementById("togglebar")?.setAttribute("open", `${!entry.isIntersecting}`);
-          document.getElementById("togglebar")?.classList.toggle("right-5", !entry.isIntersecting);
-        });
-      },
-      {
-        root: null, // 相对于视口观察
-        rootMargin: "-20%",
-        threshold: 0.1, // 元素与视口交叉的阈值
+    // 初始化变量
+    let lastScrollTop = 0;
+    const scrollThreshold = 200; // 设定向下滚动的距离阈值
+    // 监听滚动事件
+    window.addEventListener("scroll", function () {
+      // 检测用户是否向下滚动超过阈值
+      const st = document.documentElement.scrollTop;
+      // 检测向上滚动
+      if (st < lastScrollTop && st > scrollThreshold) {
+        backtopToggle?.classList.remove("hidden");
+      } else {
+        backtopToggle?.classList.add("hidden");
       }
-    );
-    // 开始观察 header 元素
-    if (header) {
-      headerObserver.observe(header);
-    }
+      lastScrollTop = st;
+    });
 
     // 返回顶部按钮点击事件
     backtopToggle?.addEventListener("click", () => {

@@ -53,73 +53,89 @@ const tagData = [...tagsWithCount.entries()];
 </div>
 
 <script>
-  declare var Chart: any;
+  // declare var Chart: any;
+  import {
+    Chart,
+    Colors,
+    BarController,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Legend,
+    DoughnutController,
+    ArcElement,
+    Tooltip,
+  } from "chart.js";
+
+  Chart.register(
+    Colors,
+    BarController,
+    BarElement,
+    DoughnutController,
+    ArcElement,
+    CategoryScale,
+    LinearScale,
+    Legend,
+    Tooltip
+  );
   document.addEventListener("astro:page-load", function () {
-    const chartScript = document.createElement("script");
-    chartScript.src = "https://cdn.jsdelivr.net/npm/chart.js";
-    chartScript.crossOrigin = "anonymous";
-    chartScript.async = true;
-    chartScript.onload = function () {
-      const tagcharts = document.getElementById("tagcharts") as HTMLCanvasElement;
-      const timecharts = document.getElementById("timecharts") as HTMLCanvasElement;
-      const dataset = document.getElementById("charts")?.dataset;
-      const chartsData = dataset?.charts ? JSON.parse(dataset.charts) : "";
-      if (dataset && tagcharts && timecharts) {
-        const borderColor = [] as any[];
-        const backgroundColor = [] as any[];
-        chartsData.yearData.forEach(() => {
-          const colors = `${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)}`;
-          backgroundColor.push(`rgba(${colors},0.2)`);
-          borderColor.push(`rgba(${colors})`);
-        });
-        const chart1 = new Chart(timecharts, {
-          type: "bar",
-          data: {
-            labels: chartsData.yearData.map((item) => item[0]),
-            datasets: [
-              {
-                label: "文章数",
-                data: chartsData.yearData.map((item) => item[1]),
-                backgroundColor,
-                borderColor,
-                borderWidth: 1,
-              },
-            ],
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true,
-              },
+    const tagcharts = document.getElementById("tagcharts") as HTMLCanvasElement;
+    const timecharts = document.getElementById("timecharts") as HTMLCanvasElement;
+    const dataset = document.getElementById("charts")?.dataset;
+    const chartsData = dataset?.charts ? JSON.parse(dataset.charts) : "";
+    if (dataset && tagcharts && timecharts) {
+      const borderColor = [] as any[];
+      const backgroundColor = [] as any[];
+      chartsData.yearData.forEach(() => {
+        const colors = `${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)}`;
+        backgroundColor.push(`rgba(${colors},0.2)`);
+        borderColor.push(`rgba(${colors})`);
+      });
+      new Chart(timecharts, {
+        type: "bar",
+        data: {
+          labels: chartsData.yearData.map((item) => item[0]),
+          datasets: [
+            {
+              label: "文章数",
+              data: chartsData.yearData.map((item) => item[1]),
+              backgroundColor,
+              borderColor,
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
             },
           },
-        });
+        },
+      });
 
-        const borderColor2 = [] as any[];
-        const backgroundColor2 = [] as any[];
-        chartsData.tagData.forEach(() => {
-          const colors = `${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)}`;
-          backgroundColor2.push(`rgba(${colors},0.2)`);
-          borderColor2.push(`rgba(${colors})`);
-        });
-        const chart2 = new Chart(tagcharts, {
-          type: "doughnut",
-          data: {
-            labels: chartsData.tagData.map((item) => item[0]),
-            datasets: [
-              {
-                label: "文章数",
-                data: chartsData.tagData.map((item) => item[1]),
-                backgroundColor: backgroundColor2,
-                borderColor: borderColor2,
-                borderWidth: 1,
-              },
-            ],
-          },
-        });
-      }
-      console.info("chartScript load");
-    };
-    document.head.appendChild(chartScript);
+      const borderColor2 = [] as any[];
+      const backgroundColor2 = [] as any[];
+      chartsData.tagData.forEach(() => {
+        const colors = `${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)}`;
+        backgroundColor2.push(`rgba(${colors},0.2)`);
+        borderColor2.push(`rgba(${colors})`);
+      });
+      new Chart(tagcharts, {
+        type: "doughnut",
+        data: {
+          labels: chartsData.tagData.map((item) => item[0]),
+          datasets: [
+            {
+              label: "文章数",
+              data: chartsData.tagData.map((item) => item[1]),
+              backgroundColor: backgroundColor2,
+              borderColor: borderColor2,
+              borderWidth: 1,
+            },
+          ],
+        },
+      });
+    }
   });
 </script>
