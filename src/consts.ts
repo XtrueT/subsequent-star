@@ -28,17 +28,13 @@ export const config = {
         placeholder: '搜索',
         json: `${import.meta.env.PROD ? import.meta.env.SITE : "http://localhost:4321"}/content.json`,
     },
-    valine: {
+    gittalk:{
         enable: true,
+    },
+    valine: {
+        enable: false,
         src: 'https://unpkg.com/valine@1.5.1/dist/Valine.min.js',
-        appId: 'SrzzGzdqbBXFOBE3ia8dVAnc-gzGzoHsz',
-        appKey: '0L9sFb0zNzyK7dRMunmGxbhx',
-        avatar: 'identicon',
-        placeholder: '在这里评论吧！',
-        visitor: true,//# 文章访问量统计
-        highlight: true, //# 代码高亮
-        avatarForce: false,// # 每次访问强制拉取最新的评论列表头像
-        recordIP: true,// # 记录评论者IP
+        
     },
     linked: [
         { title: 'jekyll blog', href: 'https://xtruet.github.io/' }
@@ -58,3 +54,23 @@ export const holidays = [
     { name: '元旦', date: '2025-01-01' },
     { name: '春节', date: '2025-01-29' },
 ]
+
+//https://github.com/gitalk/gitalk
+export const gitalkConfig = {
+    clientID: "Ov23liPHhSWwDyuzI1M3", // GitHub Application Client ID
+    clientSecret: "9d25e13e1aae2a7b42fac94a0de658d7679fc9c9", // GitHub Application Client Secret
+    repo: "xtruet", // 存放评论的仓库
+    owner: "XtrueT", // 仓库的创建者，
+    admin: ["XtrueT"], // 如果仓库有多个人可以操作，那么在这里以数组形式写出
+    distractionFreeMode: true // Facebook-like distraction free mode
+}
+export const valineConfig = {
+    appId: 'SrzzGzdqbBXFOBE3ia8dVAnc-gzGzoHsz',
+    appKey: '0L9sFb0zNzyK7dRMunmGxbhx',
+    avatar: 'identicon',
+    placeholder: '在这里评论吧！',
+    visitor: true,//# 文章访问量统计
+    highlight: true, //# 代码高亮
+    avatarForce: false,// # 每次访问强制拉取最新的评论列表头像
+    recordIP: true,// # 记录评论者IP
+}

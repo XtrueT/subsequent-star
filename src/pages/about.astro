@@ -1,4 +1,5 @@
 ---
+import GitalkComm from "@components/GitalkComm.astro";
 import Prose from "@components/Prose.astro";
 import SectionItem from "@components/SectionItem.astro";
 import ValineComm from "@components/ValineComm.astro";
@@ -13,6 +14,7 @@ import { Content as README } from "README.md";
   headerText='欢迎留言'>
   <div class='min-h-screen flex flex-col justify-start items-center space-y-5'>
     <SectionItem title='README'><Prose><README /></Prose></SectionItem>
-    {config.valine.enable && <ValineComm valine={config.valine} />}
+    {config.valine.enable && <ValineComm />}
+    {config.gittalk.enable && <GitalkComm />}
   </div>
 </DefaultLayout>

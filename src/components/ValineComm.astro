@@ -1,7 +1,6 @@
 ---
+import { valineConfig } from "@config";
 import SectionItem from "./SectionItem.astro";
-
-const { valine } = Astro.props;
 ---
 
 <SectionItem title='欢迎留言'>
@@ -11,7 +10,7 @@ const { valine } = Astro.props;
   </div>
 </SectionItem>
 
-<script is:inline data-astro-rerun define:vars={{ valine }}>
+<script is:inline data-astro-rerun define:vars={{ valineConfig }}>
   document.addEventListener(
     "astro:page-load",
     () => {

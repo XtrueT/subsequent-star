@@ -5,11 +5,12 @@ import Tag from "@components/Tag.astro";
 import TagCloud from "@components/TagCloud.astro";
 import Tocbar from "@components/Tocbar.astro";
 import ValineComm from "@components/ValineComm.astro";
-import { config } from "@config";
+import { config, valineConfig } from "@config";
 import type { CollectionEntry } from "astro:content";
 import DefaultLayout from "./DefaultLayout.astro";
 import Prose from "@components/Prose.astro";
 import SectionItem from "@components/SectionItem.astro";
+import GitalkComm from "@components/GitalkComm.astro";
 
 interface Props {
   entry: CollectionEntry<"blog">;
@@ -28,7 +29,7 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
     <div class='flex flex-col justify-start items-center flex-auto w-full lg:relative min-h-screen'>
       <SectionItem>
         <Prose
-          ><h1 id="header-title">{title}</h1>
+          ><h1 id='header-title'>{title}</h1>
           <div
             class='flex justify-start items-baseline space-x-1 text-sm text-primary-dark/70 dark:text-primary-light/70'>
             <span>{author}</span>
@@ -41,12 +42,22 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
                 </a>
               ))
             }
+            <!-- id 将作为查询条件 -->
+            {config.valine.enable&&
+            <span
+              id={`${new URL(`blog/${entry.slug}`, Astro.site)}`}
+              class='leancloud_visitors'
+              data-flag-title={entry.data.title}>
+              <em>阅读量</em>
+              <i class='leancloud-visitors-count'></i>
+            </span>}
           </div>
           <slot />
         </Prose>
       </SectionItem>
 
-      {config.valine.enable && <ValineComm valine={config.valine} />}
+      {config.valine.enable && <ValineComm />}
+      {config.gittalk.enable && <GitalkComm />}
       <SliceList
         title='相关文章'
         entry={entry}
