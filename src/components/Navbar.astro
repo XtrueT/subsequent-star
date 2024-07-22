@@ -2,12 +2,13 @@
 import ActiveLink from "@components/ActiveLink.astro";
 import { Image } from "astro:assets";
 import Search from "./Search.astro";
-import { config } from "@config";
+import { config } from "@assets/ts/consts";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <nav
   id='navbar'
-  class='theme'>
+  class=''>
   <div>
     <ul id='menu'>
       <li>
@@ -36,6 +37,7 @@ import { config } from "@config";
           </li>
         ))
       }
+      <li><ThemeToggle/></li>
       <li>
       </li>
     </ul>
@@ -47,7 +49,7 @@ import { config } from "@config";
 
 <style>
   nav {
-    @apply max-sm:h-28 z-10 w-full fixed top-0 left-0;
+    @apply max-sm:h-28 z-10 w-full  top-0 left-0;
   }
   div {
     @apply container mx-auto flex flex-wrap justify-evenly items-center;
@@ -66,6 +68,6 @@ import { config } from "@config";
   }
   li a:hover,
   li a.active {
-    @apply bg-primary text-primary-light;
+    @apply text-primary;
   }
 </style>

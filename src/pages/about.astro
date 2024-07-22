@@ -1,9 +1,9 @@
 ---
-import GitalkComm from "@components/GitalkComm.astro";
+import GiscusComm from "@components/GiscusComm.astro";
 import Prose from "@components/Prose.astro";
 import SectionItem from "@components/SectionItem.astro";
 import ValineComm from "@components/ValineComm.astro";
-import { config } from "@config";
+import { config } from "@assets/ts/consts";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 // 导入单个文件
 import { Content as README } from "README.md";
@@ -15,6 +15,6 @@ import { Content as README } from "README.md";
   <div class='min-h-screen flex flex-col justify-start items-center space-y-5'>
     <SectionItem title='README'><Prose><README /></Prose></SectionItem>
     {config.valine.enable && <ValineComm />}
-    {config.gittalk.enable && <GitalkComm />}
+    {config.giscus.enable && <GiscusComm />}
   </div>
 </DefaultLayout>

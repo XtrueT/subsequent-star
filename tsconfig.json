@@ -13,9 +13,6 @@
       "@layouts/*": [
         "src/layouts/*"
       ],
-      "@config": [
-        "src/consts.ts"
-      ]
     },
     "types": [
       "astro/client",

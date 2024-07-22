@@ -14,7 +14,6 @@
     "@vite-pwa/astro": "^0.4.0",
     "astro": "^4.8.5",
     "chart.js": "^4.4.3",
-    "gitalk": "^1.8.0",
     "tailwindcss": "^3.4.3"
 ```
 

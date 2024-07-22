@@ -22,7 +22,7 @@ import Card from "./Card.astro";
 </Card>
 
 <script>
-  import { gaodeApi } from "@config";
+  import { gaodeApi } from "@assets/ts/consts";
 
   async function getGaodeApiData(url, sessionStorageKey, isCache = true, cacheTime = 1000 * 60 * 60 * 24) {
     let results: any;

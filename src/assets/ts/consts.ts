@@ -1,7 +1,8 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
-
-
+const THEME_NAME = "theme";
+const THEME_TOGGLE_BUT_ID = "theme-toggle";
+export { THEME_NAME, THEME_TOGGLE_BUT_ID }
 // constants.ts
 export const config = {
     title: '水逺烟微',
@@ -28,13 +29,13 @@ export const config = {
         placeholder: '搜索',
         json: `${import.meta.env.PROD ? import.meta.env.SITE : "http://localhost:4321"}/content.json`,
     },
-    gittalk:{
+    giscus: {
         enable: true,
     },
     valine: {
         enable: false,
         src: 'https://unpkg.com/valine@1.5.1/dist/Valine.min.js',
-        
+
     },
     linked: [
         { title: 'jekyll blog', href: 'https://xtruet.github.io/' }
@@ -55,15 +56,7 @@ export const holidays = [
     { name: '春节', date: '2025-01-29' },
 ]
 
-//https://github.com/gitalk/gitalk
-export const gitalkConfig = {
-    clientID: "Ov23liPHhSWwDyuzI1M3", // GitHub Application Client ID
-    clientSecret: "9d25e13e1aae2a7b42fac94a0de658d7679fc9c9", // GitHub Application Client Secret
-    repo: "xtruet", // 存放评论的仓库
-    owner: "XtrueT", // 仓库的创建者，
-    admin: ["XtrueT"], // 如果仓库有多个人可以操作，那么在这里以数组形式写出
-    distractionFreeMode: true // Facebook-like distraction free mode
-}
+
 export const valineConfig = {
     appId: 'SrzzGzdqbBXFOBE3ia8dVAnc-gzGzoHsz',
     appKey: '0L9sFb0zNzyK7dRMunmGxbhx',
@@ -73,4 +66,20 @@ export const valineConfig = {
     highlight: true, //# 代码高亮
     avatarForce: false,// # 每次访问强制拉取最新的评论列表头像
     recordIP: true,// # 记录评论者IP
+}
+export const giscusConfig = {
+    "src": 'https://giscus.app/client.js',
+    "data-repo": 'XtrueT/xtruet',
+    "data-repo-id": 'MDEwOlJlcG9zaXRvcnkzNzc1NDE4NzU=',
+    "data-category": 'Announcements',
+    "data-category-id": 'DIC_kwDOFoDU884ChDTg',
+    "data-mapping": 'pathname',
+    "data-strict": '0',
+    "data-reactions-enabled": '1',
+    "data-emit-metadata": '0',
+    "data-input-position": 'top',
+    //"data-theme": 'preferred_color_scheme', // Dynamically 
+    "data-lang": 'zh-CN',
+    "data-loading": 'lazy',
+    "crossorigin": 'anonymous'
 }

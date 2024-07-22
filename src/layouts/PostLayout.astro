@@ -5,12 +5,12 @@ import Tag from "@components/Tag.astro";
 import TagCloud from "@components/TagCloud.astro";
 import Tocbar from "@components/Tocbar.astro";
 import ValineComm from "@components/ValineComm.astro";
-import { config, valineConfig } from "@config";
+import { config } from "@assets/ts/consts";
 import type { CollectionEntry } from "astro:content";
 import DefaultLayout from "./DefaultLayout.astro";
 import Prose from "@components/Prose.astro";
 import SectionItem from "@components/SectionItem.astro";
-import GitalkComm from "@components/GitalkComm.astro";
+import GiscusComm from "@components/GiscusComm.astro";
 
 interface Props {
   entry: CollectionEntry<"blog">;
@@ -43,21 +43,24 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
               ))
             }
             <!-- id 将作为查询条件 -->
-            {config.valine.enable&&
-            <span
-              id={`${new URL(`blog/${entry.slug}`, Astro.site)}`}
-              class='leancloud_visitors'
-              data-flag-title={entry.data.title}>
-              <em>阅读量</em>
-              <i class='leancloud-visitors-count'></i>
-            </span>}
+            {
+              config.valine.enable && (
+                <span
+                  id={`${new URL(`blog/${entry.slug}`, Astro.site)}`}
+                  class='leancloud_visitors'
+                  data-flag-title={entry.data.title}>
+                  <em>阅读量</em>
+                  <i class='leancloud-visitors-count' />
+                </span>
+              )
+            }
           </div>
           <slot />
         </Prose>
       </SectionItem>
 
       {config.valine.enable && <ValineComm />}
-      {config.gittalk.enable && <GitalkComm />}
+      {config.giscus.enable && <GiscusComm />}
       <SliceList
         title='相关文章'
         entry={entry}

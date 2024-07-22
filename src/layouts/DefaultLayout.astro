@@ -1,9 +1,8 @@
 ---
 import Head from "@components/Head.astro";
-import HeroBanner from "@components/HeroBanner.astro";
 import Navbar from "@components/Navbar.astro";
 import Togglebar from "@components/Togglebar.astro";
-import { config } from "@config";
+import { config } from "@assets/ts/consts";
 
 type Props = {
   title: string;
@@ -11,7 +10,7 @@ type Props = {
   keyword?: string;
   headerText?: string;
 };
-const { title, description = "", keyword = "", headerText = title } = Astro.props;
+const { title, description = "", keyword = "" } = Astro.props;
 const year = new Date().getFullYear();
 const { author, url } = config;
 ---
@@ -20,13 +19,11 @@ const { author, url } = config;
 <html
   lang='zh-cn'
   class='m-0 p-0 font-mono scroll-smooth'>
-
-    <Head
-      title={title}
-      description={description}
-      keyword={keyword}
-    />
-
+  <Head
+    title={title}
+    description={description}
+    keyword={keyword}
+  />
 
   <body class='theme'>
     {
@@ -41,12 +38,10 @@ const { author, url } = config;
       ) : (
         <header class='w-screen h-screen bg-cover bg-no-repeat bg-[65%] fixed  bg-primary-light/30 dark:bg-primary-dark/70 backdrop-blur backdrop-saturate-200 ' />
       )
-    }
-    <slot name='hero' />
+    }<Navbar />
     <main
       id='main'
-      class='flex flex-col items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container z-[2] size-full mt-32 xl:px-32 px-2'>
-      <Navbar />
+      class='flex flex-col items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container z-[2] size-full lg:mt-20'>
       <div class='relative min-h-screen w-full'>
         <slot />
       </div>
@@ -94,8 +89,8 @@ const { author, url } = config;
             </div>
           </div>
         </div>
-        <div class='flex flex-col justify-between items-center space-x-2 my-5'>
-          <div class='flex flex-wrap justify-center space-x-2'>
+        <div class='flex flex-col justify-between items-center  my-5'>
+          <div class='flex flex-wrap justify-center space-x-2 mb-5'>
             <a
               href='/rss.xml'
               target='_blank'

@@ -1,7 +1,7 @@
 ---
 import "@assets/styles/global.css";
 import BaiduAnalysis from "@components/BaiduAnalysis.astro";
-import { config } from "@config";
+import { config } from "@assets/ts/consts";
 import { ViewTransitions } from "astro:transitions";
 import PWA from "@components/PWA.astro";
 
@@ -108,9 +108,7 @@ const { title, description, keyword } = Astro.props;
   />
 
   <script is:inline>
-    localStorage.theme && !document.documentElement.classList.contains("dark")
-      ? document.documentElement.classList.add("dark")
-      : "";
+      document.documentElement.classList.add(localStorage.getItem("theme") == "dark" ? "dark" : "light")
   </script>
 
   {import.meta.env.PROD && <BaiduAnalysis />}

@@ -1,4 +1,4 @@
-a {
+a,button {
   @apply text-primary-dark hover:text-primary dark:text-primary-light dark:hover:text-primary;
 }
 
@@ -16,7 +16,7 @@ a.active {
   @apply text-primary;
 }
 .theme {
-  @apply dark:bg-primary-dark/70 dark:text-primary-light bg-primary-light/30 text-primary-dark transition-all duration-300 ease-in-out break-all  rounded;
+  @apply dark:bg-primary-dark/95 dark:text-primary-light bg-primary-light/95 text-primary-dark transition-all duration-300 ease-in-out break-all  rounded;
 }
 
 *,

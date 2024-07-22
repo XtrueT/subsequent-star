@@ -1,9 +1,10 @@
 ---
 import ToggleBtn from "./ToggleBtn.astro";
+import { THEME_TOGGLE_BUT_ID } from "@assets/ts/consts";
 ---
 
 <ToggleBtn
-  id='theme-toggle'
+  id={THEME_TOGGLE_BUT_ID}
   text='切换模式'>
   <span class='dark:hidden'>
     <svg
@@ -49,22 +50,12 @@ import ToggleBtn from "./ToggleBtn.astro";
   </span>
 </ToggleBtn>
 <script>
+  import { getTheme, setTheme } from "@assets/ts/utils";
+
   document.addEventListener("astro:before-swap", (ev) => {
     const document = ev.newDocument;
-    localStorage.theme && !document.documentElement.classList.contains("dark")
-      ? document.documentElement.classList.add("dark")
-      : "";
+    document.documentElement.classList.add(getTheme());
   });
 
-  document.addEventListener("astro:page-load", () => {
-    const toggleButton = document.getElementById("theme-toggle");
-    const htmlElement = document.documentElement;
-    // 切换主题
-    // 监听按钮点击事件
-    toggleButton?.addEventListener("click", () => {
-      htmlElement.classList.toggle("dark");
-      const theme = htmlElement.classList.contains("dark") ? "dark" : "";
-      localStorage.setItem("theme", theme);
-    });
-  });
+  document.addEventListener("astro:page-load", setTheme);
 </script>
