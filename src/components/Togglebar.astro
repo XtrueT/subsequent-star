@@ -38,9 +38,11 @@ import ToggleBtn from "./ToggleBtn.astro";
       if (st < lastScrollTop && st > scrollThreshold) {
         backtopToggle?.classList.remove("hidden");
         nav?.classList.add('fixed','theme');
+        nav?.classList.remove('relative');
       } else {
         backtopToggle?.classList.add("hidden");
         nav?.classList.remove('fixed','theme');
+        nav?.classList.add('relative');
       }
       lastScrollTop = st;
     });

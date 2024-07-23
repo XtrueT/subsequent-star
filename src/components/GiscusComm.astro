@@ -8,33 +8,8 @@ import SectionItem from "./SectionItem.astro";
 
 <script>
   import { giscusConfig } from "@assets/ts/consts";
+  import { giscusScript } from "@assets/ts/utils";
 
-  const getTheme = () => (localStorage.getItem("theme") == "dark" ? "dark" : "light");
-
-  const sendMessage = (message) => {
-    const iframe = document.querySelector("iframe.giscus-frame") as HTMLIFrameElement;
-    console.log(message);
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage({ giscus: message }, "https://giscus.app");
-    }
-  };
-  const giscusScript = (optionConfig) => {
-    const script = document.createElement("script");
-    for (let key in optionConfig) {
-      if (optionConfig.hasOwnProperty(key)) {
-        script.setAttribute(key, optionConfig[key]);
-      }
-    }
-    script.async = true;
-    script.setAttribute("data-theme", getTheme());
-    const toggleButton = document.getElementById("theme-toggle");
-    // 切换主题
-    // 监听按钮点击事件
-    toggleButton?.addEventListener("click", () =>
-      sendMessage({ setConfig: { theme: getTheme() } })
-    );
-    document.head.appendChild(script);
-  };
   document.addEventListener("astro:page-load", () => {
     giscusScript(giscusConfig);
   });
