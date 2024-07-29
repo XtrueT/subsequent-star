@@ -1,9 +1,9 @@
 import rss from '@astrojs/rss';
 import { config } from '@assets/ts/consts';
-import { getCollection } from 'astro:content';
+import { getAllPosts } from '@assets/ts/utils';
 
 export async function GET(context) {
-    const blog = await getCollection('blog');
+    const blog = await getAllPosts();
     return rss({
         title: config.title,
         description: config.description,

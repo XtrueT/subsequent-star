@@ -1,7 +1,6 @@
 ---
 import FormattedDate from "@components/FormattedDate.astro";
 import { Image } from "astro:assets";
-import Tag from "@components/Tag.astro";
 
 const { post } = Astro.props;
 const { title, description, pubDate, author, heroImage, tags } = post.data;
@@ -25,7 +24,7 @@ const href = `/blog/${post.slug}/`;
       {
         tags.map((tag) => (
           <a href={`/tags/${tag}`}>
-            <Tag tag={tag} />
+            <span class='tag'>#{tag}</span>
           </a>
         ))
       }

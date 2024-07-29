@@ -1,48 +1,23 @@
 ---
-import { type CollectionEntry } from "astro:content";
 import SectionItem from "./SectionItem.astro";
 import ArticleItem from "./ArticleItem.astro";
-
-type Props = {
-  page: {
-    data: CollectionEntry<"blog">[];
-    url: {
-      prev: string;
-      next: string;
-    };
-    currentPage: number;
-    lastPage: number;
-  };
-};
+import { getYearPosts } from "@assets/ts/utils";
 
 const { page } = Astro.props;
-const posts = page.data;
-posts.sort((a, b) => {
-  return b.data.pubDate.getTime() - a.data.pubDate.getTime();
-});
-
-const postsByYear: Map<number, CollectionEntry<"blog">[]> = new Map();
-posts.forEach((post) => {
-  const year = post.data.pubDate.getFullYear();
-  if (postsByYear.has(year)) {
-    postsByYear.get(year)!.push(post);
-  } else {
-    postsByYear.set(year, [post]);
-  }
-});
+const posts = getYearPosts(page.data);
 ---
 
 <SectionItem title='文章归档'>
   <div class='flex flex-col justify-center items-center'>
     {
-      [...postsByYear.entries()].map(([year, posts]) => {
+      posts.map(({ year, yearPosts }) => {
         return (
           <div class='flex flex-col w-full '>
             <div class='divide-y'>
               <div class='my-2'>
                 <h1 class='text-3xl font-bold'>{year}</h1>
               </div>
-              {posts.map((post) => {
+              {yearPosts.map((post) => {
                 return <ArticleItem post={post} />;
               })}
             </div>

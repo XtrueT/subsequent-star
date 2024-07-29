@@ -1,12 +1,10 @@
-a,button {
+a,
+button {
   @apply text-primary-dark hover:text-primary dark:text-primary-light dark:hover:text-primary;
 }
 
 .tag {
-  @apply inline-block text-sm border-dashed border border-primary dark:border-primary px-1 m-1 hover:bg-primary hover:text-primary-light dark:hover:text-primary-light;
-}
-a.active .tag {
-  @apply bg-primary text-primary-light;
+  @apply text-sm px-1 m-1 inline-flex;
 }
 
 .toc-item a.active {

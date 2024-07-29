@@ -4,13 +4,11 @@ import Pagination from "@components/Pagination.astro";
 import TagCloud from "@components/TagCloud.astro";
 import { config } from "@assets/ts/consts";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
+import { type CollectionEntry } from "astro:content";
+import { getAllPosts } from "@assets/ts/utils";
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
-  const posts = await getCollection("blog");
-  posts.sort((a, b) => {
-    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
-  });
+  const posts = await getAllPosts();
   return paginate(posts, {
     pageSize: config.paginate,
   });

@@ -1,35 +1,11 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import SectionItem from "./SectionItem.astro";
 import StateItem from "./StateItem.astro";
+import { getAllPosts, getTagPosts, getYearPosts } from "@assets/ts/utils";
 
-// 获取 `src/content/blog/` 中的所有条目
-const allBlogPosts = await getCollection("blog");
+const allBlogPosts = await getAllPosts();
 
-const tagsWithCount = allBlogPosts.reduce((acc, post) => {
-  // 假设每个帖子都有一个 `tags` 字段，它是一个字符串数组
-  post.data.tags.forEach((tag: any) => {
-    acc.set(tag, (acc.get(tag) || 0) + 1);
-  });
-  return acc;
-}, new Map());
-// 将Map对象转换为数组，以便在Astro组件中渲染
-const postsByYear: Map<number, CollectionEntry<"blog">[]> = new Map();
-allBlogPosts
-  .sort((a, b) => {
-    return a.data.pubDate.getTime() - b.data.pubDate.getTime();
-  })
-  .forEach((post) => {
-    const year = post.data.pubDate.getFullYear();
-    if (postsByYear.has(year)) {
-      postsByYear.get(year)!.push(post);
-    } else {
-      postsByYear.set(year, [post]);
-    }
-  });
-
-const yearData = [...postsByYear.entries()].map(([year, posts]) => [year, posts.length]);
-const tagData = [...tagsWithCount.entries()];
+const yearData = getYearPosts(allBlogPosts).map(({ year, yearPosts }) => [year, yearPosts.length]).sort((a, b) => a[0] - b[0]);
+const tagData = getTagPosts(allBlogPosts).map(({ tag, tagPosts }) => [tag, tagPosts.length]);
 ---
 
 <div

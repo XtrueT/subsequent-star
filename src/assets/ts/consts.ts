@@ -2,7 +2,10 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 const THEME_NAME = "theme";
 const THEME_TOGGLE_BUT_ID = "theme-toggle";
-export { THEME_NAME, THEME_TOGGLE_BUT_ID }
+const CONTENT_NAME = 'blog'; //
+
+export { THEME_NAME, THEME_TOGGLE_BUT_ID, CONTENT_NAME }
+
 // constants.ts
 export const config = {
     title: '水逺烟微',

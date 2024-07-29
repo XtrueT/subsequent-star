@@ -1,7 +1,6 @@
 ---
 import FormattedDate from "@components/FormattedDate.astro";
 import SliceList from "@components/SliceList.astro";
-import Tag from "@components/Tag.astro";
 import TagCloud from "@components/TagCloud.astro";
 import Tocbar from "@components/Tocbar.astro";
 import ValineComm from "@components/ValineComm.astro";
@@ -38,7 +37,7 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
             {
               tags.map((tag) => (
                 <a href={`/tags/${tag}`}>
-                  <Tag tag={tag} />
+                  <span class='tag'>#{tag}</span>
                 </a>
               ))
             }

@@ -5,35 +5,17 @@ import SectionItem from "@components/SectionItem.astro";
 import TagCloud from "@components/TagCloud.astro";
 import { config } from "@assets/ts/consts";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getAllPosts, getTagPosts } from "@assets/ts/utils";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
-  const posts = await getCollection("blog");
-  const tagsMap: Map<string, CollectionEntry<"blog">[]> = new Map();
-  posts.forEach((post) => {
-    if (Array.isArray(post.data.tags)) {
-      post.data.tags.forEach((tag) => {
-        if (tagsMap.has(tag)) {
-          tagsMap.get(tag)!.push(post);
-        } else {
-          tagsMap.set(tag, [post]);
-        }
-      });
-    }
-  });
-  return [...tagsMap.entries()]
-    .map((tagMap) => {
-      tagMap[1].sort((a, b) => {
-        return b.data.pubDate.getTime() - a.data.pubDate.getTime();
-      });
-      return tagMap;
-    })
-    .flatMap((tagMap) => {
-      return paginate(tagMap[1], {
-        params: { tag: tagMap[0] },
-        pageSize: config.paginate,
-      });
+  const allBlogPosts = await getAllPosts();
+  return getTagPosts(allBlogPosts).flatMap(({ tag, tagPosts }) => {
+    return paginate(tagPosts, {
+      params: { tag },
+      pageSize: config.paginate,
     });
+  });
 }
 
 type Props = {

@@ -1,31 +1,21 @@
 ---
-import { getCollection } from "astro:content";
 import ActiveLink from "./ActiveLink.astro";
-import Tag from "./Tag.astro";
 import SectionItem from "./SectionItem.astro";
-const allPosts = await getCollection("blog");
+import { getAllPosts, getTagPosts } from "@assets/ts/utils";
 
-// 使用reduce方法累积标签的计数
-const tagsWithCount = allPosts.reduce((acc, post) => {
-  // 假设每个帖子都有一个 `tags` 字段，它是一个字符串数组
-  post.data.tags.forEach((tag: any) => {
-    acc.set(tag, (acc.get(tag) || 0) + 1);
-  });
-  return acc;
-}, new Map());
-
-// 将Map对象转换为数组，以便在Astro组件中渲染
-const tagsArray = Array.from(tagsWithCount.entries()).sort((a, b) => b[1] - a[1]);
+const allBlogPosts = await getAllPosts();
+const data = getTagPosts(allBlogPosts);
 ---
 
 <SectionItem title='标签'>
   <div class='table-cell p-5'>
     {
-      tagsArray.map(([tag, count]) => (
+      data.map(({ tag, tagPosts }) => (
         <ActiveLink href={`/tags/${tag}`}>
-          <Tag tag={tag}>
-            <span class='p-1.5 bg-primary text-primary-light'>{count}</span>
-          </Tag>
+          <span class='tag'>
+            #{tag}
+            <sup class='text-primary text-base px-1'>{[...tagPosts].length}</sup>
+          </span>
         </ActiveLink>
       ))
     }

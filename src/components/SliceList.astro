@@ -3,29 +3,27 @@ import { config } from "@assets/ts/consts";
 import { getCollection, type CollectionEntry } from "astro:content";
 import ArticleItem from "./ArticleItem.astro";
 import SectionItem from "./SectionItem.astro";
+import { getAllPosts } from "@assets/ts/utils";
 interface Props {
   sliceNum?: number;
   title?: string;
-  entry?: CollectionEntry<"blog">;
+  entry: CollectionEntry<"blog">;
 }
 const { sliceNum = config.sliceNum, title, entry } = Astro.props;
 let posts: CollectionEntry<"blog">[];
-if (entry) {
-  const allPosts = await getCollection("blog");
-  const uniquePosts = new Set();
-  entry.data.tags.forEach((tag) => {
-    allPosts.forEach((post) => {
-      if (post.data.tags.includes(tag) && post.id !== entry.id) {
-        uniquePosts.add(post);
-      }
-    });
+
+const allPosts = await getAllPosts();
+const uniquePosts = new Set();
+entry.data.tags.forEach((tag) => {
+  allPosts.forEach((post) => {
+    if (post.data.tags.includes(tag) && post.id !== entry.id) {
+      uniquePosts.add(post);
+    }
   });
-  posts = (Array.from(uniquePosts) as CollectionEntry<"blog">[]).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  );
-} else {
-  posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-}
+});
+posts = (Array.from(uniquePosts) as CollectionEntry<"blog">[]).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
 ---
 
 {

@@ -1,4 +1,5 @@
-import { config, THEME_NAME, THEME_TOGGLE_BUT_ID } from "./consts";
+import { defineCollection, getCollection, z } from "astro:content";
+import { config, CONTENT_NAME, THEME_NAME, THEME_TOGGLE_BUT_ID } from "./consts";
 
 const getTheme = () => (localStorage.getItem(THEME_NAME) == "dark" ? "dark" : "light");
 
@@ -26,6 +27,7 @@ const sendMessage = (message) => {
         iframe.contentWindow.postMessage({ giscus: message }, "https://giscus.app");
     }
 };
+
 const giscusScript = (optionConfig) => {
     const script = document.createElement("script");
     for (let key in optionConfig) {
@@ -38,9 +40,69 @@ const giscusScript = (optionConfig) => {
     document.head.appendChild(script);
 };
 
+const blogSchema = () => defineCollection({
+    type: 'content',
+    // Type-check frontmatter using a schema
+    schema: z.object({
+        title: z.string(),
+        description: z.string().optional().default(''),
+        author: z.string().default(''),
+        // Transform string to Date object
+        pubDate: z.coerce.date(),
+        updatedDate: z.coerce.date().optional(),
+        heroImage: z.string().nullable().optional().default(''),
+        tags: z.array(z.string()).optional().default([]),
+        categories: z.array(z.string()).optional().default([])
+    }),
+});
+
+const getAllPosts = async () => {
+    return (await getCollection(CONTENT_NAME)).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+}
+
+const getTagPosts = (posts) => {
+    const tagsMap = new Map();
+    posts.forEach((post) => {
+        if (Array.isArray(post.data.tags)) {
+            post.data.tags.forEach((tag: string) => {
+                if (tagsMap.has(tag)) {
+                    tagsMap.get(tag)!.push(post);
+                } else {
+                    tagsMap.set(tag, [post]);
+                }
+            });
+        }
+    });
+    return [...tagsMap.entries()].sort((a, b) => b[1].length - a[1].length)
+        .map((tagMap) => {
+            return {
+                tagPosts: tagMap[1],
+                tag: tagMap[0]
+            }
+        });
+}
+
+const getYearPosts = (posts) => {
+    const yearMap = new Map();
+    posts.forEach((post) => {
+        const year = post.data.pubDate.getFullYear();
+        if (yearMap.has(year)) {
+            yearMap.get(year)!.push(post);
+        } else {
+            yearMap.set(year, [post]);
+        }
+    });
+    return [...yearMap.entries()].sort((a, b) => b[0] - a[0]).map((entry) => {
+        return {
+            yearPosts: entry[1],
+            year: entry[0]
+        }
+    })
+}
+
 
 // 定义一个搜索函数
-function SimpleSearch(options) {
+const SimpleSearch = (options) => {
     const defaults = {
         searchInput: null,
         resultsContainer: null,
@@ -188,4 +250,4 @@ function SimpleSearch(options) {
     };
 }
 
-export { giscusScript, getTheme, setTheme, SimpleSearch };
+export { giscusScript, getTheme, setTheme, SimpleSearch, blogSchema, getAllPosts, getTagPosts, getYearPosts };
