@@ -91,6 +91,31 @@ Enter passphrase for /home/dev/.ssh/id_ed25519: #密码
 
 > ssh-add 向身份验证代理 ssh-agent 添加私钥标识。当没有参数运行时，它会添加文件~/.ssh/id_rsa、~/.ssh/id_ecdsa、~/.ssh/id_ecdsa_sk、~/.ssh/id_ed25519、~/.ssh/id_ed25519_sk 和~/.ssh/id_dsa
 
+### 测试
+ 执行提交
+```bash
+dev@ALLENYS:/home/project/subsequent-star$ git push
+The authenticity of host 'github.com (20.205.243.166)' can't be established.
+ECDSA key fingerprint is SHA256:********
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'github.com,20.205.243.166' (ECDSA) to the list of known hosts.
+Enumerating objects: 92, done.
+Counting objects: 100% (92/92), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (49/49), done.
+Writing objects: 100% (54/54), 30.51 KiB | 6.10 MiB/s, done.
+Total 54 (delta 32), reused 0 (delta 0)
+remote: Resolving deltas: 100% (32/32), completed with 24 local objects.
+remote:
+remote: GitHub found 1 vulnerability on XtrueT/subsequent-star's default branch (1 high). To find out more, visit:
+remote:      https://github.com/XtrueT/subsequent-star/security/dependabot/11
+remote:
+To github.com:XtrueT/subsequent-star.git
+   706e07b..7fdb1a1  master -> master
+dev@ALLENYS:/home/project/subsequent-star$
+
+```
+
 ### 参考
 
 https://docs.github.com/zh/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
