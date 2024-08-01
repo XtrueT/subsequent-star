@@ -23,7 +23,7 @@ export const config = {
         { title: '归档', href: '/archives' },
     ],
     header_images: {
-        enable: true,
+        enable: false,
         src: '/image/header.webp',
         alt: 'header'
     },

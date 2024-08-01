@@ -34,7 +34,7 @@ posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - 
               <li class='p-5 flex-auto flex justify-between items-start'>
                 <a
                   href={`blog/${item.slug}`}
-                  class='hover:underline underline-offset-4'>
+                  class='hover:underline underline-offset-4 basis-2/3'>
                   {item.data.title}
                 </a>
                 <span>

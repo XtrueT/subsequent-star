@@ -4,6 +4,17 @@ export default {
   darkMode: 'class', // 或 'media' 或 'class'
   theme: {
     extend: {
+      container: (theme) => ({
+        center: true, // 如果你想要container居中
+        screens: {
+          xs: '320px',
+          sm: '640px',
+          md: '768px',
+          lg: '1024px',
+          xl: '1280px',
+          '2xl': '1280px',
+        },
+      }),
       typography: {
         DEFAULT: {
           css: {
@@ -13,7 +24,7 @@ export default {
       },
       colors: {
         primary:{
-          light: '#ffffff',
+          light: '#dde4de',
           DEFAULT: '#ef6c00',// 
           dark: '#161823', //
         }

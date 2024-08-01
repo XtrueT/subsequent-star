@@ -27,7 +27,7 @@ const { author, url } = config;
 
   <body class='theme'>
     {
-      config.header_images.src ? (
+      config.header_images.enable && (
         <header>
           <div
             class='w-screen h-screen bg-cover bg-no-repeat fixed inset-y-0  -z-50'
@@ -35,13 +35,11 @@ const { author, url } = config;
           />
           <div class='w-screen h-screen bg-cover bg-no-repeat fixed inset-y-0 -z-10 bg-primary-light/30 dark:bg-primary-dark/70 backdrop-blur-sm backdrop-saturate-200 ' />
         </header>
-      ) : (
-        <header class='w-screen h-screen bg-cover bg-no-repeat bg-[65%] fixed  bg-primary-light/30 dark:bg-primary-dark/70 backdrop-blur backdrop-saturate-200 ' />
       )
     }<Navbar />
     <main
       id='main'
-      class='flex flex-col items-center h-full min-h-screen max-w-screen my-0 mx-auto relative container z-[2] size-full lg:mt-20'>
+      class='relative container z-[2] size-full mt-28'>
       <div class='relative min-h-screen w-full'>
         <slot />
       </div>
@@ -89,7 +87,7 @@ const { author, url } = config;
             </div>
           </div>
         </div>
-        <div class='flex flex-col justify-between items-center  my-5'>
+        <div class='flex flex-col justify-between items-center my-5'>
           <div class='flex flex-wrap justify-center space-x-2 mb-5'>
             <a
               href='/rss.xml'

@@ -26,7 +26,7 @@ import ToggleBtn from "./ToggleBtn.astro";
 <script>
   document.addEventListener("astro:page-load", () => {
     const backtopToggle = document.getElementById("backtop-toggle");
-    const nav =document.getElementById('navbar')
+    const nav = document.getElementById("navbar");
     // 初始化变量
     let lastScrollTop = 0;
     const scrollThreshold = 100; // 设定向下滚动的距离阈值
@@ -37,12 +37,12 @@ import ToggleBtn from "./ToggleBtn.astro";
       // 检测向上滚动
       if (st < lastScrollTop && st > scrollThreshold) {
         backtopToggle?.classList.remove("hidden");
-        nav?.classList.add('fixed','theme');
-        nav?.classList.remove('relative');
+        nav?.classList.add("fixed", "theme", "shadow");
+        nav?.classList.remove("absolute");
       } else {
         backtopToggle?.classList.add("hidden");
-        nav?.classList.remove('fixed','theme');
-        nav?.classList.add('relative');
+        nav?.classList.remove("fixed", "theme", "shadow");
+        nav?.classList.add("absolute");
       }
       lastScrollTop = st;
     });
