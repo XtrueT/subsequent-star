@@ -85,7 +85,7 @@ export default defineConfig({
 				runtimeCaching: [
 					runtimeCaches('all-unpkg', 'CacheFirst', '^https://unpkg\\.com'),
 					runtimeCaches('all-jsdelivr', 'CacheFirst', '^https://cdn\\.jsdelivr\\.net'),
-					// runtimeCaches('html','StaleWhileRevalidate','*.html')
+					runtimeCaches('giscus','CacheFirst','^https://giscus\\.app')
 				]
 			},
 			devOptions: {

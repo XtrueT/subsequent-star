@@ -86,19 +86,19 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
     </label>
     <aside
       id='sidebar'
-      class='flex flex-col justify-start items-center min-h-screen lg:ml-5 lg:sticky lg:top-20'>
+      class='flex flex-col justify-start items-center lg:min-h-screen lg:ml-5 lg:sticky lg:top-28'>
+      <TagCloud />
       <Tocbar
         headings={headings}
         title={title}
       />
-      <TagCloud />
     </aside>
   </div>
 </DefaultLayout>
 <style>
   #sidebar {
-    @apply max-lg:fixed max-lg:top-0 max-lg:z-20  max-lg:px-1
-    max-lg:-right-full max-lg:h-full  
+    @apply max-lg:fixed max-lg:top-28 max-lg:z-20  max-lg:px-1
+    max-lg:-right-full max-lg:max-h-[50vh]  
     max-lg:w-[70vw] max-lg:break-all  
     max-lg:overflow-y-auto max-lg:overflow-x-hidden max-lg:dark:bg-primary-dark  max-lg:bg-primary-light;
   }
@@ -111,7 +111,7 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
   }
 
   .sidebar-toggle-button {
-    @apply fixed z-50 top-3.5 right-2 lg:hidden;
+    @apply fixed z-50 top-32 right-2 lg:hidden;
   }
 
   .bar {

@@ -4,20 +4,39 @@ import Card from "./Card.astro";
 
 <Card>
   <header class='p-5 inline-flex justify-between'>
-    <h2 class="border-b-2 border-primary/30">实况天气</h2>
+    <h2 class='border-b-2 border-primary/30'>实况天气</h2>
     <button id='getGaodeInfo'>刷新</button>
   </header>
 
-  <ul class="p-5">
-    <li>省份：<span id='province'></span></li>
-    <li>城市：<span id='city'></span></li>
-    <li>区域编码：<span id='adcode'></span></li>
-    <li>天气现象：<span id='weather'></span></li>
-    <li>实时气温：<span id='temperature'></span>°C</li>
-    <li>风向：<span id='winddirection'></span></li>
-    <li>风力级别：<span id='windpower'></span></li>
-    <li>空气湿度：<span id='humidity'></span>%</li>
-    <li class='report-time'>报告时间：<span id='reporttime'></span></li>
+  <ul class='p-5 flex flex-col space-y-2'>
+    <li class="text-primary">
+      <span
+        class='text-3xl'
+        id='weather'
+      ></span><span
+        class='text-2xl ml-2'
+        id='temperature'
+      ></span>°C
+    </li>
+    <li>
+      <span
+        class='text-2xl'
+        id='province'
+      ></span><span
+        class='text-2xl ml-2'
+        id='city'
+      ></span>
+    </li>
+    <li>
+      风向：<span id='winddirection'></span><span
+        class='ml-2'
+        id='windpower'
+      ></span> 空气湿度：<span
+        class='ml-2'
+        id='humidity'
+      ></span>%
+    </li>
+    <li class='report-time'>更新时间：<span id='reporttime'></span></li>
   </ul>
 </Card>
 
