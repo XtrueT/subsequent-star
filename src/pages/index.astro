@@ -45,16 +45,14 @@ posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - 
           }
         </ul></Card
       >
-
+      <TimeInfo /><GaodeInfo />
       <Card>
         <header class='p-5 inline-flex justify-between'>
           <h2 class='border-b-2 border-primary/30'>统计</h2>
         </header>
         <ChartState />
       </Card>
-      <CtrlBtn />
-      <GaodeInfo />
-      <TimeInfo />
+      <!-- <CtrlBtn /> -->
     </div>
   </div>
 </DefaultLayout>

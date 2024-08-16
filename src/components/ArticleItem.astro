@@ -7,7 +7,8 @@ const { title, description, pubDate, author, heroImage, tags } = post.data;
 const href = `/blog/${post.slug}/`;
 ---
 
-<article class='mx-auto w-full md:max-w-screen-sm lg:max-w-screen-md break-all'>
+<article class='container  break-all'>
+  <div class="font-bold"><FormattedDate date={pubDate} /></div>
   <div class='flex flex-col p-5 space-y-5'>
     <h2>
       <a
@@ -20,7 +21,7 @@ const href = `/blog/${post.slug}/`;
     <div class='flex justify-start flex-wrap items-baseline space-x-1 text-sm text-primary-dark/70 dark:text-primary-light/70'>
       <span>{author}</span>
       <span>发布于</span>
-      <FormattedDate date={pubDate} />
+      
       {
         tags.map((tag) => (
           <a href={`/tags/${tag}`}>
@@ -57,7 +58,7 @@ const href = `/blog/${post.slug}/`;
       <a
         href={href}
         class='border-dashed border-b border-primary'>
-        阅读全文 »</a
+        阅读全文 »  </a
       >
     </p>
   </div>
