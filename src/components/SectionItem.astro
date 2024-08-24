@@ -5,7 +5,7 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<section class='flex flex-col w-full justify-start items-start p-5 mb-5 theme'>
+<section class='flex flex-col w-full justify-start items-start p-2 mb-5 theme'>
   {title && <div class='border-primary border-l-4 px-2 font-bold text-3xl'>{title}</div>}
   <div class='mx-auto w-full md:max-w-screen-sm lg:max-w-screen-md'>
     <slot />
