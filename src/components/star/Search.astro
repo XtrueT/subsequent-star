@@ -39,15 +39,15 @@ import { config } from '@assets/ts/consts';
 
 <style>
   search {
-    @apply relative w-full h-full flex justify-center max-sm:px-5;
+    @apply relative flex h-full w-full justify-center max-sm:px-5;
   }
   span {
     @apply absolute inset-y-0 left-0 flex items-center max-sm:left-5;
   }
   input {
-    @apply flex-auto w-full pl-10 max-sm:pl-8 h-12 my-1 border-b-2 border-transparent focus:border-b-primary-light focus:outline-none bg-inherit text-inherit;
+    @apply my-1 h-12 w-full flex-auto border-b-2 border-transparent bg-inherit pl-10 text-inherit focus:border-b-primary-light focus:outline-none max-sm:pl-8;
   }
   ul {
-    @apply absolute inset-x-0 top-full overflow-y-auto max-h-72 shadow flex flex-col;
+    @apply absolute inset-x-0 top-full flex max-h-72 flex-col overflow-y-auto shadow;
   }
 </style>

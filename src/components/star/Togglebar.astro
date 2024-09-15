@@ -33,11 +33,11 @@ import ToggleBtn from './ToggleBtn.astro';
       // 检测向上滚动
       if (st < lastScrollTop && st > scrollThreshold) {
         backtopToggle?.classList.remove('hidden');
-        nav?.classList.add('fixed','glass');
+        nav?.classList.add('fixed', 'glass');
         nav?.classList.remove('absolute');
       } else {
         backtopToggle?.classList.add('hidden');
-        nav?.classList.remove('fixed','glass');
+        nav?.classList.remove('fixed', 'glass');
         nav?.classList.add('absolute');
       }
       lastScrollTop = st;

@@ -10,7 +10,7 @@ const { href, isActive = false, ...props } = Astro.props;
 
 <style>
   .pagination-link a {
-    @apply flex items-center justify-center p-1 transition-all duration-300 transform;
+    @apply flex transform items-center justify-center p-1 transition-all duration-300;
   }
   .pagination-link a.active {
     @apply pointer-events-none text-primary-light dark:text-primary-dark;

@@ -32,7 +32,6 @@ const { page } = Astro.props;
 
 <DefaultLayout title='归档' headerText='归档'>
   <div class='min-h-screen flex flex-col justify-start items-center space-y-5'>
-    
     <SectionItem title='标签'><TagCloud /></SectionItem>
     <SectionItem title='归档'> <PostsTimeLine page={page} /></SectionItem>
     <Pagination

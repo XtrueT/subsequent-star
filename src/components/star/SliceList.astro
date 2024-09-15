@@ -29,7 +29,7 @@ posts = (Array.from(uniquePosts) as CollectionEntry<'blog'>[]).sort(
 {
   posts.length > 0 && (
     <SectionItem title={title}>
-      <div class='flex flex-col justify-center items-center divide-y space-y-5'>
+      <div class='flex flex-col divide-y space-y-5'>
         {posts.slice(0, sliceNum).map((post) => (
           <PostItem post={post} />
         ))}
