@@ -1,0 +1,51 @@
+---
+import FormattedDate from '@components/star/FormattedDate.astro';
+import { Image } from 'astro:assets';
+
+const { post } = Astro.props;
+const { title, description, pubDate, author, heroImage, tags } = post.data;
+const href = `/blog/${post.slug}/`;
+const isHaveHeroImage = heroImage ? 'col-span-2' : 'col-span-full';
+---
+
+<article class='text-balance break-all py-1'>
+  <div class='grid grid-cols-3 gap-2 items-center'>
+    {
+      heroImage && (
+        <a href={href} title={title}>
+          <figure id='heroImage' class='w-auto h-full'>
+            <Image
+              src={heroImage}
+              alt={title}
+              loading='lazy'
+              width='1920'
+              height='1080'
+              class='object-contain rounded-md'
+            />
+          </figure>
+        </a>
+      )
+    }
+
+    <div class:list={['grid grid-cols-1 gap-2', isHaveHeroImage]}>
+      <h2>
+        <a href={href} class='font-bold hover:text-primary-light dark:hover:text-primary-dark'>
+          {title}
+        </a>
+        <p class='text-gray-500 text-sm'>
+          <span>{author}</span>
+          <span><FormattedDate date={pubDate} /></span>
+          <span>发布于</span>
+          {
+            tags.map((tag) => (
+              <a href={`/tags/${tag}`}>
+                <span class='tag'>#{tag}</span>
+              </a>
+            ))
+          }
+        </p>
+      </h2>
+      {description && <p class='text-sm'>{`${description.substring(0, 50)}...`}</p>}
+    </div>
+  </div>
+</article>

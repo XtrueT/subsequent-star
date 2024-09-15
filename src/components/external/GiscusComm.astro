@@ -1,0 +1,16 @@
+---
+import SectionItem from '../star/SectionItem.astro';
+---
+
+<SectionItem>
+  <div class='giscus'></div>
+</SectionItem>
+
+<script>
+  import { giscusConfig } from '@assets/ts/consts';
+  import { giscusScript } from '@assets/ts/utils';
+
+  document.addEventListener('astro:page-load', () => {
+    giscusScript(giscusConfig);
+  });
+</script>

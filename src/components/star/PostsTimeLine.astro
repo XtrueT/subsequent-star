@@ -1,0 +1,60 @@
+---
+import { getYearPosts } from '@assets/ts/utils';
+import FormattedDate from './FormattedDate.astro';
+import Card from './Card.astro';
+import PostItem from './PostItem.astro';
+
+const { page } = Astro.props;
+const posts = getYearPosts(page.data);
+---
+
+<div class='flex flex-col justify-center items-center'>
+  <div class='flex flex-col w-full justify-center divide-y divide-gray-500/30'>
+    <div
+      class='relative before:absolute before:inset-0 before:ml-3 before:-translate-x-px
+      md:before:ml-28 md:before:translate-x-0 before:h-full before:w-0.5
+      before:bg-gradient-to-b before:from-transparent
+       before:via-gray-500/30 before:to-transparent'>
+      {
+        posts.map(({ year, yearPosts }) => (
+          <div class='my-2'>
+            <div class='md:flex items-center mb-3'>
+              <span class='text-xl font-bold max-md:pl-10 md:w-28 md:order-1'>{year}</span>
+            </div>
+            {yearPosts.map((post) => (
+              <div class='relative'>
+                <div class='md:flex items-center md:space-x-4 mb-3'>
+                  <div class='flex items-center space-x-4 md:space-x-1 md:space-x-reverse'>
+                    <div class='flex items-center justify-center size-6 rounded-full  md:order-1'>
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke-width='1.5'
+                        stroke='currentColor'
+                        class='size-6 text-primary-light'>
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          d='M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244'
+                        />
+                      </svg>
+                    </div>
+                    <span class='text-sm font-bold md:w-24'>
+                      <FormattedDate date={post.data.pubDate} />
+                    </span>
+                  </div>
+                </div>
+                <div class='ml-7 md:ml-32'>
+                  <Card>
+                    <PostItem post={post} />
+                  </Card>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

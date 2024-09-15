@@ -1,0 +1,10 @@
+---
+const { title, class: className, ...props } = Astro.props;
+---
+
+<header {...props} class:list={[className, 'flex justify-between']}>
+  {title && <h2 class='border-b-2 border-primary-light dark:border-primary-dark'>{title}</h2>}
+  <span>
+    <slot />
+  </span>
+</header>

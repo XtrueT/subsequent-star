@@ -1,10 +1,12 @@
 ---
-import StateItem from "./StateItem.astro";
-import { getAllPosts, getTagPosts, getYearPosts } from "@assets/ts/utils";
+import StateItem from '../star/StateItem.astro';
+import { getAllPosts, getTagPosts, getYearPosts } from '@assets/ts/utils';
 
 const allBlogPosts = await getAllPosts();
 
-const yearData = getYearPosts(allBlogPosts).map(({ year, yearPosts }) => [year, yearPosts.length]).sort((a, b) => a[0] - b[0]);
+const yearData = getYearPosts(allBlogPosts)
+  .map(({ year, yearPosts }) => [year, yearPosts.length])
+  .sort((a, b) => a[0] - b[0]);
 const tagData = getTagPosts(allBlogPosts).map(({ tag, tagPosts }) => [tag, tagPosts.length]);
 ---
 
@@ -13,18 +15,10 @@ const tagData = getTagPosts(allBlogPosts).map(({ tag, tagPosts }) => [tag, tagPo
   data-charts={JSON.stringify({ yearData, tagData })}
   class='w-full flex flex-wrap justify-center items-center'>
   <StateItem>
-    <canvas
-      id='tagcharts'
-      aria-label='tags'
-      role='img'>
-    </canvas>
+    <canvas id='tagcharts' aria-label='tags' role='img'></canvas>
   </StateItem>
   <StateItem>
-    <canvas
-      id='timecharts'
-      aria-label='postByYear'
-      role='img'>
-    </canvas>
+    <canvas id='timecharts' aria-label='postByYear' role='img'></canvas>
   </StateItem>
 </div>
 
@@ -40,8 +34,8 @@ const tagData = getTagPosts(allBlogPosts).map(({ tag, tagPosts }) => [tag, tagPo
     Legend,
     DoughnutController,
     ArcElement,
-    Tooltip,
-  } from "chart.js";
+    Tooltip
+  } from 'chart.js';
 
   Chart.register(
     Colors,
@@ -54,11 +48,11 @@ const tagData = getTagPosts(allBlogPosts).map(({ tag, tagPosts }) => [tag, tagPo
     Legend,
     Tooltip
   );
-  document.addEventListener("astro:page-load", function () {
-    const tagcharts = document.getElementById("tagcharts") as HTMLCanvasElement;
-    const timecharts = document.getElementById("timecharts") as HTMLCanvasElement;
-    const dataset = document.getElementById("charts")?.dataset;
-    const chartsData = dataset?.charts ? JSON.parse(dataset.charts) : "";
+  document.addEventListener('astro:page-load', function () {
+    const tagcharts = document.getElementById('tagcharts') as HTMLCanvasElement;
+    const timecharts = document.getElementById('timecharts') as HTMLCanvasElement;
+    const dataset = document.getElementById('charts')?.dataset;
+    const chartsData = dataset?.charts ? JSON.parse(dataset.charts) : '';
     if (dataset && tagcharts && timecharts) {
       const borderColor = [] as any[];
       const backgroundColor = [] as any[];
@@ -68,26 +62,26 @@ const tagData = getTagPosts(allBlogPosts).map(({ tag, tagPosts }) => [tag, tagPo
         borderColor.push(`rgba(${colors})`);
       });
       new Chart(timecharts, {
-        type: "bar",
+        type: 'bar',
         data: {
           labels: chartsData.yearData.map((item) => item[0]),
           datasets: [
             {
-              label: "文章数",
+              label: '文章数',
               data: chartsData.yearData.map((item) => item[1]),
               backgroundColor,
               borderColor,
-              borderWidth: 1,
-            },
-          ],
+              borderWidth: 1
+            }
+          ]
         },
         options: {
           scales: {
             y: {
-              beginAtZero: true,
-            },
-          },
-        },
+              beginAtZero: true
+            }
+          }
+        }
       });
 
       const borderColor2 = [] as any[];
@@ -98,19 +92,19 @@ const tagData = getTagPosts(allBlogPosts).map(({ tag, tagPosts }) => [tag, tagPo
         borderColor2.push(`rgba(${colors})`);
       });
       new Chart(tagcharts, {
-        type: "doughnut",
+        type: 'doughnut',
         data: {
           labels: chartsData.tagData.map((item) => item[0]),
           datasets: [
             {
-              label: "文章数",
+              label: '文章数',
               data: chartsData.tagData.map((item) => item[1]),
               backgroundColor: backgroundColor2,
               borderColor: borderColor2,
-              borderWidth: 1,
-            },
-          ],
-        },
+              borderWidth: 1
+            }
+          ]
+        }
       });
     }
   });

@@ -7,12 +7,11 @@ export default {
       container: (theme) => ({
         center: true, // 如果你想要container居中
         screens: {
-          xs: '320px',
           sm: '640px',
           md: '768px',
           lg: '1024px',
           xl: '1024px',
-          '2xl': '1024px',
+          '2xl': '1280px',
         },
       }),
       typography: {
@@ -23,10 +22,13 @@ export default {
         },
       },
       colors: {
-        primary:{
-          light: '#dde4de',
-          DEFAULT: '#ef6c00',// 
-          dark: '#161823', //
+        primary: {
+          light: '#00668c',
+          dark: '#71c4ef',
+        },
+        site: {
+          light: '#ffffff',
+          dark: '#0d1117'
         }
       },
     },

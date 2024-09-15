@@ -1,27 +1,20 @@
 ---
-import Card from "./Card.astro";
+import Card from '../star/Card.astro';
+import CardHeader from '../star/CardHeader.astro';
 ---
 
 <Card>
-  <header class='p-5 inline-flex justify-between'>
-    <h2 class="border-b-2 border-primary/30">
-      <span
-        class='countdown font-mono text-2xl'
-        id='current-time'
-      ></span>
-    </h2>
-  </header>
-  <ul
-    id='info'
-    class='p-5'>
-  </ul>
+  <CardHeader>
+    <span class='countdown font-mono text-2xl' id='current-time'></span>
+  </CardHeader>
+  <ul id='info'></ul>
 </Card>
 
 <script>
-  import { holidays } from "@assets/ts/consts";
+  import { holidays } from '@assets/ts/consts';
 
   function updateDateTime() {
-    const timeEle = document.getElementById("current-time");
+    const timeEle = document.getElementById('current-time');
     if (timeEle) {
       timeEle.textContent = `${new Date().toLocaleTimeString()}`;
     }
@@ -35,10 +28,10 @@ import Card from "./Card.astro";
   }
 
   function updateCountdowns() {
-    let info = `<li>小助手提醒您,今天是: ${new Date().toLocaleDateString("zh-cn", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
+    let info = `<li>小助手提醒您,今天是: ${new Date().toLocaleDateString('zh-cn', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
     })}</li>
         `;
     holidays.map(({ name, date }) => {
@@ -46,12 +39,12 @@ import Card from "./Card.astro";
       info += `<li>距离【${name}】还有 ${countdown} 天</li>`;
     });
 
-    const infoEle = document.getElementById("info");
+    const infoEle = document.getElementById('info');
     if (infoEle) {
       infoEle.innerHTML = info;
     }
   }
-  document.addEventListener("astro:page-load", () => {
+  document.addEventListener('astro:page-load', () => {
     // 初始化显示
     updateDateTime();
     updateCountdowns();

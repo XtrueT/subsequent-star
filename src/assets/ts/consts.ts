@@ -12,16 +12,11 @@ export const config = {
     url: 'https://github.com/XtrueT',
     author: '水逺烟微',
     avatar: '/image/avatar.jpg',
-    description: '水逺烟微的博客',
+    description: '宁静致远',
     keyword: '水逺烟微的博客,Astro,JavaScript,HTML,CSS,Tailwincss,Blog',
     paginate: 5,
     paginate_max_links: 3,
     sliceNum: 3,
-    nav: [
-        { title: '主页', href: '/' },
-        { title: '关于', href: '/about' },
-        { title: '归档', href: '/archives' },
-    ],
     header_images: {
         enable: false,
         src: '/image/header.webp',
@@ -40,11 +35,31 @@ export const config = {
         src: 'https://unpkg.com/valine@1.5.1/dist/Valine.min.js',
 
     },
-    linked: [
-        { title: 'jekyll blog', href: 'https://xtruet.github.io/' }
-    ]
-
 }
+
+export const siteLinks = [
+    {
+        name: '导航菜单',
+        links: [
+            { title: '主页', href: '/' },
+            { title: '关于', href: '/about' },
+            { title: '归档', href: '/archives' },
+        ]
+    },
+    {
+        name: '友情链接',
+        links: [
+            { title: 'XTRUET', href: 'https://xtruet.github.io/', target: '_blank' },
+        ]
+    },
+    {
+        name: '网站信息',
+        links: [
+            { title: '隐私协议', href: '/privacy' },
+            { title: '网站地图', href: '/sitemap-0.xml', target: '_blank' },
+        ]
+    }
+]
 
 export const gaodeApi = {
     key: '660177da232d9fee719cdb922e85c6e4',

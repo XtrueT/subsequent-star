@@ -1,15 +1,11 @@
 ---
-import ActiveLink from "./ActiveLink.astro";
+import ActiveLink from './ActiveLink.astro';
 
 const { heading } = Astro.props;
 ---
 
 <li class='toc-item'>
-  <ActiveLink
-    href={`#${heading.slug}`}
-    class='toc-link'
-    >{heading.text}</ActiveLink
-  >
+  <ActiveLink href={`#${heading.slug}`} class='toc-link'>{heading.text}</ActiveLink>
   {
     heading.sub && heading.sub.length > 0 && (
       <ul class='ml-4'>

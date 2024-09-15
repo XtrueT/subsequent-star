@@ -14,8 +14,15 @@
     "@vite-pwa/astro": "^0.4.0",
     "astro": "^4.8.5",
     "chart.js": "^4.4.3",
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "heroicons":https://heroicons.com/
 ```
+
+### Todo
+
+"plugins": ["prettier-plugin-tailwindcss"]
+
+
 
 ### 已添加
 

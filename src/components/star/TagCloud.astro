@@ -1,0 +1,20 @@
+---
+import ActiveLink from './ActiveLink.astro';
+import { getAllPosts, getTagPosts } from '@assets/ts/utils';
+
+const allBlogPosts = await getAllPosts();
+const data = getTagPosts(allBlogPosts);
+---
+
+<div class='table-cell px-5'>
+  {
+    data.map(({ tag, tagPosts }) => (
+      <ActiveLink href={`/tags/${tag}`} class='inline-block m-1'>
+        <span class='tag text-balance'>
+          #{tag}
+          <sup>{[...tagPosts].length}</sup>
+        </span>
+      </ActiveLink>
+    ))
+  }
+</div>

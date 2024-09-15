@@ -1,12 +1,12 @@
 ---
-import { getAllPosts } from "@assets/ts/utils";
-import PostLayout from "@layouts/PostLayout.astro";
+import { getAllPosts } from '@assets/ts/utils';
+import PostLayout from '@layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
   const blogEntries = await getAllPosts();
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: { entry }
   }));
 }
 

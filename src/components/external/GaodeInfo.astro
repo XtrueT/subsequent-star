@@ -1,49 +1,40 @@
 ---
-import Card from "./Card.astro";
+import Card from '../star/Card.astro';
+import CardHeader from '../star/CardHeader.astro';
 ---
 
 <Card>
-  <header class='p-5 inline-flex justify-between'>
-    <h2 class='border-b-2 border-primary/30'>实况天气</h2>
+  <CardHeader title='实况天气'>
     <button id='getGaodeInfo'>刷新</button>
-  </header>
+  </CardHeader>
 
-  <ul class='p-5 flex flex-col space-y-2'>
-    <li class="text-primary">
-      <span
-        class='text-3xl'
-        id='weather'
-      ></span><span
-        class='text-2xl ml-2'
-        id='temperature'
-      ></span>°C
+  <ul class='flex flex-col space-y-2'>
+    <li class='text-primary-light dark:text-primary-dark'>
+      <span class='text-3xl' id='weather'></span><span class='text-2xl ml-2' id='temperature'>
+      </span>°C
     </li>
     <li>
-      <span
-        class='text-2xl'
-        id='province'
-      ></span><span
-        class='text-2xl ml-2'
-        id='city'
-      ></span>
+      <span class='text-2xl' id='province'></span><span class='text-2xl ml-2' id='city'></span>
     </li>
     <li>
-      风向：<span id='winddirection'></span><span
+      风向：<span id='winddirection'></span><span class='ml-2' id='windpower'></span> 空气湿度：<span
         class='ml-2'
-        id='windpower'
-      ></span> 空气湿度：<span
-        class='ml-2'
-        id='humidity'
-      ></span>%
+        id='humidity'>
+      </span>%
     </li>
     <li class='report-time'>更新时间：<span id='reporttime'></span></li>
   </ul>
 </Card>
 
 <script>
-  import { gaodeApi } from "@assets/ts/consts";
+  import { gaodeApi } from '@assets/ts/consts';
 
-  async function getGaodeApiData(url, sessionStorageKey, isCache = true, cacheTime = 1000 * 60 * 60 * 24) {
+  async function getGaodeApiData(
+    url,
+    sessionStorageKey,
+    isCache = true,
+    cacheTime = 1000 * 60 * 60 * 24
+  ) {
     let results: any;
     const cachedData = isCache ? sessionStorage.getItem(sessionStorageKey) : null;
     if (cachedData) {
@@ -65,7 +56,7 @@ import Card from "./Card.astro";
         // 更新缓存数据并存储
         const updatedData = {
           data,
-          expirationTime: expirationTime,
+          expirationTime: expirationTime
         };
         sessionStorage.setItem(sessionStorageKey, JSON.stringify(updatedData));
       }
@@ -97,8 +88,8 @@ import Card from "./Card.astro";
       });
     });
   }
-  document.addEventListener("astro:page-load", () => {
-    document.getElementById("getGaodeInfo")?.addEventListener("click", getInfo);
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('getGaodeInfo')?.addEventListener('click', getInfo);
     // 初始化显示
     getInfo();
     setInterval(getInfo, 1000 * 60 * 30);

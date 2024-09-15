@@ -2,6 +2,7 @@
 title: 使用SSH连接Github提交代码
 pubDate: 2024-07-30
 author: 霁
+description: '在WSL中配置对应的SSH提交代码，自动启动时提示输入密码验证等内容'
 heroImage:
 categories:
   - Git

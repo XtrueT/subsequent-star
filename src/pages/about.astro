@@ -1,17 +1,15 @@
 ---
-import GiscusComm from "@components/GiscusComm.astro";
-import Prose from "@components/Prose.astro";
-import SectionItem from "@components/SectionItem.astro";
-import ValineComm from "@components/ValineComm.astro";
-import { config } from "@assets/ts/consts";
-import DefaultLayout from "@layouts/DefaultLayout.astro";
+import GiscusComm from '@components/external/GiscusComm.astro';
+import Prose from '@components/star/Prose.astro';
+import SectionItem from '@components/star/SectionItem.astro';
+import ValineComm from '@components/external/ValineComm.astro';
+import { config } from '@assets/ts/consts';
+import DefaultLayout from '@layouts/DefaultLayout.astro';
 // 导入单个文件
-import { Content as README } from "README.md";
+import { Content as README } from 'README.md';
 ---
 
-<DefaultLayout
-  title='关于我'
-  headerText='欢迎留言'>
+<DefaultLayout title='关于我' headerText='欢迎留言'>
   <div class='min-h-screen flex flex-col justify-start items-center space-y-5'>
     <SectionItem title='README'><Prose><README /></Prose></SectionItem>
     {config.valine.enable && <ValineComm />}

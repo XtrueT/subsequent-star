@@ -1,0 +1,48 @@
+---
+import ActiveLink from '@components/star/ActiveLink.astro';
+import { Image } from 'astro:assets';
+import Search from './Search.astro';
+import { config, siteLinks } from '@assets/ts/consts';
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<nav id='navbar' class='absolute max-sm:h-28 z-10 w-full top-0 left-0'>
+  <div class='container max-sm:max-w-[calc(100%-10px)]'>
+    <div class='grid grid-cols-1 sm:gap-10 sm:grid-cols-2'>
+      <ul id='menu' class='flex items-center'>
+        <li class='flex-auto hover:animate-spin'>
+          <ActiveLink
+            href={config.url}
+            target='_blank'
+            title={config.author}
+            class='flex justify-center items-center size-full'>
+            <Image
+              src={config.avatar}
+              alt={config.author}
+              loading='lazy'
+              width='40'
+              height='40'
+              class='size-10 rounded-full'
+            />
+          </ActiveLink>
+        </li>
+        {
+          siteLinks[0]?.links.map((item) => (
+            <li class='flex justify-center items-center flex-auto h-14  hover:text-primary-light'>
+              <ActiveLink
+                href={item.href}
+                title={item.title}
+                class='flex justify-center items-center h-full w-full'>
+                {item.title}
+              </ActiveLink>
+            </li>
+          ))
+        }
+        <li class='flex justify-center items-center flex-auto h-14 hover:text-primary-light'>
+          <ThemeToggle />
+        </li>
+      </ul>
+      {config.simple_search.enable && <Search />}
+    </div>
+  </div>
+</nav>

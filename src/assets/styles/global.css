@@ -1,27 +1,7 @@
-a,
-button {
-  @apply text-primary-dark hover:text-primary dark:text-primary-light dark:hover:text-primary;
+.glass {
+  @apply bg-site-light/30 dark:bg-site-dark/30
+    backdrop-blur-lg backdrop-saturate-200  rounded-md;
 }
-
-.tag {
-  @apply text-sm px-1 m-1 inline-flex;
-}
-
-.toc-item a.active {
-  @apply bg-primary text-primary-light;
-}
-a.active {
-  @apply text-primary;
-}
-.theme {
-  @apply sm:dark:bg-primary-dark/80 sm:bg-primary-light/80
-  dark:bg-primary-dark bg-primary-light
-   dark:text-primary-light  text-primary-dark 
-   transition-all duration-300 ease-in-out break-all;
-}
-
-*,
-::before,
-::after {
-  @apply dark:border-primary;
+a.active,a:hover{
+  @apply text-primary-light dark:text-primary-dark;
 }

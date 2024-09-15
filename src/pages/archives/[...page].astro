@@ -1,22 +1,23 @@
 ---
-import ArchiveTimeLine from "@components/ArchiveTimeLine.astro";
-import Pagination from "@components/Pagination.astro";
-import TagCloud from "@components/TagCloud.astro";
-import { config } from "@assets/ts/consts";
-import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { type CollectionEntry } from "astro:content";
-import { getAllPosts } from "@assets/ts/utils";
+import PostsTimeLine from '@components/star/PostsTimeLine.astro';
+import Pagination from '@components/star/Pagination.astro';
+import TagCloud from '@components/star/TagCloud.astro';
+import { config } from '@assets/ts/consts';
+import DefaultLayout from '@layouts/DefaultLayout.astro';
+import { type CollectionEntry } from 'astro:content';
+import { getAllPosts } from '@assets/ts/utils';
+import SectionItem from '@components/star/SectionItem.astro';
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
   const posts = await getAllPosts();
   return paginate(posts, {
-    pageSize: config.paginate,
+    pageSize: config.paginate
   });
 }
 
 type Props = {
   page: {
-    data: CollectionEntry<"blog">[];
+    data: CollectionEntry<'blog'>[];
     url: {
       prev: string;
       next: string;
@@ -29,12 +30,11 @@ type Props = {
 const { page } = Astro.props;
 ---
 
-<DefaultLayout
-  title='归档'
-  headerText='归档文章'>
+<DefaultLayout title='归档' headerText='归档'>
   <div class='min-h-screen flex flex-col justify-start items-center space-y-5'>
-    <TagCloud />
-    <ArchiveTimeLine page={page} />
+    
+    <SectionItem title='标签'><TagCloud /></SectionItem>
+    <SectionItem title='归档'> <PostsTimeLine page={page} /></SectionItem>
     <Pagination
       previous={page.url.prev}
       next={page.url.next}

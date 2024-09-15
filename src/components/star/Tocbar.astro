@@ -1,6 +1,5 @@
 ---
-import SectionItem from "./SectionItem.astro";
-import TocLink from "./TocLink.astro";
+import TocLink from './TocLink.astro';
 
 interface Props {
   headings: {
@@ -40,27 +39,21 @@ const generateToc = (headings: any[]) => {
 
 {
   headings.length > 0 && (
-    <SectionItem title='文章目录'>
-      <details
-        class='mt-5'
-        open>
-        <summary class='mb-5'>{title}</summary>
-        <ul
-          id='tocList'
-          class='max-h-[50vh] h-full overflow-y-auto'>
-          {generateToc(headings).map((heading) => (
-            <TocLink heading={heading} />
-          ))}
-        </ul>
-      </details>
-    </SectionItem>
+    <details class='mt-5' open>
+      <summary class='mb-5'>{title}</summary>
+      <ul id='tocList' class='max-h-[50vh] h-full overflow-y-auto'>
+        {generateToc(headings).map((heading) => (
+          <TocLink heading={heading} />
+        ))}
+      </ul>
+    </details>
   )
 }
 
 <script>
   // JavaScript 逻辑
   function scrollToAnchor(link) {
-    const href = link.getAttribute("href");
+    const href = link.getAttribute('href');
     const targetElement = document.getElementById(href.substring(1));
     if (targetElement) {
       targetElement.scrollIntoView(true);
@@ -74,12 +67,12 @@ const generateToc = (headings: any[]) => {
           if (entry.isIntersecting) {
             const link = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
             if (link) {
-              document.querySelectorAll(".toc-link").forEach((item) => {
-                item.classList.remove("active");
-                item.parentElement?.classList.remove("active");
+              document.querySelectorAll('.toc-link').forEach((item) => {
+                item.classList.remove('active');
+                item.parentElement?.classList.remove('active');
               });
-              link.classList.add("active");
-              link.parentElement?.classList.add("active");
+              link.classList.add('active');
+              link.parentElement?.classList.add('active');
             }
           }
         });
@@ -87,37 +80,40 @@ const generateToc = (headings: any[]) => {
       },
       {
         root: document, // 相对于视口观察
-        rootMargin: "0px 0px -75% 0px",
-        threshold: 1, // 元素与视口交叉的阈值
+        rootMargin: '0px 0px -75% 0px',
+        threshold: 1 // 元素与视口交叉的阈值
       }
     );
     // 为每个锚点设置观察器
-    document.querySelectorAll(".toc-link").forEach((link) => {
-      const href = link.getAttribute("href") || "";
+    document.querySelectorAll('.toc-link').forEach((link) => {
+      const href = link.getAttribute('href') || '';
       const targetElement = document.getElementById(href.substring(1));
       targetElement && observer.observe(targetElement);
     });
   }
 
   function setScrollTo() {
-    const activeLinks = document.querySelectorAll(".toc-link.active");
+    const activeLinks = document.querySelectorAll('.toc-link.active');
     const activeLastLink = activeLinks[activeLinks.length - 1] as HTMLElement;
-    const tocList = document.getElementById("tocList");
+    const tocList = document.getElementById('tocList');
     if (
       activeLastLink &&
       tocList &&
       tocList.scrollHeight > tocList.offsetHeight &&
-      activeLastLink.classList.contains("active")
+      activeLastLink.classList.contains('active')
     ) {
       // 获取所有高亮的目录项
       const newtop =
-        activeLastLink.offsetTop - tocList.clientHeight / 2 - tocList.offsetTop - activeLastLink.offsetHeight / 2;
+        activeLastLink.offsetTop -
+        tocList.clientHeight / 2 -
+        tocList.offsetTop -
+        activeLastLink.offsetHeight / 2;
       // console.log(activeLastLink.offsetTop);
       // console.log(newtop);
       // 确保高亮的目录项在滚动区域内部是可见的
       tocList.scrollTo({
         top: newtop < 0 ? 0 : newtop,
-        behavior: "smooth",
+        behavior: 'smooth'
       });
     }
   }
@@ -133,10 +129,10 @@ const generateToc = (headings: any[]) => {
   const debouncedHandleScrollEnd = debounce(setScrollTo, 500);
   const debouncedHandleScrollToAnchor = debounce(scrollToAnchor, 300);
 
-  document.addEventListener("astro:page-load", function () {
+  document.addEventListener('astro:page-load', function () {
     setupTocLinkObserver();
-    document.querySelectorAll(".toc-link").forEach((link) =>
-      link.addEventListener("click", (event) => {
+    document.querySelectorAll('.toc-link').forEach((link) =>
+      link.addEventListener('click', (event) => {
         event.preventDefault(); // 阻止默认的点击行为，避免直接跳转到锚点
         // scrollToAnchor(link);
         debouncedHandleScrollToAnchor(link);

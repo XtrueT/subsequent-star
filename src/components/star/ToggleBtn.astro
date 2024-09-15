@@ -2,17 +2,17 @@
 const { id, text } = Astro.props;
 ---
 
-<div class='relative inline-block group'>
+<div class='relative inline-block group hover:text-primary-light dark:hover:text-primary-dark'>
   <button
     id={id}
     aria-label={text}
     title={text}
-    class='p-2 flex items-center justify-center'>
+    class='p-2 flex items-center justify-center '>
     <slot />
   </button>
 
   <p
     class='absolute bg-inherit items-center justify-center w-20 p-1 -mx-2 -left-[185%] top-[10%] hidden group-hover:flex'>
-    <span class='truncate'><slot name="info"/></span>
+    <span class='truncate'><slot name='info' /></span>
   </p>
 </div>
