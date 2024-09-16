@@ -5,7 +5,7 @@ author: 霁
 description: '在WSL中配置对应的SSH提交代码，自动启动时提示输入密码验证等内容'
 heroImage:
 categories:
-  - Git
+  - Config
 tags:
   - Git
 ---

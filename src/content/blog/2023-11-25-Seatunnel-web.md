@@ -6,7 +6,6 @@ author: 霁
 heroImage: ''
 slug: '2023/1'
 categories:
-- 学习
 - ETL
 tags:
 - seatunnel

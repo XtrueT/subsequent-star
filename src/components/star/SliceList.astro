@@ -29,15 +29,10 @@ posts = (Array.from(uniquePosts) as CollectionEntry<'blog'>[]).sort(
 {
   posts.length > 0 && (
     <SectionItem title={title}>
-      <div class='flex flex-col divide-y space-y-5'>
+      <div class='grid divide-y divide-gray-500/30 space-y-5'>
         {posts.slice(0, sliceNum).map((post) => (
           <PostItem post={post} />
         ))}
-      </div>
-      <div class='flex justify-center items-center'>
-        <a href='/archives' class='inline-block px-2 py-1 border-dashed border-b-2 border-primary '>
-          查看全部
-        </a>
       </div>
     </SectionItem>
   )

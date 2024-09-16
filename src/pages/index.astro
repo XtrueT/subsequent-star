@@ -11,8 +11,10 @@ import LatestPosts from '@components/star/LatestPosts.astro';
 <DefaultLayout title='主页' headerText='欢迎访问我的主页'>
   <div class='grid grid-cols-1 gap-2 sm:grid-cols-3'>
     <LatestPosts />
-    <TimeInfo />
-    <GaodeInfo />
+    <div class='grid grid-cols-1 gap-2'>
+      <TimeInfo />
+      <GaodeInfo />
+    </div>
     <Card class='col-span-full'>
       <CardHeader title='统计' />
       <ChartState />

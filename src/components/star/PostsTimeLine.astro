@@ -17,7 +17,7 @@ const posts = getYearPosts(page.data);
        before:via-gray-500/30 before:to-transparent'>
       {
         posts.map(({ year, yearPosts }) => (
-          <div class='my-2'>
+          <div class='grid'>
             <div class='md:flex items-center mb-3'>
               <span class='text-xl font-bold max-md:pl-10 md:w-28 md:order-1'>{year}</span>
             </div>
@@ -32,7 +32,7 @@ const posts = getYearPosts(page.data);
                         viewBox='0 0 24 24'
                         stroke-width='1.5'
                         stroke='currentColor'
-                        class='size-6 text-primary-light'>
+                        class='size-6'>
                         <path
                           stroke-linecap='round'
                           stroke-linejoin='round'
@@ -45,10 +45,8 @@ const posts = getYearPosts(page.data);
                     </span>
                   </div>
                 </div>
-                <div class='ml-7 md:ml-32'>
-                  <Card>
-                    <PostItem post={post} />
-                  </Card>
+                <div class='ml-7 md:ml-32 grid grid-flow-row'>
+                  <PostItem post={post} />
                 </div>
               </div>
             ))}

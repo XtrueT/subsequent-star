@@ -79,9 +79,9 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
     <label
       id='mask'
       for='sidebar-toggle'
-      class='fixed top-0 left-0 z-10 dark:bg-site-dark/80 bg-site-light/80 cursor-pointer w-screen h-screen hidden'>
+      class='fixed top-0 left-0 z-10 cursor-pointer w-screen h-screen hidden'>
     </label>
-    <aside id='sidebar' class='flex flex-col gap-2 items-start lg:min-h-screen lg:sticky lg:top-28'>
+    <aside id='sidebar' class='flex flex-col gap-2 items-start lg:min-h-screen lg:sticky lg:top-24'>
       <Card>
         <CardHeader title='标签' />
         <TagCloud />
@@ -95,7 +95,7 @@ const { title, description, pubDate, author, tags, categories } = entry.data;
 </DefaultLayout>
 <style>
   #sidebar {
-    @apply max-lg:fixed max-lg:-right-full max-lg:top-28 max-lg:z-20 max-lg:max-h-[70vh] max-lg:w-[70vw] max-lg:overflow-y-auto max-lg:overflow-x-hidden max-lg:break-all max-lg:bg-site-light max-lg:px-1 max-lg:dark:bg-site-dark;
+    @apply max-lg:fixed max-lg:-right-full max-lg:top-32 max-lg:z-20 max-lg:max-h-[70vh] max-lg:w-[70vw] max-lg:overflow-y-auto max-lg:overflow-x-hidden max-lg:break-all;
   }
 
   #sidebar-toggle:checked ~ #sidebar {

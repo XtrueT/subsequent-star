@@ -10,7 +10,7 @@ const data = getTagPosts(allBlogPosts);
   {
     data.map(({ tag, tagPosts }) => (
       <ActiveLink href={`/tags/${tag}`} class='inline-block m-1'>
-        <span class='tag text-balance'>
+        <span class='tag'>
           #{tag}
           <sup>{[...tagPosts].length}</sup>
         </span>

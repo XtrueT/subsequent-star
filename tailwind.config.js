@@ -27,7 +27,7 @@ export default {
           dark: '#71c4ef',
         },
         site: {
-          light: '#ffffff',
+          light: '#f5f5f5',
           dark: '#0d1117'
         }
       },

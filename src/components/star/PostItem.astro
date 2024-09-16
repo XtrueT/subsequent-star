@@ -1,38 +1,39 @@
 ---
 import FormattedDate from '@components/star/FormattedDate.astro';
 import { Image } from 'astro:assets';
+import PostAbstract from './PostAbstract.astro';
 
 const { post } = Astro.props;
 const { title, description, pubDate, author, heroImage, tags } = post.data;
 const href = `/blog/${post.slug}/`;
 const isHaveHeroImage = heroImage ? 'col-span-2' : 'col-span-full';
+const { Content } = await post.render();
 ---
 
-<article class='text-balance break-all py-1'>
+<article class='break-all py-1'>
   <div class='grid grid-cols-3 gap-2 items-center'>
     {
       heroImage && (
         <a href={href} title={title}>
-          <figure id='heroImage' class='w-auto h-full'>
+          <figure id='heroImage' class='size-full h-24 lg:h-36'>
             <Image
               src={heroImage}
               alt={title}
               loading='lazy'
-              width='1920'
-              height='1080'
-              class='object-contain rounded-md'
+              width='256'
+              height='144'
+              class='rounded-md object-fit lg:hover:scale-110 h-24 lg:h-36'
             />
           </figure>
         </a>
       )
     }
-
-    <div class:list={['grid grid-cols-1 gap-2', isHaveHeroImage]}>
+    <div class:list={['grid grid-cols-1 gap-2 size-full', isHaveHeroImage]}>
       <h2>
-        <a href={href} class='font-bold hover:text-primary-light dark:hover:text-primary-dark'>
+        <a href={href} class='font-bold'>
           {title}
         </a>
-        <p class='text-gray-500 text-sm'>
+        <p class='text-gray-500 text-xs'>
           <span>{author}</span>
           <span><FormattedDate date={pubDate} /></span>
           <span>发布于</span>
@@ -45,7 +46,15 @@ const isHaveHeroImage = heroImage ? 'col-span-2' : 'col-span-full';
           }
         </p>
       </h2>
-      {description && <p class='text-sm'>{`${description.substring(0, 50)}...`}</p>}
+      {
+        description ? (
+          `${description.substring(0, 60)}...`
+        ) : (
+          <PostAbstract>
+            <Content />
+          </PostAbstract>
+        )
+      }
     </div>
   </div>
 </article>

@@ -1,0 +1,10 @@
+---
+const html = await Astro.slots.render('default');
+
+function cleanHTML(htmlString): string {
+  const regex = /<[^>]+>/g;
+  return htmlString.replace(regex, '');
+}
+---
+
+<p class='text-sm'>{`${cleanHTML(html).substring(0, 60)}...`}</p>

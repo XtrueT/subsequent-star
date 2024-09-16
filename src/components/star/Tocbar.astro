@@ -39,9 +39,9 @@ const generateToc = (headings: any[]) => {
 
 {
   headings.length > 0 && (
-    <details class='mt-5' open>
-      <summary class='mb-5'>{title}</summary>
-      <ul id='tocList' class='max-h-[50vh] h-full overflow-y-auto'>
+    <details open>
+      <summary>{title}</summary>
+      <ul id='tocList' class='max-h-[70vh] h-full overflow-y-auto'>
         {generateToc(headings).map((heading) => (
           <TocLink heading={heading} />
         ))}
@@ -127,7 +127,7 @@ const generateToc = (headings: any[]) => {
   }
 
   const debouncedHandleScrollEnd = debounce(setScrollTo, 500);
-  const debouncedHandleScrollToAnchor = debounce(scrollToAnchor, 300);
+  const debouncedHandleScrollToAnchor = debounce(scrollToAnchor, 50);
 
   document.addEventListener('astro:page-load', function () {
     setupTocLinkObserver();

@@ -6,7 +6,7 @@ author: 霁
 heroImage: 
 slug: '2024-01'
 categories:
-- JavaScript
+- Code
 tags:
 - Astro
 

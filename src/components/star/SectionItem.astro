@@ -5,10 +5,10 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<section class='flex flex-col w-full justify-start items-start p-1 mb-5 glass'>
+<section class='flex flex-col w-full justify-start items-start p-5 mb-5 glass'>
   {
     title && (
-      <div class='border-primary-light dark:border-primary-dark border-l-4 px-2 font-bold text-3xl'>
+      <div class='border-primary-light dark:border-primary-dark border-l-4 px-2 font-bold sm:text-2xl'>
         {title}
       </div>
     )

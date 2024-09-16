@@ -10,16 +10,17 @@ export { THEME_NAME, THEME_TOGGLE_BUT_ID, CONTENT_NAME }
 export const config = {
     title: '水逺烟微',
     url: 'https://github.com/XtrueT',
+    bilibili: 'https://space.bilibili.com/306496281', // uid
     author: '水逺烟微',
     avatar: '/image/avatar.jpg',
     description: '宁静致远',
     keyword: '水逺烟微的博客,Astro,JavaScript,HTML,CSS,Tailwincss,Blog',
-    paginate: 5,
+    paginate: 10,
     paginate_max_links: 3,
     sliceNum: 3,
     header_images: {
-        enable: false,
-        src: '/image/header.webp',
+        enable: true,
+        src: 'https://uapis.cn/api/imgapi/acg/pc.php',//'https://uapis.cn/api/bing.php',
         alt: 'header'
     },
     simple_search: {
@@ -68,7 +69,6 @@ export const gaodeApi = {
 }
 
 export const holidays = [
-    { name: '中秋节', date: '2024-09-17' },
     { name: '国庆', date: '2024-10-01' },
     { name: '元旦', date: '2025-01-01' },
     { name: '春节', date: '2025-01-29' },
