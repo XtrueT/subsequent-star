@@ -6,55 +6,54 @@ import PostAbstract from './PostAbstract.astro';
 const { post } = Astro.props;
 const { title, description, pubDate, author, heroImage, tags } = post.data;
 const href = `/blog/${post.slug}/`;
-const isHaveHeroImage = heroImage ? 'col-span-2' : 'col-span-full';
 const { Content } = await post.render();
 ---
 
-<article class='break-all py-1'>
-  <div class='grid grid-cols-3 gap-2 items-center'>
+<article class='break-all p-1 rounded-md'>
+  <div class='flex gap-2 items-center h-24 lg:h-36'>
     {
       heroImage && (
-        <a href={href} title={title}>
-          <figure id='heroImage' class='size-full h-24 lg:h-36'>
+        <a href={href} title={title} class='flex-auto max-w-[40%] flex items-center'>
+          <figure id='heroImage'>
             <Image
               src={heroImage}
               alt={title}
               loading='lazy'
-              width='256'
+              width='356'
               height='144'
-              class='rounded-md object-fit lg:hover:scale-110 h-24 lg:h-36'
+              class='rounded-md object-contain lg:hover:scale-110 h-24 lg:h-36'
             />
           </figure>
         </a>
       )
     }
-    <div class:list={['grid grid-cols-1 gap-2 size-full', isHaveHeroImage]}>
-      <h2>
-        <a href={href} class='font-bold'>
+    <div class='flex flex-col flex-auto gap-2 size-full py-1 items-start justify-between'>
+      <h2 class='flex-auto'>
+        <a href={href}>
           {title}
         </a>
-        <p class='text-gray-500 text-xs'>
-          <span>{author}</span>
-          <span><FormattedDate date={pubDate} /></span>
-          <span>发布于</span>
-          {
-            tags.map((tag) => (
-              <a href={`/tags/${tag}`}>
-                <span class='tag'>#{tag}</span>
-              </a>
-            ))
-          }
-        </p>
+        {
+          description ? (
+            <PostAbstract>{description}</PostAbstract>
+          ) : (
+            <PostAbstract>
+              <Content />
+            </PostAbstract>
+          )
+        }
       </h2>
-      {
-        description ? (
-          `${description.substring(0, 60)}...`
-        ) : (
-          <PostAbstract>
-            <Content />
-          </PostAbstract>
-        )
-      }
+      <p class='text-gray-500 text-xs'>
+        <span>{author}</span>
+        <span><FormattedDate date={pubDate} /></span>
+        <span>发布于</span>
+        {
+          tags.map((tag) => (
+            <a href={`/tags/${tag}`}>
+              <span class='tag'>#{tag}</span>
+            </a>
+          ))
+        }
+      </p>
     </div>
   </div>
 </article>

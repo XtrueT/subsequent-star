@@ -15,7 +15,7 @@ export const config = {
     avatar: '/image/avatar.jpg',
     description: '宁静致远',
     keyword: '水逺烟微的博客,Astro,JavaScript,HTML,CSS,Tailwincss,Blog',
-    paginate: 10,
+    paginate: 8,
     paginate_max_links: 3,
     sliceNum: 3,
     header_images: {

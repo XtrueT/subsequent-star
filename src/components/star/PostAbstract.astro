@@ -7,4 +7,6 @@ function cleanHTML(htmlString): string {
 }
 ---
 
-<p class='text-sm'>{`${cleanHTML(html).substring(0, 60)}...`}</p>
+<p class='text-sm max-sm:hidden py-3 dark:text-gray-300 text-gray-700'>
+  {`${cleanHTML(html).substring(0, 50)}...`}
+</p>
