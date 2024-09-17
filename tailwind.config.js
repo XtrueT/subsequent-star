@@ -8,8 +8,8 @@ export default {
         center: true, // 如果你想要container居中
         screens: {
           sm: '640px',
-          md: '768px',
-          lg: '1024px',
+          md: '720px',
+          lg: '992px',
           xl: '1024px',
           '2xl': '1280px',
         },

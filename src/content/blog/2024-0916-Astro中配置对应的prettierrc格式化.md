@@ -19,7 +19,7 @@ tags:
 
 主要是指定单引号，以及html换行`>`的处理，同时格式化排序对应的tailwind css
 
-```
+```json
 {
   "printWidth": 100,
   "tabWidth": 2,
@@ -48,13 +48,13 @@ tags:
 - "prettier-plugin-tailwindcss"
 - "prettier-plugin-astro"
 
-```
+```bash
 npm install -D prettier prettier-plugin-tailwindcss prettier-plugin-astro
 ```
 
 安装完毕后需要在.prettierrc 配置对应的插件
 
-```
+```bash
   "plugins": [
     "prettier-plugin-tailwindcss",
     "prettier-plugin-astro"
@@ -66,14 +66,14 @@ npm install -D prettier prettier-plugin-tailwindcss prettier-plugin-astro
 
 都配置安装好后，可以使用以下命令行格式化文件
 
-```
+```bash
 npx prettier --write "src/**/*.astro"
 
 ```
 
 示例：
 
-```
+```bash
 dev@ALLENYS:/home/project/subsequent-star$ npx prettier --write "src/**/*.astro"
 [warn] jsxBracketSameLine is deprecated.
 src/components/external/BaiduAnalysis.astro 577ms (unchanged)
