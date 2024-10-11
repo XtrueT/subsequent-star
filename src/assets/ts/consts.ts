@@ -69,7 +69,7 @@ export const gaodeApi = {
 }
 
 export const holidays = [
-    { name: '国庆', date: '2024-10-01' },
+    { name: '国庆', date: '2025-10-01' },
     { name: '元旦', date: '2025-01-01' },
     { name: '春节', date: '2025-01-29' },
 ]
