@@ -1,5 +1,4 @@
 import { getAllPosts } from '@assets/ts/utils';
-import { getCollection } from 'astro:content';
 
 export const GET = async () => {
 
