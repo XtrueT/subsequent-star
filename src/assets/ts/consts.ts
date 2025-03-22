@@ -63,7 +63,7 @@ export const siteLinks = [
 ]
 
 export const gaodeApi = {
-    key: '660177da232d9fee719cdb922e85c6e4',
+    key: '',
     weather: 'https://restapi.amap.com/v3/weather/weatherInfo',
     ip: 'https://restapi.amap.com/v3/ip'
 }

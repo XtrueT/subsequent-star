@@ -6,6 +6,7 @@ import TimeInfo from '@components/external/TimeInfo.astro';
 import DefaultLayout from '@layouts/DefaultLayout.astro';
 import CardHeader from '@components/star/CardHeader.astro';
 import LatestPosts from '@components/star/LatestPosts.astro';
+import Toolbox from '@components/external/Toolbox.astro';
 ---
 
 <DefaultLayout title='主页' headerText='欢迎访问我的主页'>
@@ -13,7 +14,8 @@ import LatestPosts from '@components/star/LatestPosts.astro';
     <LatestPosts />
     <div class='grid grid-cols-1 gap-2'>
       <TimeInfo />
-      <GaodeInfo />
+      <!-- <GaodeInfo /> -->
+      <Toolbox />
     </div>
     <Card class='col-span-full'>
       <CardHeader title='统计' />

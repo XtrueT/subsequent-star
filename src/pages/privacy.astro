@@ -3,12 +3,12 @@ import Prose from '@components/star/Prose.astro';
 import SectionItem from '@components/star/SectionItem.astro';
 import DefaultLayout from '@layouts/DefaultLayout.astro';
 // 导入单个文件
-import { Content } from 'Privacy.md';
+import { Content } from '@docs/privacy.md';
 ---
 
 <DefaultLayout title='隐私协议' headerText=''>
   <div class='min-h-screen flex flex-col justify-start items-center space-y-5'>
-    <SectionItem title='Privacy'>
+    <SectionItem>
       <Prose>
         <Content />
       </Prose>
