@@ -19,7 +19,7 @@ export const config = {
     paginate_max_links: 3,
     sliceNum: 3,
     header_images: {
-        enable: true,
+        enable: false,
         src: 'https://uapis.cn/api/bing.php',
         alt: 'header'
     },
@@ -69,7 +69,7 @@ export const gaodeApi = {
 }
 
 export const holidays = [
-    { name: '国庆', date: '2025-10-01' },
+    { name: '国庆', date: '2026-10-01' },
     { name: '元旦', date: '2026-01-01' },
     { name: '春节', date: '2026-02-17' },
 ]
